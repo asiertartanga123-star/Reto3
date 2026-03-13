@@ -30,7 +30,7 @@ El proyecto está organizado en diferentes módulos dentro del directorio `/app`
  │
  └── util
       Utilidades como manejo de excepciones y validadores.
-
+```
 ## Desarrolladores
 
 ...
