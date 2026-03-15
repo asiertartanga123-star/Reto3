@@ -1,24 +1,32 @@
 package model;
 
 public class Usuario {
-	private String nameUser;
+
+	private String usuario;
 	private String nombre;
 	private String apellido;
-	private String email;
+	private String correo;
 	private int edad;
-	private String contraseña;
+	private String contrasena;
 
-	public Usuario(String nameUser, String nombre, String apellido, String email, int edad, String contraseña) {
-		this.nameUser = nameUser;
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.email = email;
-		this.edad = edad;
-		this.contraseña = contraseña;
+	public Usuario() {
 	}
 
-	public String getNameUser() {
-		return nameUser;
+	public Usuario(String usuario, String nombre, String apellido, String correo, int edad, String contrasena) {
+		this.usuario = usuario;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.correo = correo;
+		this.edad = edad;
+		this.contrasena = contrasena;
+	}
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
 
 	public String getNombre() {
@@ -37,12 +45,12 @@ public class Usuario {
 		this.apellido = apellido;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getCorreo() {
+		return correo;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setCorreo(String correo) {
+		this.correo = correo;
 	}
 
 	public int getEdad() {
@@ -53,12 +61,11 @@ public class Usuario {
 		this.edad = edad;
 	}
 
-	public String getContraseña() {
-		return contraseña;
+	public String getContrasena() {
+		return contrasena;
 	}
 
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
 	}
-
 }

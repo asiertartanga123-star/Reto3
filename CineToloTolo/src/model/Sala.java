@@ -1,18 +1,26 @@
 package model;
 
 public class Sala {
-	private int numero;
-	private int aforo;
-	private TipoTransmision transmision;
 
-	public Sala(int numero, int aforo, TipoTransmision transmision) {
-		this.numero = numero;
-		this.aforo = aforo;
-		this.transmision = transmision;
+	private int numSala;
+	private int aforo;
+	private String tipoTransmision;
+
+	public Sala() {
 	}
 
-	public int getNumero() {
-		return numero;
+	public Sala(int numSala, int aforo, String tipoTransmision) {
+		this.numSala = numSala;
+		this.aforo = aforo;
+		this.tipoTransmision = tipoTransmision;
+	}
+
+	public int getNumSala() {
+		return numSala;
+	}
+
+	public void setNumSala(int numSala) {
+		this.numSala = numSala;
 	}
 
 	public int getAforo() {
@@ -23,11 +31,11 @@ public class Sala {
 		this.aforo = aforo;
 	}
 
-	public TipoTransmision getTransmision() {
-		return transmision;
+	public String getTipoTransmision() {
+		return tipoTransmision;
 	}
 
-	public void setTransmision(TipoTransmision transmision) {
-		this.transmision = transmision;
+	public void setTipoTransmision(String tipoTransmision) {
+		this.tipoTransmision = tipoTransmision;
 	}
 }

@@ -1,27 +1,35 @@
 package model;
 
 public class Pelicula {
-	private int id;
+
+	private int idPelicula;
 	private String titulo;
-	private int duracion_min;
-	private String sipnosis;
-	private Genero genero;
+	private int duracionMin;
+	private String sinopsis;
+	private String genero;
 	private String director;
 	private int valoracion;
 
-	public Pelicula(int id, String titulo, int duracion_min, String sipnosis, Genero genero, String director,
+	public Pelicula() {
+	}
+
+	public Pelicula(int idPelicula, String titulo, int duracionMin, String sinopsis, String genero, String director,
 			int valoracion) {
-		this.id = id;
+		this.idPelicula = idPelicula;
 		this.titulo = titulo;
-		this.duracion_min = duracion_min;
-		this.sipnosis = sipnosis;
+		this.duracionMin = duracionMin;
+		this.sinopsis = sinopsis;
 		this.genero = genero;
 		this.director = director;
 		this.valoracion = valoracion;
 	}
 
-	public int getId() {
-		return id;
+	public int getIdPelicula() {
+		return idPelicula;
+	}
+
+	public void setIdPelicula(int idPelicula) {
+		this.idPelicula = idPelicula;
 	}
 
 	public String getTitulo() {
@@ -32,27 +40,27 @@ public class Pelicula {
 		this.titulo = titulo;
 	}
 
-	public int getDuracion_min() {
-		return duracion_min;
+	public int getDuracionMin() {
+		return duracionMin;
 	}
 
-	public void setDuracion_min(int duracion_min) {
-		this.duracion_min = duracion_min;
+	public void setDuracionMin(int duracionMin) {
+		this.duracionMin = duracionMin;
 	}
 
-	public String getSipnosis() {
-		return sipnosis;
+	public String getSinopsis() {
+		return sinopsis;
 	}
 
-	public void setSipnosis(String sipnosis) {
-		this.sipnosis = sipnosis;
+	public void setSinopsis(String sinopsis) {
+		this.sinopsis = sinopsis;
 	}
 
-	public Genero getGenero() {
+	public String getGenero() {
 		return genero;
 	}
 
-	public void setGenero(Genero genero) {
+	public void setGenero(String genero) {
 		this.genero = genero;
 	}
 
@@ -71,5 +79,4 @@ public class Pelicula {
 	public void setValoracion(int valoracion) {
 		this.valoracion = valoracion;
 	}
-
 }
