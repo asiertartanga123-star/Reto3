@@ -1,6 +1,6 @@
 package model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Entrada {
 
@@ -9,14 +9,14 @@ public class Entrada {
 	private int idPelicula;
 	private int numButaca;
 	private int precio;
-	private LocalDate fechaTransmision;
-	private LocalDate fechaAdquiere;
+	private LocalDateTime fechaTransmision;
+	private LocalDateTime fechaAdquiere;
 
 	public Entrada() {
 	}
 
-	public Entrada(String usuario, int numSala, int idPelicula, int numButaca, int precio, LocalDate fechaTransmision,
-			LocalDate fechaAdquiere) {
+	public Entrada(String usuario, int numSala, int idPelicula, int numButaca, int precio,
+			LocalDateTime fechaTransmision, LocalDateTime fechaAdquiere) {
 		this.usuario = usuario;
 		this.numSala = numSala;
 		this.idPelicula = idPelicula;
@@ -66,19 +66,19 @@ public class Entrada {
 		this.precio = precio;
 	}
 
-	public LocalDate getFechaTransmision() {
+	public LocalDateTime getFechaTransmision() {
 		return fechaTransmision;
 	}
 
-	public void setFechaTransmision(LocalDate fechaTransmision) {
+	public void setFechaTransmision(LocalDateTime fechaTransmision) {
 		this.fechaTransmision = fechaTransmision;
 	}
 
-	public LocalDate getFechaAdquiere() {
+	public LocalDateTime getFechaAdquiere() {
 		return fechaAdquiere;
 	}
 
-	public void setFechaAdquiere(LocalDate fechaAdquiere) {
+	public void setFechaAdquiere(LocalDateTime fechaAdquiere) {
 		this.fechaAdquiere = fechaAdquiere;
 	}
 }
