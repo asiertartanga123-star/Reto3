@@ -29,7 +29,7 @@ public class DaoUser {
 	}
 
 	// obtener user por el pk
-	public Usuario obtenerUsuario(String usuario) throws Exception {
+	public Usuario obtenerUsuario(String usuario) throws Exception{
 
 		Usuario user = null;
 
