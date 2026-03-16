@@ -9,6 +9,14 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * Clase de acceso a datos (DAO) encargada de gestionar las operaciones
+ * relacionadas con los usuarios en la base de datos.
+ *
+ * Proporciona métodos para obtener la información de un usuario específico y
+ * recuperar los tickets asociados a dicho usuario. La conexión a la base de
+ * datos se configura a partir de un archivo de propiedades.
+ */
 public class DaoUser {
 
 	// configuracin para recoger info del properties
@@ -21,6 +29,14 @@ public class DaoUser {
 	private final String SQLCONSULTAUSUARIO = Sentencias.USER_POR_PK;
 	private final String SQLCONSULTATICKETS = Sentencias.USER_TICKET;
 
+	/**
+	 * Constructor de la clase DaoUser.
+	 *
+	 * Inicializa la configuración de conexión a la base de datos leyendo los
+	 * parámetros desde el archivo de propiedades {@code config.configCliente}. A
+	 * partir de este archivo se obtienen la URL de conexión, el usuario y la
+	 * contraseña necesarios para establecer la conexión con la base de datos.
+	 */
 	public DaoUser() {
 		this.configFile = ResourceBundle.getBundle("config.configCliente");
 		this.urlBD = this.configFile.getString("Conn");
@@ -28,8 +44,19 @@ public class DaoUser {
 		this.passwordBD = this.configFile.getString("DBPass");
 	}
 
-	// obtener user por el pk
-	public Usuario obtenerUsuario(String usuario) throws Exception{
+	/**
+	 * Obtiene un usuario de la base de datos a partir de su identificador (clave
+	 * primaria).
+	 *
+	 * Ejecuta una consulta que recupera los datos del usuario y construye un objeto
+	 * {@code Usuario} con la información obtenida.
+	 *
+	 * @param usuario identificador o nombre de usuario a buscar.
+	 * @return objeto {@code Usuario} con los datos recuperados, o {@code null} si
+	 *         el usuario no existe en la base de datos.
+	 * @throws Exception si ocurre algún error durante el acceso a la base de datos.
+	 */
+	public Usuario obtenerUsuario(String usuario) throws Exception {
 
 		Usuario user = null;
 
@@ -54,6 +81,19 @@ public class DaoUser {
 		return user;
 	}
 
+	/**
+	 * Recupera todos los tickets asociados a un usuario concreto.
+	 *
+	 * Ejecuta una consulta que obtiene los tickets comprados por el usuario y crea
+	 * una lista de objetos {@code Ticket} con la información obtenida de la base de
+	 * datos.
+	 *
+	 * @param usuario identificador o nombre del usuario cuyos tickets se desean
+	 *                consultar.
+	 * @return lista de tickets pertenecientes al usuario.
+	 * @throws Exception si ocurre algún error durante la consulta a la base de
+	 *                   datos.
+	 */
 	public ArrayList<model.user.Ticket> obtenerTicketsUsuario(String usuario) throws Exception {
 
 		ArrayList<model.user.Ticket> tickets = new ArrayList<>();

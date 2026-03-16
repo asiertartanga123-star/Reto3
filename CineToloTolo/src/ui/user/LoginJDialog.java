@@ -13,8 +13,19 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import util.validacion.ValidacionUser;
+import util.validation.ValidacionUser;
 
+/**
+ * Ventana de diálogo que gestiona el inicio de sesión de la aplicación. Permite
+ * al usuario introducir su nombre de usuario y contraseña y valida las
+ * credenciales mediante la clase {@code ValidacionUser}.
+ *
+ * La interfaz está construida con componentes Swing y limita el acceso a un
+ * máximo de tres intentos. Si las credenciales son correctas, el diálogo se
+ * cierra y se guarda el usuario autenticado; en caso contrario, se muestran
+ * mensajes de error y la aplicación se cierra al superar el número máximo de
+ * intentos.
+ */
 public class LoginJDialog extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -63,11 +74,11 @@ public class LoginJDialog extends JDialog implements ActionListener {
 
 		// campo del texto
 		txtUser = new JTextField();
-		estilizarCampo(txtUser);
+		estiloTextField(txtUser);
 
 		// password
 		txtPass = new JPasswordField();
-		estilizarCampo(txtPass);
+		estiloTextField(txtPass);
 
 		panel.add(lblUser);
 		panel.add(txtUser);
@@ -92,7 +103,7 @@ public class LoginJDialog extends JDialog implements ActionListener {
 		add(p, BorderLayout.SOUTH);
 	}
 
-	private void estilizarCampo(JTextField campo) {
+	private void estiloTextField(JTextField campo) {
 		campo.setOpaque(false);
 		campo.setForeground(AZUL);
 		campo.setCaretColor(AZUL);
@@ -100,6 +111,33 @@ public class LoginJDialog extends JDialog implements ActionListener {
 		campo.setBorder(new LineBorder(AZUL, 1));
 	}
 
+	/**
+	 * Maneja el evento que se produce cuando el usuario intenta iniciar sesión (por
+	 * ejemplo, al presionar un botón de acceso). Obtiene los valores introducidos
+	 * en los campos de usuario y contraseña, valida las credenciales mediante la
+	 * clase {@code ValidacionUser} y actúa en consecuencia.
+	 *
+	 * <p>
+	 * Si las credenciales son correctas:
+	 * </p>
+	 * <ul>
+	 * <li>Guarda el nombre de usuario.</li>
+	 * <li>Muestra un mensaje de bienvenida.</li>
+	 * <li>Cierra la ventana actual.</li>
+	 * </ul>
+	 *
+	 * <p>
+	 * Si las credenciales son incorrectas:
+	 * </p>
+	 * <ul>
+	 * <li>Reduce el número de intentos restantes.</li>
+	 * <li>Muestra un mensaje indicando el error y los intentos disponibles.</li>
+	 * <li>Si no quedan intentos, finaliza la aplicación.</li>
+	 * </ul>
+	 *
+	 * @param e evento de acción que se dispara al interactuar con el componente que
+	 *          ejecuta el intento de inicio de sesión.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String user = txtUser.getText();

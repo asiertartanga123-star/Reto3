@@ -1,10 +1,10 @@
-package util.validacion;
+package util.validation;
 
 import dao.DaoUser;
 import model.Usuario;
 
 public class ValidacionUser {
-	public static boolean validarUser(String user_name, String pass) {
+	public static boolean validarUser(String user_name, String pass){
 		DaoUser daoUser = new DaoUser();
 		Usuario user = null;
 		try {
