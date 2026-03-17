@@ -8,16 +8,17 @@ import java.time.LocalDateTime;
  * Contiene información sobre el cine, usuario, sala, película, precio y las
  * fechas de adquisición y emisión de la función.
  */
-public class Ticket {
+public class TicketInfo {
 
 	private String nombreCine;
 	private String userName;
-	private String numSala;
+	private int numSala;
 	private int id_peli;
 	private String tituloPeli;
 	private int precio;
 	private LocalDateTime fecha_adqui;
 	private LocalDateTime fecha_emision;
+	private int numButaca;
 
 	/**
 	 * Constructor que inicializa un ticket con los datos proporcionados. El nombre
@@ -30,9 +31,10 @@ public class Ticket {
 	 * @param precio       precio del ticket.
 	 * @param fechaAdqui   fecha y hora de adquisición del ticket.
 	 * @param fechaEmision fecha y hora de la transmisión de la función.
+	 * @param numButaca    numero de butaca
 	 */
-	public Ticket(String userName, String numSala, int id_peli, String tituloPeli, int precio, LocalDateTime fechaAdqui,
-			LocalDateTime fechaEmision) {
+	public TicketInfo(String userName, int numSala, int id_peli, String tituloPeli, int precio, LocalDateTime fechaAdqui,
+			LocalDateTime fechaEmision, int numButaca) {
 
 		this.nombreCine = "CineToloTolo";
 		this.userName = userName;
@@ -67,7 +69,7 @@ public class Ticket {
 	 *
 	 * @return número de sala.
 	 */
-	public String getNumSala() {
+	public int getNumSala() {
 		return numSala;
 	}
 
@@ -115,4 +117,14 @@ public class Ticket {
 	public LocalDateTime getFecha_emision() {
 		return fecha_emision;
 	}
+
+	/**
+	 * Devuelve el numero de butaca.
+	 *
+	 * @return fecha de emisión.
+	 */
+	public int getNumButaca() {
+		return numButaca;
+	}
+
 }

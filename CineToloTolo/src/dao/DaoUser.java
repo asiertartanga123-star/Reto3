@@ -94,9 +94,9 @@ public class DaoUser {
 	 * @throws Exception si ocurre algún error durante la consulta a la base de
 	 *                   datos.
 	 */
-	public ArrayList<model.user.Ticket> obtenerTicketsUsuario(String usuario) throws Exception {
+	public ArrayList<model.user.TicketInfo> obtenerTicketsUsuario(String usuario) throws Exception {
 
-		ArrayList<model.user.Ticket> tickets = new ArrayList<>();
+		ArrayList<model.user.TicketInfo> tickets = new ArrayList<>();
 
 		try (Connection con = DriverManager.getConnection(urlBD, userBD, passwordBD);
 				PreparedStatement stmt = con.prepareStatement(SQLCONSULTATICKETS)) {
@@ -108,7 +108,7 @@ public class DaoUser {
 				while (rs.next()) {
 
 					String userName = rs.getString("USUARIO");
-					String numSala = rs.getString("NUM_SALA");
+					int numSala = rs.getInt("NUM_SALA");
 					int idPeli = rs.getInt("ID_PELICULA");
 					String tituloPeli = rs.getString("TITULO");
 					int precio = rs.getInt("PRECIO");
@@ -117,8 +117,10 @@ public class DaoUser {
 
 					LocalDateTime fechaEmision = rs.getTimestamp("FECHA_TRANSMISION").toLocalDateTime();
 
-					model.user.Ticket ticket = new model.user.Ticket(userName, numSala, idPeli, tituloPeli, precio,
-							fechaAdqui, fechaEmision);
+					int numButaca = rs.getInt("NUM_BUTACA");
+
+					model.user.TicketInfo ticket = new model.user.TicketInfo(userName, numSala, idPeli, tituloPeli, precio,
+							fechaAdqui, fechaEmision, numButaca);
 
 					tickets.add(ticket);
 				}

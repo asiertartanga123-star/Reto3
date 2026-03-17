@@ -32,7 +32,7 @@ public class LoginJDialog extends JDialog implements ActionListener {
 
 		logStr = new LoginString(dic.user.Idioma.EN);
 
-		setSize(360, 220);
+		setSize(460, 250);
 		setLocationRelativeTo(parent);
 		setLayout(new BorderLayout());
 		getContentPane().setBackground(NEGRO);
@@ -51,16 +51,15 @@ public class LoginJDialog extends JDialog implements ActionListener {
 
 	// ===== Toggle de idioma arriba =====
 	private void crearPanelSuperior(JFrame parent) {
-		JPanel panelTop = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 5));
+		JPanel panelTop = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		panelTop.setBackground(NEGRO);
 
 		GraphicObject go = new GraphicObject();
 
 		btnMenu = ControlObjects.crearToggleSuperior(panelTop,
 				go.cargarIconoEscalado("/res/img/es_toggle.png", 68, 30, parent),
-				go.cargarIconoEscalado("/res/img/en_toggle.png", 68, 30, parent),"EN/ES");
+				go.cargarIconoEscalado("/res/img/en_toggle.png", 68, 30, parent), "East","EN/ES");
 		btnMenu.addActionListener(this);
-		
 
 		add(panelTop, BorderLayout.NORTH);
 	}
@@ -73,13 +72,13 @@ public class LoginJDialog extends JDialog implements ActionListener {
 
 		lblUser = new JLabel(logStr.labelUser());
 		lblUser.setForeground(AZUL);
-		lblUser.setFont(new Font("Consolas", Font.PLAIN, 13));
+		lblUser.setFont(new Font("Consolas", Font.PLAIN, 16));
 		txtUser = new JTextField();
 		estiloTextField(txtUser);
 
 		lblPass = new JLabel(logStr.labelPass());
 		lblPass.setForeground(AZUL);
-		lblPass.setFont(new Font("Consolas", Font.PLAIN, 13));
+		lblPass.setFont(new Font("Consolas", Font.PLAIN, 16));
 		txtPass = new JPasswordField();
 		estiloTextField(txtPass);
 

@@ -2,9 +2,10 @@ package util.validation;
 
 import dao.DaoUser;
 import model.Usuario;
+import util.exceptions.*;
 
 public class ValidacionUser {
-	public static boolean validarUser(String user_name, String pass){
+	public static boolean validarUser(String user_name, String pass) {
 		DaoUser daoUser = new DaoUser();
 		Usuario user = null;
 		try {
@@ -19,4 +20,14 @@ public class ValidacionUser {
 			return true;
 		return false;
 	}
+
+	public static boolean seReembolsa(model.user.TicketInfo ticket) {
+		try {
+			ExceptionUser.validarReembolso(ticket);
+			return true;
+		} catch (ExceptionToloTolo e) {
+			return false;
+		}
+	}
+
 }

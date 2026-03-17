@@ -1,6 +1,5 @@
 package ui.element;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 
@@ -81,42 +80,8 @@ public class ControlObjects {
 		return boton;
 	}
 
-	/**
-	 * Crea un botón toggle ({@link JToggleButton}) ubicado en un panel superior que
-	 * se añade al contenedor especificado. El botón puede funcionar con iconos
-	 * (estado activado y desactivado) o, en ausencia de estos, como un botón de
-	 * texto con estilo personalizado.
-	 *
-	 * <p>
-	 * El panel superior utiliza un {@link BorderLayout} y posiciona el botón en la
-	 * zona {@code WEST(Izq)}. Además, el botón se configura visualmente para
-	 * eliminar bordes, fondo y efectos de enfoque, proporcionando una apariencia
-	 * limpia.
-	 * </p>
-	 *
-	 * <p>
-	 * Si ambos iconos ({@code iconMenuOn} y {@code iconMenuOff}) son {@code null},
-	 * el botón se configura para mostrar texto alternativo definido por
-	 * {@code auxString}. En este caso, también se aplica un estilo de fuente
-	 * específico y un efecto visual de "hover" que cambia el color del texto al
-	 * pasar el cursor.
-	 * </p>
-	 *
-	 * @param contentPane Contenedor principal donde se añadirá el panel superior.
-	 * @param iconMenuOn  Icono que se mostrará cuando el botón esté en estado
-	 *                    seleccionado. Puede ser {@code null}.
-	 * @param iconMenuOff Icono que se mostrará cuando el botón esté en estado no
-	 *                    seleccionado. Puede ser {@code null}.
-	 * @param auxString   Texto alternativo que se mostrará en el botón si no se
-	 *                    proporcionan iconos.
-	 *
-	 * @return El {@link JToggleButton} creado y configurado, listo para ser
-	 *         utilizado (por ejemplo, para añadir listeners o controlar su estado).
-	 */
-	public static JToggleButton crearToggleSuperior(JPanel contentPane, ImageIcon iconMenuOn, ImageIcon iconMenuOff,
-			String auxString) {
-
-		JPanel topPane = new JPanel(new BorderLayout());
+	public static JToggleButton crearToggleSuperior(JPanel topPane, ImageIcon iconMenuOn, ImageIcon iconMenuOff,
+			String pocisionWestEast, String auxString) {
 		topPane.setBackground(Color.BLACK);
 
 		JToggleButton btnMenu = new JToggleButton();
@@ -147,8 +112,7 @@ public class ControlObjects {
 		btnMenu.setBorderPainted(false);
 		btnMenu.setContentAreaFilled(false);
 
-		topPane.add(btnMenu, BorderLayout.WEST);
-		contentPane.add(topPane, BorderLayout.NORTH);
+		topPane.add(btnMenu, pocisionWestEast);
 
 		return btnMenu;
 	}
