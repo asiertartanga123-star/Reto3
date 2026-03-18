@@ -8,17 +8,18 @@ import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
-import javax.swing.border.EmptyBorder;
 
 import ui.user.panel.*;
 
 import dao.DaoUser;
-
+import dic.user.MUVString;
+import dic.user.PTicketString;
 import ui.element.*;
 
 public class MainUserView extends JFrame implements ActionListener {
@@ -29,9 +30,9 @@ public class MainUserView extends JFrame implements ActionListener {
 	private CardLayout cardLayout;
 
 	private LoginJDialog login;
-	private JToggleButton btnIdioma;
 	private JPanel panelContenido;
 
+	PanelTicket pt;
 	private JToggleButton btnMenu;
 
 	// botones
@@ -40,6 +41,9 @@ public class MainUserView extends JFrame implements ActionListener {
 	private JButton btnConfig;
 	private JButton btnTick;
 	private DaoUser daoUser = new DaoUser();
+	// contenedores para cada idioma
+	private PTicketString pts;
+	private MUVString muvString;
 
 	/**
 	 * Launch the application.
@@ -59,15 +63,20 @@ public class MainUserView extends JFrame implements ActionListener {
 
 	/**
 	 * Create the frame.
-	 * @throws Exception 
+	 * 
+	 * @throws Exception
 	 */
 	public MainUserView() throws Exception {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setSize(500, 300);
 		setLocationRelativeTo(null);
-		//login = new LoginJDialog(this);
+		login = new LoginJDialog(this);
 		//login.setVisible(true);
+
+		pts = new PTicketString(login.getIdioma());
+		muvString = new MUVString(login.getIdioma());
+
 		contentPane = new JPanel(new BorderLayout());
 		setContentPane(contentPane);
 
@@ -77,20 +86,12 @@ public class MainUserView extends JFrame implements ActionListener {
 
 		crearMenu();
 		contenidoDer();
-
-		
 	}
 
 	// header
 	private void cargarHeader(JPanel panelTop) {
 		panelTop.setBackground(Color.BLACK);
 		GraphicObject go = new GraphicObject();
-		// boton menu
-		btnIdioma = ControlObjects.crearToggleSuperior(panelTop,
-				go.cargarIconoEscalado("/res/img/es_toggle.png", 68, 30, this),
-				go.cargarIconoEscalado("/res/img/en_toggle.png", 68, 30, this), "East", "EN/ES");
-
-		btnIdioma.addActionListener(this);
 
 		// boton idioma
 		btnMenu = ControlObjects.crearToggleSuperior(panelTop,
@@ -106,12 +107,15 @@ public class MainUserView extends JFrame implements ActionListener {
 		panelMenu.setPreferredSize(new Dimension(0, 0));
 		panelMenu.setBackground(Color.BLACK);
 
-		btnInicio = ControlObjects.botonMenu("inicio");
-		btnRankSem = ControlObjects.botonMenu("Ranking semanal");
-		btnTick = ControlObjects.botonMenu("Ver tickets");
-		btnConfig = ControlObjects.botonMenu("Confisguracion");
+		btnInicio = ControlObjects.botonMenu(muvString.getInicio());
+		btnRankSem = ControlObjects.botonMenu(muvString.getRankingSemanal());
+		btnTick = ControlObjects.botonMenu(muvString.getVerTickets());
+		btnConfig = ControlObjects.botonMenu(muvString.getConfiguracion());
 
+		btnInicio.addActionListener(this);
 		btnTick.addActionListener(this);
+		btnRankSem.addActionListener(this);
+
 		panelMenu.add(btnInicio);
 		panelMenu.add(btnRankSem);
 		panelMenu.add(btnTick);
@@ -129,26 +133,33 @@ public class MainUserView extends JFrame implements ActionListener {
 		}
 
 		panelMenu.revalidate();
+		panelMenu.repaint();
 	}
-	
-	
+
 	private void contenidoDer() throws Exception {
 		cardLayout = new CardLayout();
 		panelContenido = new JPanel(cardLayout);
-		panelContenido.add(new PanelTicket(daoUser.obtenerTicketsUsuario("luis03")), "Ticket");
-		
+		panelContenido.add(new PanelInicio(), "Inicio");
+		panelContenido.add(new PanelTicket(daoUser.obtenerTicketsUsuario("luis03"), pts), "Ticket");
+		panelContenido.add(new PanelRanking(daoUser.mostrarRanking("luis03", LocalDate.now()),"luis03"), "rank");
+
 		contentPane.add(panelContenido, BorderLayout.CENTER);
-		
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnMenu) {
 			toggleMenu();
 			return;
 		}
-		if (e.getSource()==btnTick) {
+		if (e.getSource() == btnInicio) {
+			cardLayout.show(panelContenido, "Inicio");
+		}
+		if (e.getSource() == btnTick) {
 			cardLayout.show(panelContenido, "Ticket");
+		}
+		if (e.getSource() == btnRankSem) {
+			cardLayout.show(panelContenido, "rank");
 		}
 
 	}

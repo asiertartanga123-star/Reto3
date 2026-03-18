@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import dic.user.PTicketString;
 import model.user.TicketInfo;
 import ui.element.ControlObjects;
 
@@ -17,26 +18,27 @@ public class PanelTicket extends JPanel {
 	private static final Color PRIMARIO = new Color(0, 0, 255);
 	private static final Color TEXTO = Color.WHITE;
 
-	public PanelTicket(ArrayList<TicketInfo> tickets) {
+	public PanelTicket(ArrayList<TicketInfo> tickets, PTicketString pts) {
 
 		setLayout(new BorderLayout());
 		setBackground(FONDO);
 		setBorder(new EmptyBorder(20, 20, 20, 20));
+		agregarContenido(tickets, pts);
+	}
 
+	private void agregarContenido(ArrayList<TicketInfo> tickets, PTicketString pts) {
 		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
 		JPanel content = new JPanel(new GridBagLayout());
 		content.setBackground(FONDO);
-
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = 0;
 		gbc.weightx = 1.0;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.insets = new Insets(10, 0, 10, 0);
 		gbc.anchor = GridBagConstraints.NORTH;
-
+		// for tickets
 		for (int i = 0; i < tickets.size(); i++) {
-
 			TicketInfo t = tickets.get(i);
 
 			JPanel ticketPanel = new JPanel(new GridBagLayout());
@@ -59,13 +61,13 @@ public class PanelTicket extends JPanel {
 			tgbc.gridy++;
 			tgbc.gridwidth = 1;
 
-			agregarFila(ticketPanel, tgbc, "Usuario:", t.getUserName());
-			agregarFila(ticketPanel, tgbc, "Película:", t.getTituloPeli());
-			agregarFila(ticketPanel, tgbc, "Sala:", String.valueOf(t.getNumSala()));
-			agregarFila(ticketPanel, tgbc, "Butaca:", String.valueOf(t.getNumButaca()));
-			agregarFila(ticketPanel, tgbc, "Precio:", "€ " + t.getPrecio());
-			agregarFila(ticketPanel, tgbc, "Fecha compra:", t.getFecha_adqui().format(fmt));
-			agregarFila(ticketPanel, tgbc, "Fecha función:", t.getFecha_emision().format(fmt));
+			agregarFila(ticketPanel, tgbc, pts.getUSUARIO(), t.getUserName());
+			agregarFila(ticketPanel, tgbc, pts.getPELICULA(), t.getTituloPeli());
+			agregarFila(ticketPanel, tgbc, pts.getSALA(), String.valueOf(t.getNumSala()));
+			agregarFila(ticketPanel, tgbc, pts.getBUTACA(), String.valueOf(t.getNumButaca()));
+			agregarFila(ticketPanel, tgbc, pts.getPRECIO(), "€ " + t.getPrecio());
+			agregarFila(ticketPanel, tgbc, pts.getFECHA_COMP(), t.getFecha_adqui().format(fmt));
+			agregarFila(ticketPanel, tgbc, pts.getFECHA_FUN(), t.getFecha_emision().format(fmt));
 
 			// botno reembolso
 			if (util.validation.ValidacionUser.seReembolsa(t)) {
@@ -91,11 +93,10 @@ public class PanelTicket extends JPanel {
 			}
 			gbc.gridy = i;
 			content.add(ticketPanel, gbc);
+			gbc.gridy = tickets.size();
+			gbc.weighty = 1.0;
+			content.add(new JPanel(), gbc);
 		}
-
-		gbc.gridy = tickets.size();
-		gbc.weighty = 1.0;
-		content.add(new JPanel(), gbc);
 
 		JScrollPane scroll = new JScrollPane(content);
 		scroll.setBorder(null);
@@ -126,4 +127,5 @@ public class PanelTicket extends JPanel {
 
 		gbc.gridy++;
 	}
+
 }

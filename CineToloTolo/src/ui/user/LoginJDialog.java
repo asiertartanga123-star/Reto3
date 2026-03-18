@@ -30,7 +30,7 @@ public class LoginJDialog extends JDialog implements ActionListener {
 	public LoginJDialog(JFrame parent) {
 		super(parent, "Login", true);
 
-		logStr = new LoginString(dic.user.Idioma.EN);
+		logStr = new LoginString(dic.user.Idioma.ES);
 
 		setSize(460, 250);
 		setLocationRelativeTo(parent);
@@ -56,9 +56,15 @@ public class LoginJDialog extends JDialog implements ActionListener {
 
 		GraphicObject go = new GraphicObject();
 
-		btnMenu = ControlObjects.crearToggleSuperior(panelTop,
-				go.cargarIconoEscalado("/res/img/es_toggle.png", 68, 30, parent),
-				go.cargarIconoEscalado("/res/img/en_toggle.png", 68, 30, parent), "East","EN/ES");
+		// condicional para mostrar el toggle
+		String rutaToggle1 = logStr.getIdioma() == dic.user.Idioma.EN ? "/res/img/es_toggle.png"
+				: "/res/img/en_toggle.png";
+
+		String rutaToggle2 = logStr.getIdioma() == dic.user.Idioma.EN ? "/res/img/en_toggle.png"
+				: "/res/img/es_toggle.png";
+
+		btnMenu = ControlObjects.crearToggleSuperior(panelTop, go.cargarIconoEscalado(rutaToggle1, 68, 30, parent),
+				go.cargarIconoEscalado(rutaToggle2, 68, 30, parent), "East", "EN/ES");
 		btnMenu.addActionListener(this);
 
 		add(panelTop, BorderLayout.NORTH);

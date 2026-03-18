@@ -1,10 +1,14 @@
 package dao;
 
 import model.Usuario;
+import model.user.Ranking;
+
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -119,8 +123,8 @@ public class DaoUser {
 
 					int numButaca = rs.getInt("NUM_BUTACA");
 
-					model.user.TicketInfo ticket = new model.user.TicketInfo(userName, numSala, idPeli, tituloPeli, precio,
-							fechaAdqui, fechaEmision, numButaca);
+					model.user.TicketInfo ticket = new model.user.TicketInfo(userName, numSala, idPeli, tituloPeli,
+							precio, fechaAdqui, fechaEmision, numButaca);
 
 					tickets.add(ticket);
 				}
@@ -128,6 +132,39 @@ public class DaoUser {
 		}
 
 		return tickets;
+	}
+
+	public ArrayList<Ranking> mostrarRanking(String user_name, LocalDate fecha) throws Exception {
+
+		ArrayList<Ranking> listaUsuarios = new ArrayList<>();
+
+		try (Connection con = DriverManager.getConnection(urlBD, userBD, passwordBD);
+				CallableStatement stmt = con.prepareCall(Sentencias.PRO_RANKING)) {
+
+			stmt.setString(1, user_name);
+			stmt.setDate(2, java.sql.Date.valueOf(fecha));
+
+			try (ResultSet rs = stmt.executeQuery()) {
+
+				while (rs.next()) {
+					Ranking user = new Ranking();
+					user.setUsuario(rs.getString("USUARIO"));
+					user.setNombre(rs.getString("NOMBRE"));
+					user.setPosicion_top(rs.getInt("POSICION_TOP"));
+					user.setTotal_entradas(rs.getInt("TOTAL_ENTRADAS"));
+					listaUsuarios.add(user);
+				}
+			}
+		}
+		return listaUsuarios;
+	}
+
+	public static void main(String[] args) throws Exception {
+		DaoUser du = new DaoUser();
+		ArrayList<Ranking> rangkin = du.mostrarRanking("luis03", LocalDate.now());
+		for (Ranking r : rangkin) {
+			System.out.println(r);
+		}
 	}
 
 }
