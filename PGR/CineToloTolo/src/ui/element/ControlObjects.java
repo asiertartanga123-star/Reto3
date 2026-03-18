@@ -3,6 +3,7 @@ package ui.element;
 import java.awt.Color;
 import java.awt.Font;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -48,36 +49,35 @@ public class ControlObjects {
 	 * @return Un {@link JButton} configurado con el estilo del menú.
 	 */
 	public static JButton botonMenu(String texto) {
-		JButton boton = new JButton(texto);
+	    JButton boton = new JButton(texto);
 
-		Color bgNormal = new Color(20, 20, 20);
-		Color bgHover = new Color(30, 30, 30);
-		Color fgNormal = new Color(0, 0, 250);
-		Color fgHover = new Color(120, 120, 255);
+	    Color bgNormal = new Color(0x1B, 0x26, 0x3B);  // --color-primary
+	    Color bgHover  = new Color(0x06, 0xB6, 0xD4);  // --color-accent
+	    Color fgNormal = new Color(0x06, 0xB6, 0xD4);  // --color-accent
+	    Color fgHover  = new Color(0x0D, 0x1B, 0x2A);  // --color-secondary (texto oscuro sobre accent)
 
-		boton.setFocusPainted(false);
-		boton.setFont(new Font("Consolas", Font.BOLD, 14));
-		boton.setBackground(bgNormal);
-		boton.setForeground(fgNormal);
-		boton.setBorder(null);
-		boton.setOpaque(true);
+	    boton.setFocusPainted(false);
+	    boton.setFont(new Font("Consolas", Font.BOLD, 14));
+	    boton.setBackground(bgNormal);
+	    boton.setForeground(fgNormal);
+	    boton.setBorder(BorderFactory.createLineBorder(new Color(0x06, 0xB6, 0xD4), 1));
+	    boton.setOpaque(true);
 
-		// hover
-		boton.addMouseListener(new java.awt.event.MouseAdapter() {
-			@Override
-			public void mouseEntered(java.awt.event.MouseEvent e) {
-				boton.setBackground(bgHover);
-				boton.setForeground(fgHover);
-			}
+	    boton.addMouseListener(new java.awt.event.MouseAdapter() {
+	        @Override
+	        public void mouseEntered(java.awt.event.MouseEvent e) {
+	            boton.setBackground(bgHover);
+	            boton.setForeground(fgHover);
+	        }
 
-			@Override
-			public void mouseExited(java.awt.event.MouseEvent e) {
-				boton.setBackground(bgNormal);
-				boton.setForeground(fgNormal);
-			}
-		});
+	        @Override
+	        public void mouseExited(java.awt.event.MouseEvent e) {
+	            boton.setBackground(bgNormal);
+	            boton.setForeground(fgNormal);
+	        }
+	    });
 
-		return boton;
+	    return boton;
 	}
 
 	public static JToggleButton crearToggleSuperior(JPanel topPane, ImageIcon iconMenuOn, ImageIcon iconMenuOff,

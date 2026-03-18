@@ -57,7 +57,7 @@ public class DetallePelicula extends JDialog {
         panel.add(scroll);
 
         // ── Botón cerrar ──
-        JButton btnCerrar = new JButton("Cerrar");
+        JButton btnCerrar = ui.element.ControlObjects.botonMenu("Cerrar");
         btnCerrar.setBounds(376, 342, 90, 28);
         btnCerrar.setBackground(ACCENT);
         btnCerrar.setForeground(SECONDARY);

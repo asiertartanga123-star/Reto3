@@ -3,6 +3,7 @@ package ui.catalogo;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -10,6 +11,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -39,9 +41,13 @@ public class Catalogo extends JDialog implements ActionListener {
 		private DefaultTableModel modelo;
 		private JScrollPane scrollPane1;
 		private JLabel titulo;
-
 		private Map<Integer, Pelicula> peliculas = new TreeMap<>();
 		private JTextField bucaTituloPeli;
+	    private JLabel labelBuscar;
+	    private JButton btnDetalle;
+	    private JButton btnBuscarTitulo;
+	    private JButton prueba;
+	    private JTableHeader header;
 
 		/**
 		 * Launch the application.
@@ -111,7 +117,7 @@ public class Catalogo extends JDialog implements ActionListener {
 			    tabla.setShowVerticalLines(false);
 
 			    // Establece el header 
-			    JTableHeader header = tabla.getTableHeader();
+			    header = tabla.getTableHeader();
 			    header.setBackground(PRIMARY);
 			    header.setForeground(ACCENT);
 			    header.setFont(new Font("Segoe UI", Font.BOLD, 13));
@@ -140,7 +146,7 @@ public class Catalogo extends JDialog implements ActionListener {
 			    scrollPane1.getViewport().setBackground(SECONDARY);
 			    scrollPane1.setBorder(BorderFactory.createLineBorder(ACCENT));
 			    
-			    JButton btnDetalle = ui.element.ControlObjects.botonMenu("ver detalles");
+			    btnDetalle = ui.element.ControlObjects.botonMenu("ver detalles");
 			    btnDetalle.setBounds(42, 464, 150, 30); // ajusta Y según tu layout
 			    btnDetalle.addActionListener(e -> {
 			        int fila = tabla.getSelectedRow();
@@ -164,19 +170,62 @@ public class Catalogo extends JDialog implements ActionListener {
 			    contentPane.add(btnDetalle);
 			}
 			
-			JButton prueba = ControlObjects.botonMenu("prueba");
+			prueba = ControlObjects.botonMenu("prueba");
 			contentPane.add(prueba);
 			
-			JLabel lblNewLabel = new JLabel("Buscar:");
-			lblNewLabel.setForeground(Color.WHITE);
-			lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
-			lblNewLabel.setBounds(42, 113, 71, 30);
-			contentPane.add(lblNewLabel);
+			labelBuscar = new JLabel("Buscar:");
+			labelBuscar.setForeground(Color.WHITE);
+			labelBuscar.setFont(new Font("Tahoma", Font.BOLD, 15));
+			labelBuscar.setBounds(42, 113, 71, 30);
+			contentPane.add(labelBuscar);
 			
 			bucaTituloPeli = new JTextField();
 			bucaTituloPeli.setBounds(109, 121, 292, 19);
 			contentPane.add(bucaTituloPeli);
 			bucaTituloPeli.setColumns(10);
+			
+			btnBuscarTitulo = ui.element.ControlObjects.botonMenu("");
+			btnBuscarTitulo.setBounds(411, 120, 85, 21);
+			contentPane.add(btnBuscarTitulo);
+	 	    
+		    ImageIcon iconoLupa = new ImageIcon(getClass().getResource("lupa.png"));
+		    btnBuscarTitulo = new JButton (iconoLupa);
+		    Color bgNormal = new Color(0x1B, 0x26, 0x3B);  // --color-primary
+		    Color bgHover  = new Color(0x06, 0xB6, 0xD4);  // --color-accent
+		    Color fgNormal = new Color(0x06, 0xB6, 0xD4);  // --color-accent
+		    Color fgHover  = new Color(0x0D, 0x1B, 0x2A);  // --color-secondary (texto oscuro sobre accent)
+
+		    btnBuscarTitulo.setFocusPainted(false);
+		    btnBuscarTitulo.setFont(new Font("Consolas", Font.BOLD, 14));
+		    btnBuscarTitulo.setBackground(bgNormal);
+		    btnBuscarTitulo.setForeground(fgNormal);
+		    btnBuscarTitulo.setBorder(BorderFactory.createLineBorder(new Color(0x06, 0xB6, 0xD4), 1));
+		    btnBuscarTitulo.setOpaque(true);
+
+		    btnBuscarTitulo.addMouseListener(new java.awt.event.MouseAdapter() {
+		        @Override
+		        public void mouseEntered(java.awt.event.MouseEvent e) {
+		        	btnBuscarTitulo.setBackground(bgHover);
+		        	btnBuscarTitulo.setForeground(fgHover);
+		        }
+
+		        @Override
+		        public void mouseExited(java.awt.event.MouseEvent e) {
+		        	btnBuscarTitulo.setBackground(bgNormal);
+		        	btnBuscarTitulo.setForeground(fgNormal);
+		        }
+		    });
+			java.net.URL urlIcono = getClass().getResource("lupa.png");
+
+			if (urlIcono != null) {
+			    ImageIcon iconoOriginal = new ImageIcon(urlIcono);
+			    		    Image imagenEscalada = iconoOriginal.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+			    
+			    ImageIcon iconoFinal = new ImageIcon(imagenEscalada);
+			    btnBuscarTitulo.setIcon(iconoFinal);
+			} else {
+				btnBuscarTitulo.setText("🔍");
+			}
 			
 			{
 				if (bucaTituloPeli.getText() != null) {
@@ -250,6 +299,9 @@ public class Catalogo extends JDialog implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			
+			if(e.getSource()==btnBuscarTitulo) {
+				// LIMPIAR LA TABLA Y LUEGO MOSTRAR EL TEXTO INTRODUCIDO EN EL TESTFIELD
+			}
 		}
 }
 
