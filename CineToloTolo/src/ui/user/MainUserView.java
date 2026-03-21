@@ -49,6 +49,7 @@ public class MainUserView extends JFrame implements ActionListener {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+	    
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -72,7 +73,7 @@ public class MainUserView extends JFrame implements ActionListener {
 		setSize(500, 300);
 		setLocationRelativeTo(null);
 		login = new LoginJDialog(this);
-		login.setVisible(true);
+		//login.setVisible(true);
 
 		pts = new PTicketString(login.getIdioma());
 		muvString = new MUVString(login.getIdioma());
@@ -102,11 +103,14 @@ public class MainUserView extends JFrame implements ActionListener {
 
 	// cargar menu
 	private void crearMenu() {
+		// Panel menú transparente tipo glass
 
-		panelMenu = new JPanel(new GridLayout(4, 1));
-		panelMenu.setPreferredSize(new Dimension(0, 0));
-		panelMenu.setBackground(Color.BLACK);
+		panelMenu = new PanelStyle.RoundedPanel(new Color(0, 0, 0), 0);
 
+		panelMenu.setLayout(new GridLayout(4, 1));
+		panelMenu.setPreferredSize(new Dimension(0, 0)); // ancho fijo, alto flexible
+
+		// Botones
 		btnInicio = ControlObjects.botonMenu(muvString.getInicio());
 		btnRankSem = ControlObjects.botonMenu(muvString.getRankingSemanal());
 		btnTick = ControlObjects.botonMenu(muvString.getVerTickets());
@@ -143,7 +147,7 @@ public class MainUserView extends JFrame implements ActionListener {
 		panelContenido.add(new PanelInicio(), "Inicio");
 		panelContenido.add(new PanelTicket(daoUser.obtenerTicketsUsuario("luis03"), pts), "Ticket");
 		panelContenido.add(new PanelRanking(daoUser.mostrarRanking("luis03", LocalDate.now()), "luis03"), "rank");
-		panelContenido.add(new PanelConfig(), "config");
+		panelContenido.add(new PanelConfig("luis03"), "config");
 		contentPane.add(panelContenido, BorderLayout.CENTER);
 	}
 

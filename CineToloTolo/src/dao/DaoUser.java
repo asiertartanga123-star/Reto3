@@ -139,7 +139,7 @@ public class DaoUser {
 		ArrayList<Ranking> listaUsuarios = new ArrayList<>();
 
 		try (Connection con = DriverManager.getConnection(urlBD, userBD, passwordBD);
-				CallableStatement stmt = con.prepareCall(Sentencias.PRO_RANKING)) {
+				CallableStatement stmt = con.prepareCall(Sentencias.USER_PRO_RANKING)) {
 
 			stmt.setString(1, user_name);
 			stmt.setDate(2, java.sql.Date.valueOf(fecha));
