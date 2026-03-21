@@ -72,7 +72,7 @@ public class MainUserView extends JFrame implements ActionListener {
 		setSize(500, 300);
 		setLocationRelativeTo(null);
 		login = new LoginJDialog(this);
-		//login.setVisible(true);
+		login.setVisible(true);
 
 		pts = new PTicketString(login.getIdioma());
 		muvString = new MUVString(login.getIdioma());
@@ -115,6 +115,7 @@ public class MainUserView extends JFrame implements ActionListener {
 		btnInicio.addActionListener(this);
 		btnTick.addActionListener(this);
 		btnRankSem.addActionListener(this);
+		btnConfig.addActionListener(this);
 
 		panelMenu.add(btnInicio);
 		panelMenu.add(btnRankSem);
@@ -141,8 +142,8 @@ public class MainUserView extends JFrame implements ActionListener {
 		panelContenido = new JPanel(cardLayout);
 		panelContenido.add(new PanelInicio(), "Inicio");
 		panelContenido.add(new PanelTicket(daoUser.obtenerTicketsUsuario("luis03"), pts), "Ticket");
-		panelContenido.add(new PanelRanking(daoUser.mostrarRanking("luis03", LocalDate.now()),"luis03"), "rank");
-
+		panelContenido.add(new PanelRanking(daoUser.mostrarRanking("luis03", LocalDate.now()), "luis03"), "rank");
+		panelContenido.add(new PanelConfig(), "config");
 		contentPane.add(panelContenido, BorderLayout.CENTER);
 	}
 
@@ -162,6 +163,9 @@ public class MainUserView extends JFrame implements ActionListener {
 			cardLayout.show(panelContenido, "rank");
 		}
 
+		if (e.getSource() == btnConfig) {
+			cardLayout.show(panelContenido, "config");
+		}
 	}
 
 }

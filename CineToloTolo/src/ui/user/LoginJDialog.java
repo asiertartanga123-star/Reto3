@@ -3,114 +3,138 @@ package ui.user;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.border.LineBorder;
+import javax.swing.border.EmptyBorder;
+
 import dic.user.LoginString;
-import ui.element.ControlObjects;
-import ui.element.GraphicObject;
+import ui.element.*;
 import util.validation.ValidacionUser;
 
 public class LoginJDialog extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 
+	// elementos
 	private JTextField txtUser;
 	private JPasswordField txtPass;
 	private JButton btnLogin;
 	private JToggleButton btnMenu;
 	private JLabel lblUser;
 	private JLabel lblPass;
+
+	// contador de intentos
 	private String usuario;
 	private int intentos = 3;
 
 	private LoginString logStr;
 
-	private static final Color AZUL = Color.BLUE;
-	private static final Color NEGRO = Color.BLACK;
+	// paleta de colores
+	private static final Color HEADER_BG = new Color(0, 0, 0, 120);
+	private static final Color LOGIN_BG = new Color(255, 255, 255, 15);
+	private static final Color LABEL_COLOR = new Color(255, 255, 255);
+
+	private static final Color TEXTFIELD_BG = new Color(255, 255, 255, 150);
+	private static final Color TEXTFIELD_TEXT = new Color(0, 0, 0);
 
 	public LoginJDialog(JFrame parent) {
 		super(parent, "Login", true);
 
 		logStr = new LoginString(dic.user.Idioma.ES);
 
-		setSize(460, 250);
-		setLocationRelativeTo(parent);
-		setLayout(new BorderLayout());
-		getContentPane().setBackground(NEGRO);
+		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+		setSize(screen);
+		setLocationRelativeTo(null);
+		setUndecorated(true);
 
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				System.exit(0);
-			}
-		});
 
-		crearPanelSuperior(parent);
-		crearPanelCentral();
+		setContentPane(new PanelStyle.BackgroundPanel("/res/img/background_login_user.jpg"));
+		getContentPane().setLayout(new BorderLayout());
+
+		crearHeader(parent);
+		crearCentro();
 	}
 
-	// ===== Toggle de idioma arriba =====
-	private void crearPanelSuperior(JFrame parent) {
-		JPanel panelTop = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		panelTop.setBackground(NEGRO);
+	private void crearHeader(JFrame parent) {
+		JPanel header = crearPanelTransparente(HEADER_BG);
+		header.setLayout(new BorderLayout());
+		header.setPreferredSize(new Dimension(0, 60));
+		header.setBorder(new EmptyBorder(10, 10, 10, 20));
+
+		JPanel right = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		right.setOpaque(false);
 
 		GraphicObject go = new GraphicObject();
 
-		// condicional para mostrar el toggle
-		String rutaToggle1 = logStr.getIdioma() == dic.user.Idioma.EN ? "/res/img/es_toggle.png"
-				: "/res/img/en_toggle.png";
+		String ruta1 = logStr.getIdioma() == dic.user.Idioma.EN ? "/res/img/es_toggle.png" : "/res/img/en_toggle.png";
 
-		String rutaToggle2 = logStr.getIdioma() == dic.user.Idioma.EN ? "/res/img/en_toggle.png"
-				: "/res/img/es_toggle.png";
+		String ruta2 = logStr.getIdioma() == dic.user.Idioma.EN ? "/res/img/en_toggle.png" : "/res/img/es_toggle.png";
 
-		btnMenu = ControlObjects.crearToggleSuperior(panelTop, go.cargarIconoEscalado(rutaToggle1, 68, 30, parent),
-				go.cargarIconoEscalado(rutaToggle2, 68, 30, parent), "East", "EN/ES");
+		btnMenu = ControlObjects.crearToggleSuperior(right, go.cargarIconoEscalado(ruta1, 68, 30, parent),
+				go.cargarIconoEscalado(ruta2, 68, 30, parent), "East", "EN/ES");
 		btnMenu.addActionListener(this);
 
-		add(panelTop, BorderLayout.NORTH);
+		header.add(right, BorderLayout.EAST);
+		add(header, BorderLayout.NORTH);
 	}
 
-	// --Panel grid sin mas--
-	private void crearPanelCentral() {
-		JPanel panelCentral = new JPanel(new GridLayout(3, 2, 10, 10));
-		panelCentral.setBackground(NEGRO);
-		panelCentral.setBorder(BorderFactory.createEmptyBorder(15, 20, 15, 20));
+	private void crearCentro() {
+		JPanel center = new JPanel(new GridBagLayout());
+		center.setOpaque(false);
 
-		lblUser = new JLabel(logStr.labelUser());
-		lblUser.setForeground(AZUL);
-		lblUser.setFont(new Font("Consolas", Font.PLAIN, 16));
+		center.add(crearLoginPanel());
+		add(center, BorderLayout.CENTER);
+	}
+
+	private JPanel crearLoginPanel() {
+		JPanel login = crearPanelTransparente(LOGIN_BG);
+		login.setLayout(new GridLayout(3, 2, 15, 15));
+		login.setBorder(new EmptyBorder(30, 40, 30, 40));
+		login.setPreferredSize(new Dimension(420, 220));
+
+		lblUser = crearLabel(logStr.labelUser());
 		txtUser = new JTextField();
 		estiloTextField(txtUser);
 
-		lblPass = new JLabel(logStr.labelPass());
-		lblPass.setForeground(AZUL);
-		lblPass.setFont(new Font("Consolas", Font.PLAIN, 16));
+		lblPass = crearLabel(logStr.labelPass());
 		txtPass = new JPasswordField();
 		estiloTextField(txtPass);
 
 		btnLogin = ControlObjects.botonMenu(logStr.buttonLogin());
 		btnLogin.addActionListener(this);
 
-		panelCentral.add(lblUser);
-		panelCentral.add(txtUser);
-		panelCentral.add(lblPass);
-		panelCentral.add(txtPass);
-		panelCentral.add(new JLabel()); // vacio solo es visual :/
-		panelCentral.add(btnLogin);
+		login.add(lblUser);
+		login.add(txtUser);
+		login.add(lblPass);
+		login.add(txtPass);
+		login.add(new JLabel());
+		login.add(btnLogin);
 
-		add(panelCentral, BorderLayout.CENTER);
+		return login;
+	}
+
+	private JLabel crearLabel(String texto) {
+		JLabel lbl = new JLabel(texto);
+		lbl.setForeground(LABEL_COLOR);
+		lbl.setFont(new Font("Consolas", Font.PLAIN, 16));
+		return lbl;
 	}
 
 	private void estiloTextField(JTextField campo) {
-		campo.setOpaque(false);
-		campo.setForeground(AZUL);
-		campo.setCaretColor(AZUL);
+		campo.setOpaque(true);
+		campo.setBackground(TEXTFIELD_BG);
+		campo.setForeground(TEXTFIELD_TEXT);
+		campo.setCaretColor(TEXTFIELD_TEXT);
 		campo.setFont(new Font("Consolas", Font.PLAIN, 14));
-		campo.setBorder(new LineBorder(AZUL, 1));
+		campo.setBorder(new EmptyBorder(10, 14, 10, 14));
+	}
+
+	private JPanel crearPanelTransparente(Color bg) {
+		return new PanelStyle.RoundedPanel(bg, 25);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+
 		if (e.getSource() == btnLogin) {
 			String user = txtUser.getText();
 			String pass = new String(txtPass.getPassword());
@@ -150,4 +174,5 @@ public class LoginJDialog extends JDialog implements ActionListener {
 	public dic.user.Idioma getIdioma() {
 		return logStr.getIdioma();
 	}
+
 }

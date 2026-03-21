@@ -1,6 +1,7 @@
 package ui.element;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 
 import javax.swing.ImageIcon;
@@ -50,10 +51,12 @@ public class ControlObjects {
 	public static JButton botonMenu(String texto) {
 		JButton boton = new JButton(texto);
 
-		Color bgNormal = new Color(20, 20, 20);
-		Color bgHover = new Color(30, 30, 30);
-		Color fgNormal = new Color(0, 0, 250);
-		Color fgHover = new Color(120, 120, 255);
+		// === Paleta blanco / gris ===
+		Color bgNormal = new Color(60, 60, 60);   // blanco glass
+		Color bgHover  = new Color(20, 20, 20);   // más sólido al hover
+
+		Color fgNormal = new Color(255, 255, 255, 180);           // gris oscuro
+		Color fgHover  = new Color(255, 255, 255, 220);           // casi negro
 
 		boton.setFocusPainted(false);
 		boton.setFont(new Font("Consolas", Font.BOLD, 14));
@@ -61,8 +64,10 @@ public class ControlObjects {
 		boton.setForeground(fgNormal);
 		boton.setBorder(null);
 		boton.setOpaque(true);
+		boton.setContentAreaFilled(true);
+		boton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-		// hover
+		// Hover
 		boton.addMouseListener(new java.awt.event.MouseAdapter() {
 			@Override
 			public void mouseEntered(java.awt.event.MouseEvent e) {
