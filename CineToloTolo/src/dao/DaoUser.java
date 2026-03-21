@@ -159,6 +159,26 @@ public class DaoUser {
 		return listaUsuarios;
 	}
 
+	public boolean actualizarUsuario(Usuario user) throws Exception {
+		int filasActualizadas = 0;
+
+		try (Connection con = DriverManager.getConnection(urlBD, userBD, passwordBD);
+				PreparedStatement stmt = con.prepareStatement(Sentencias.SQL_UPDATE_USUARIO)) {
+
+			// asignamos los valores del ?
+			stmt.setString(1, user.getNombre());
+			stmt.setString(2, user.getCorreo());
+			stmt.setString(3, user.getContrasena());
+			stmt.setString(4, user.getUsuario());
+
+			// retorna el num de filas actualizadas
+			filasActualizadas = stmt.executeUpdate();
+		}
+
+		// por ende :/
+		return filasActualizadas > 0;
+	}
+
 	public static void main(String[] args) throws Exception {
 		DaoUser du = new DaoUser();
 		ArrayList<Ranking> rangkin = du.mostrarRanking("luis03", LocalDate.now());

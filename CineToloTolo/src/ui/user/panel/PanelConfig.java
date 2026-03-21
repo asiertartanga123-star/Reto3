@@ -14,7 +14,6 @@ public class PanelConfig extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 
-	// 🎨 estilo glass
 	private static final Color CARD = new Color(255, 255, 255, 40);
 	private static final Color TEXTO = new Color(255, 255, 255, 220);
 	private static final Color TEXTO_SEC = new Color(200, 200, 200);
@@ -60,7 +59,6 @@ public class PanelConfig extends JPanel implements ActionListener {
 		add(parteDer(), gbc);
 	}
 
-	
 	private JPanel parteIzq() {
 
 		PanelStyle.RoundedPanel panel = new PanelStyle.RoundedPanel(CARD, 20);
@@ -189,10 +187,24 @@ public class PanelConfig extends JPanel implements ActionListener {
 
 		if (!pass1.isEmpty() || !pass2.isEmpty()) {
 			if (pass1.equals(pass2)) {
-				System.out.println("Contraseña actualizada");
-				cambios = true;
+				user.setContrasena(pass2);
+				try {
+					if (daoUser.actualizarUsuario(user)) {
+						JOptionPane.showMessageDialog(this, "Contraseña actualizada");
+						cambios = true;
+					} else
+						cambios = false;
+
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null,
+							"ERROR: NO SE PUDO REALIZAR LA ACTUALIZACION\n" + e.getMessage()+"\nCONTACTE CON EL SERVICIO TECNICO", "ERROR USER UPDATE",
+							JOptionPane.ERROR_MESSAGE);
+					System.exit(0);
+				}
+
 			} else {
-				//TransparentOptionPane.showMessage(this, "Las contraseñas no coinciden");
+				// TransparentOptionPane.showMessage(this, "Las contraseñas no coinciden");
 				JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden");
 				return;
 			}
