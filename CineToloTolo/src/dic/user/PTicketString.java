@@ -11,6 +11,7 @@ public class PTicketString {
 	public static String PRECIO = "Precio:";
 	public static String FECHA_COMP = "Fecha compra:";
 	public static String FECHA_FUN = "Fecha función:";
+	public static String BOTON = "Solicitar reembolso";
 
 	// Inglés
 	public static String USER = "User:";
@@ -20,6 +21,7 @@ public class PTicketString {
 	public static String PRICE = "Price:";
 	public static String PURCHASE_DATE = "Purchase date:";
 	public static String SHOW_DATE = "Show date:";
+	public static String BUTTON = "Request a refund";
 
 	public PTicketString(Idioma idioma_inicial) {
 		this.idioma_inicial = idioma_inicial;
@@ -61,4 +63,47 @@ public class PTicketString {
 	public String getFECHA_FUN() {
 		return idioma_inicial == Idioma.EN ? SHOW_DATE : FECHA_FUN;
 	}
+
+	public String getBOTON() {
+		return idioma_inicial == Idioma.EN ? BUTTON : BOTON;
+	}
+
+	// para las ventanas emergentes
+	public String getErrorEliminar() {
+		return idioma_inicial == Idioma.EN ? "ERROR: DELETING ENTRY\n ?CONTACT TECHNICAL SUPPORT"
+				: "ERROR: AL ELIMINAR LA ENTRADA\n?\nCONTACTE CON EL SERVICIO TECNICO";
+	}
+
+	public String getReembolsoCancelado() {
+		return idioma_inicial == Idioma.EN ? "Refund canceled" : "Reembolso cancelado";
+	}
+
+	public String getTituloCancelado() {
+		return idioma_inicial == Idioma.EN ? "Canceled" : "Cancelado";
+	}
+
+	public String getPreguntaEliminar() {
+		return idioma_inicial == Idioma.EN ? "Do you want to delete this entry?" : "¿Desea eliminar esta entrada?";
+	}
+
+	public String getTituloConfirmar() {
+		return idioma_inicial == Idioma.EN ? "Confirm deletion" : "Confirmar eliminación";
+	}
+
+	public String getExitoEliminar() {
+		return idioma_inicial == Idioma.EN ? "Entry successfully deleted" : "Entrada eliminada correctamente";
+	}
+
+	public String getTituloExito() {
+		return idioma_inicial == Idioma.EN ? "Success" : "Éxito";
+	}
+
+	public String getNoEncontrado() {
+		return idioma_inicial == Idioma.EN ? "Entry not found for deletion" : "No se encontró la entrada para eliminar";
+	}
+
+	public String getTituloAviso() {
+		return idioma_inicial == Idioma.EN ? "Notice" : "Aviso";
+	}
+
 }

@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
@@ -13,6 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+import dao.DaoUser;
+import dic.user.PRankingString;
 import model.user.Ranking;
 import ui.element.*;
 
@@ -22,8 +25,13 @@ public class PanelRanking extends JPanel {
 
 	private static final Color TEXTO = new Color(255, 255, 255, 220);
 	private static final Color TEXTO_SEC = new Color(220, 220, 220, 180);
+	
+	private PRankingString prs;
 
-	public PanelRanking(ArrayList<Ranking> ranking, String user_name) {
+	public PanelRanking(String user_name,PRankingString prs) throws Exception {
+		this.prs = prs;
+		DaoUser daoUser = new DaoUser();
+		ArrayList<Ranking> ranking = daoUser.mostrarRanking(user_name, LocalDate.now()); 
 		setLayout(new BorderLayout());
 		setBackground(Color.BLACK);
 		setBorder(new EmptyBorder(20, 20, 20, 20));
@@ -80,14 +88,14 @@ public class PanelRanking extends JPanel {
 			tgbc.gridy++;
 			tgbc.gridwidth = 1;
 
-			JLabel lblNombre = new JLabel("Nombre: " + t.getNombre());
+			JLabel lblNombre = new JLabel(prs.getNombre() + t.getNombre());
 			lblNombre.setForeground(TEXTO);
 			lblNombre.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 			ticketPanel.add(lblNombre, tgbc);
 
 			tgbc.gridy++;
 
-			JLabel lblEntradas = new JLabel("Entradas: " + t.getTotal_entradas());
+			JLabel lblEntradas = new JLabel(prs.getEntradas()+ t.getTotal_entradas());
 			lblEntradas.setForeground(TEXTO_SEC);
 			lblEntradas.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 			ticketPanel.add(lblEntradas, tgbc);

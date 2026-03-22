@@ -1,5 +1,7 @@
 package util.validation;
 
+import javax.swing.JOptionPane;
+
 import dao.DaoUser;
 import model.Usuario;
 import util.exceptions.*;
@@ -30,4 +32,20 @@ public class ValidacionUser {
 		}
 	}
 
+	// try, parametro una accion (para cerrar el programa, si es que se produce una
+	// excepcion inrecuperable)
+	public static void controlExcepcionIrremediable(AccionConExcepcion accion, String mensaje, String titulo,
+			boolean terminar) {
+		try {
+			accion.ejecutar();
+		} catch (Exception e) {
+
+			String mensajeFinal = mensaje.replace("?",
+					e.getMessage() != null ? e.getMessage() : e.getClass().getSimpleName());
+
+			JOptionPane.showMessageDialog(null, mensajeFinal, titulo, JOptionPane.ERROR_MESSAGE);
+			if (terminar)
+				System.exit(0);
+		}
+	}
 }

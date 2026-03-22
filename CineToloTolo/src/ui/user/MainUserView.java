@@ -18,8 +18,7 @@ import javax.swing.JToggleButton;
 import ui.user.panel.*;
 
 import dao.DaoUser;
-import dic.user.MUVString;
-import dic.user.PTicketString;
+import dic.user.*;
 import ui.element.*;
 
 public class MainUserView extends JFrame implements ActionListener {
@@ -41,9 +40,13 @@ public class MainUserView extends JFrame implements ActionListener {
 	private JButton btnConfig;
 	private JButton btnTick;
 	private DaoUser daoUser = new DaoUser();
+	
 	// contenedores para cada idioma
 	private PTicketString pts;
 	private MUVString muvString;
+	private PConfigString pcs;
+	private PRankingString prs;
+	
 
 	/**
 	 * Launch the application.
@@ -77,6 +80,8 @@ public class MainUserView extends JFrame implements ActionListener {
 
 		pts = new PTicketString(login.getIdioma());
 		muvString = new MUVString(login.getIdioma());
+		pcs = new PConfigString(login.getIdioma());
+		prs = new PRankingString(login.getIdioma());
 
 		contentPane = new JPanel(new BorderLayout());
 		setContentPane(contentPane);
@@ -145,9 +150,9 @@ public class MainUserView extends JFrame implements ActionListener {
 		cardLayout = new CardLayout();
 		panelContenido = new JPanel(cardLayout);
 		panelContenido.add(new PanelInicio(), "Inicio");
-		panelContenido.add(new PanelTicket(daoUser.obtenerTicketsUsuario("luis03"), pts), "Ticket");
-		panelContenido.add(new PanelRanking(daoUser.mostrarRanking("luis03", LocalDate.now()), "luis03"), "rank");
-		panelContenido.add(new PanelConfig("luis03"), "config");
+		panelContenido.add(new PanelTicket("luis03", pts), "Ticket");
+		panelContenido.add(new PanelRanking("luis03",prs), "rank");
+		panelContenido.add(new PanelConfig("luis03",pcs), "config");
 		contentPane.add(panelContenido, BorderLayout.CENTER);
 	}
 

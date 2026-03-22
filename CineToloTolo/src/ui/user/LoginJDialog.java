@@ -38,7 +38,7 @@ public class LoginJDialog extends JDialog implements ActionListener {
 	public LoginJDialog(JFrame parent) {
 		super(parent, "Login", true);
 
-		logStr = new LoginString(dic.user.Idioma.ES);
+		logStr = new LoginString(dic.user.Idioma.EN);
 
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 		setSize(screen);

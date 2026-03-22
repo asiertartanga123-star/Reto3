@@ -44,6 +44,7 @@ public class TicketInfo {
 		this.precio = precio;
 		this.fecha_adqui = fechaAdqui;
 		this.fecha_emision = fechaEmision;
+		this.numButaca = numButaca;
 	}
 
 	/**
@@ -126,5 +127,17 @@ public class TicketInfo {
 	public int getNumButaca() {
 		return numButaca;
 	}
+
+	@Override
+	public String toString() {
+		return "TicketInfo [" + (nombreCine != null ? "nombreCine=" + nombreCine + ", " : "")
+				+ (userName != null ? "userName=" + userName + ", " : "") + "numSala=" + numSala + ", id_peli="
+				+ id_peli + ", " + (tituloPeli != null ? "tituloPeli=" + tituloPeli + ", " : "") + "precio=" + precio
+				+ ", " + (fecha_adqui != null ? "fecha_adqui=" + fecha_adqui + ", " : "")
+				+ (fecha_emision != null ? "fecha_emision=" + fecha_emision + ", " : "") + "numButaca=" + numButaca
+				+ "]";
+	}
+	
+	
 
 }

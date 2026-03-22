@@ -1,5 +1,6 @@
 package dao;
 
+import model.Entrada;
 import model.Usuario;
 import model.user.Ranking;
 
@@ -110,22 +111,18 @@ public class DaoUser {
 			try (ResultSet rs = stmt.executeQuery()) {
 
 				while (rs.next()) {
-
+					
 					String userName = rs.getString("USUARIO");
 					int numSala = rs.getInt("NUM_SALA");
 					int idPeli = rs.getInt("ID_PELICULA");
 					String tituloPeli = rs.getString("TITULO");
 					int precio = rs.getInt("PRECIO");
-
 					LocalDateTime fechaAdqui = rs.getTimestamp("FECHA_ADQUIERE").toLocalDateTime();
-
 					LocalDateTime fechaEmision = rs.getTimestamp("FECHA_TRANSMISION").toLocalDateTime();
-
 					int numButaca = rs.getInt("NUM_BUTACA");
 
 					model.user.TicketInfo ticket = new model.user.TicketInfo(userName, numSala, idPeli, tituloPeli,
 							precio, fechaAdqui, fechaEmision, numButaca);
-
 					tickets.add(ticket);
 				}
 			}
@@ -177,6 +174,27 @@ public class DaoUser {
 
 		// por ende :/
 		return filasActualizadas > 0;
+	}
+
+	// eliminar entrada
+	public boolean eliminarEntrada(Entrada entrada) throws Exception {
+	    int filasEliminadas = 0;
+
+	    try (Connection con = DriverManager.getConnection(urlBD, userBD, passwordBD);
+	         PreparedStatement stmt = con.prepareStatement(Sentencias.DELETE_ENTRADA)) {
+
+	        LocalDateTime fecha = entrada.getFechaTransmision();
+	        stmt.setString(1, entrada.getUsuario());
+	        stmt.setInt(2, entrada.getNumSala());
+	        stmt.setInt(3, entrada.getIdPelicula());
+	        stmt.setTimestamp(4, java.sql.Timestamp.valueOf(fecha.minusSeconds(1)));
+	        stmt.setTimestamp(5, java.sql.Timestamp.valueOf(fecha.plusSeconds(1))); 
+	        stmt.setInt(6, entrada.getNumButaca());
+
+	        filasEliminadas = stmt.executeUpdate();
+	    }
+
+	    return filasEliminadas > 0;
 	}
 
 	public static void main(String[] args) throws Exception {

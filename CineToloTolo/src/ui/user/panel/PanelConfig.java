@@ -7,8 +7,10 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import dao.DaoUser;
+import dic.user.PConfigString;
 import model.Usuario;
 import ui.element.*;
+import util.validation.ValidacionUser;
 
 public class PanelConfig extends JPanel implements ActionListener {
 
@@ -27,14 +29,12 @@ public class PanelConfig extends JPanel implements ActionListener {
 
 	private Usuario user;
 	private DaoUser daoUser = new DaoUser();
+	private PConfigString pcs;
+	private boolean cambios = false;
 
-	public PanelConfig(String userName) {
-
-		try {
-			user = daoUser.obtenerUsuario(userName);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public PanelConfig(String userName, PConfigString pcs) throws Exception {
+		this.pcs = pcs;
+		user = daoUser.obtenerUsuario(userName);
 
 		setLayout(new GridBagLayout());
 		setBackground(Color.BLACK);
@@ -101,29 +101,29 @@ public class PanelConfig extends JPanel implements ActionListener {
 		gbc.weightx = 1.0;
 
 		gbc.gridy = 0;
-		JLabel titulo = new JLabel("Configuración de cuenta");
+		JLabel titulo = new JLabel(pcs.getConfigCuenta());
 		titulo.setForeground(TEXTO);
 		titulo.setFont(new Font("Segoe UI", Font.BOLD, 18));
 		panel.add(titulo, gbc);
 
 		gbc.gridy++;
-		tfNombre = crearCampo(panel, gbc, "Nombre", user.getNombre());
+		tfNombre = crearCampo(panel, gbc, pcs.getNombre(), user.getNombre());
 
 		gbc.gridy++;
-		tfCorreo = crearCampo(panel, gbc, "Correo", user.getCorreo());
+		tfCorreo = crearCampo(panel, gbc, pcs.getCorreo(), user.getCorreo());
 
 		gbc.gridy++;
 		tfPass1 = new JPasswordField();
 		estilizarCampo(tfPass1);
-		panel.add(crearFila("Nueva contraseña", tfPass1), gbc);
+		panel.add(crearFila(pcs.getNuevaContrasena(), tfPass1), gbc);
 
 		gbc.gridy++;
 		tfPass2 = new JPasswordField();
 		estilizarCampo(tfPass2);
-		panel.add(crearFila("Repetir contraseña", tfPass2), gbc);
+		panel.add(crearFila(pcs.getRepetirContrasena(), tfPass2), gbc);
 
 		gbc.gridy++;
-		btnGuardar = ControlObjects.botonMenu("Guardar cambios");
+		btnGuardar = ControlObjects.botonMenu(pcs.getGuardarCambios());
 		btnGuardar.addActionListener(this);
 		btnGuardar.setPreferredSize(new Dimension(150, 50));
 		panel.add(btnGuardar, gbc);
@@ -167,7 +167,6 @@ public class PanelConfig extends JPanel implements ActionListener {
 	}
 
 	private void guardar() {
-		boolean cambios = false;
 
 		String nuevoNombre = tfNombre.getText();
 		String nuevoCorreo = tfCorreo.getText();
@@ -176,44 +175,51 @@ public class PanelConfig extends JPanel implements ActionListener {
 
 		// implementar la logica, para guardar
 		if (!user.getNombre().equals(nuevoNombre)) {
-			System.out.println("Nombre: " + user.getNombre() + " -> " + nuevoNombre);
-			cambios = true;
+			ValidacionUser.controlExcepcionIrremediable(() -> {
+				if (daoUser.actualizarUsuario(user)) {
+					JOptionPane.showMessageDialog(this, pcs.getPasswordUpdated());
+					cambios = true;
+				} else
+					cambios = false;
+
+			}, pcs.getErrorActualizacion(), "ERROR USER UPDATE", false);
 		}
 
 		if (!user.getCorreo().equals(nuevoCorreo)) {
-			System.out.println("Correo: " + user.getCorreo() + " -> " + nuevoCorreo);
-			cambios = true;
+			ValidacionUser.controlExcepcionIrremediable(() -> {
+				if (daoUser.actualizarUsuario(user)) {
+					JOptionPane.showMessageDialog(this, pcs.getPasswordUpdated());
+					cambios = true;
+				} else
+					cambios = false;
+
+			}, pcs.getErrorActualizacion(), "ERROR USER UPDATE", false);
 		}
 
 		if (!pass1.isEmpty() || !pass2.isEmpty()) {
 			if (pass1.equals(pass2)) {
 				user.setContrasena(pass2);
-				try {
+				// try catch, que controla excepciones
+				ValidacionUser.controlExcepcionIrremediable(() -> {
 					if (daoUser.actualizarUsuario(user)) {
-						JOptionPane.showMessageDialog(this, "Contraseña actualizada");
+						JOptionPane.showMessageDialog(this, pcs.getPasswordUpdated());
 						cambios = true;
 					} else
 						cambios = false;
 
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					JOptionPane.showMessageDialog(null,
-							"ERROR: NO SE PUDO REALIZAR LA ACTUALIZACION\n" + e.getMessage()+"\nCONTACTE CON EL SERVICIO TECNICO", "ERROR USER UPDATE",
-							JOptionPane.ERROR_MESSAGE);
-					System.exit(0);
-				}
+				}, pcs.getErrorActualizacion(), "ERROR UPDATE USER", false);
 
 			} else {
 				// TransparentOptionPane.showMessage(this, "Las contraseñas no coinciden");
-				JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden");
+				JOptionPane.showMessageDialog(this, pcs.getPasswordsDontMatch());
 				return;
 			}
 		}
 
 		if (!cambios) {
-			JOptionPane.showMessageDialog(this, "No se realizaron cambios");
+			JOptionPane.showMessageDialog(this, pcs.getNoChanges());
 		} else {
-			JOptionPane.showMessageDialog(this, "Cambios guardados");
+			JOptionPane.showMessageDialog(this, pcs.getChangesSaved());
 		}
 	}
 }

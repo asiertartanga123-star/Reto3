@@ -1,14 +1,18 @@
 package ui.user.panel;
 
 import java.awt.*;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import dao.DaoUser;
 import dic.user.PTicketString;
+import model.Entrada;
 import model.user.TicketInfo;
 import ui.element.ControlObjects;
+import util.validation.ValidacionUser;
 import ui.element.*;
 
 public class PanelTicket extends JPanel {
@@ -23,16 +27,20 @@ public class PanelTicket extends JPanel {
 	private static final Color TEXTO = new Color(255, 255, 255, 220);
 	private static final Color TEXTO_SEC = new Color(200, 200, 200, 180);
 
-	public PanelTicket(ArrayList<TicketInfo> tickets, PTicketString pts) {
+	private DaoUser daoUser = new DaoUser();
+	private PTicketString pts;
 
+	public PanelTicket(String userName, PTicketString pts) throws Exception {
+		this.pts = pts;
+		ArrayList<TicketInfo> tickets = daoUser.obtenerTicketsUsuario(userName);
 		setLayout(new BorderLayout());
 		setBackground(Color.BLACK);
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 
-		agregarContenido(tickets, pts);
+		agregarContenido(tickets);
 	}
 
-	private void agregarContenido(ArrayList<TicketInfo> tickets, PTicketString pts) {
+	private void agregarContenido(ArrayList<TicketInfo> tickets) {
 
 		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
@@ -86,14 +94,11 @@ public class PanelTicket extends JPanel {
 
 			if (util.validation.ValidacionUser.seReembolsa(t)) {
 
-				JButton btnReembolso = ControlObjects.botonMenu("Solicitar reembolso");
+				JButton btnReembolso = ControlObjects.botonMenu(pts.getBOTON());
 
 				btnReembolso.addActionListener(e -> {
-					System.out.println("Reembolso solicitado:");
-					System.out.println("Sala: " + t.getNumSala());
-					System.out.println("Pelicula: " + t.getId_peli());
-					System.out.println("Fecha transmision: " + t.getFecha_emision());
-					System.out.println("Butaca: " + t.getNumButaca());
+					eliminarEntrada(t.getUserName(), t.getNumSala(), t.getId_peli(), t.getFecha_emision(),
+							t.getNumButaca());
 				});
 
 				tgbc.gridx = 1;
@@ -146,5 +151,31 @@ public class PanelTicket extends JPanel {
 		panel.add(val, gbc);
 
 		gbc.gridy++;
+	}
+
+	private void eliminarEntrada(String user, int numSala, int idPeli, LocalDateTime fechaEmision, int numBut) {
+		// Crear objeto Entrada
+		Entrada e = new Entrada(user, numSala, idPeli, numBut, 0, fechaEmision, null);
+
+		// Ventana de confirmación
+		int opcion = JOptionPane.showConfirmDialog(this, pts.getPreguntaEliminar(), pts.getTituloConfirmar(),
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+		if (opcion == JOptionPane.YES_OPTION) {
+			ValidacionUser.controlExcepcionIrremediable(() -> {
+				if (daoUser.eliminarEntrada(e)) {
+					JOptionPane.showMessageDialog(this, pts.getExitoEliminar(), pts.getTituloExito(),
+							JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(this, pts.getNoEncontrado(), pts.getTituloAviso(),
+							JOptionPane.WARNING_MESSAGE);
+				}
+
+			}, pts.getErrorEliminar(), "ERROR DELETE USER",false);
+
+		} else {
+			// Usuario canceló la operación
+			JOptionPane.showMessageDialog(this, pts.getReembolsoCancelado(), pts.getTituloCancelado(), JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
 }
