@@ -5,6 +5,10 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 public class DetallePelicula extends JDialog {
+	
+	private JLabel labelTitulo;
+	private JTextArea txtSinopsis;
+	private JButton btnCerrar;
 
     public DetallePelicula(JDialog parent, int id, String titulo, String genero,
                            int valoracion, int duracion, String director, String sinopsis) {
@@ -24,11 +28,11 @@ public class DetallePelicula extends JDialog {
         setContentPane(panel);
 
         // ── Título ──
-        JLabel lblTitulo = new JLabel(titulo);
-        lblTitulo.setForeground(ACCENT);
-        lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 20));
-        lblTitulo.setBounds(20, 15, 460, 30);
-        panel.add(lblTitulo);
+        labelTitulo = new JLabel();
+        labelTitulo.setForeground(ACCENT);
+        labelTitulo.setFont(new Font("Segoe UI", Font.BOLD, 20));
+        labelTitulo.setBounds(20, 15, 460, 30);
+        panel.add(labelTitulo);
 
         // ── Campos ──
         int y = 60;
@@ -44,7 +48,7 @@ public class DetallePelicula extends JDialog {
         lblSinLbl.setBounds(20, y, 100, 20);
         panel.add(lblSinLbl);
 
-        JTextArea txtSinopsis = new JTextArea(sinopsis);
+        txtSinopsis = new JTextArea(sinopsis);
         txtSinopsis.setBackground(PRIMARY);
         txtSinopsis.setForeground(TEXT);
         txtSinopsis.setFont(new Font("Segoe UI", Font.PLAIN, 12));
@@ -57,7 +61,7 @@ public class DetallePelicula extends JDialog {
         panel.add(scroll);
 
         // ── Botón cerrar ──
-        JButton btnCerrar = ui.element.ControlObjects.botonMenu("Cerrar");
+        btnCerrar = ui.element.ControlObjects.botonMenu("Cerrar");
         btnCerrar.setBounds(376, 342, 90, 28);
         btnCerrar.setBackground(ACCENT);
         btnCerrar.setForeground(SECONDARY);

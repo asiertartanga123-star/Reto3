@@ -14,5 +14,8 @@ public class Sentencias {
 	public static String RANKING_SEMANAL;
 	public static String VER_PELICULAS = "{CALL VerPeliculas()}";
 	public static String VER_PELI_ID = "SELECT * FROM PELICULA P WHERE P.ID_PELICULA = ?";
-
+	public static String FILTRAR_POR_GENERO   = "SELECT * FROM PELICULA WHERE GENERO = ?";
+	public static String FILTRAR_POR_VALORACION = "SELECT * FROM PELICULA WHERE VALORACION >= ?";
+	public static String OBTENER_VALORACION_ACTUAL = "SELECT VALORACION FROM PELICULA WHERE ID_PELICULA = ?";
+	public static String ACTUALIZAR_VALORACION     = "UPDATE PELICULA SET VALORACION = ? WHERE ID_PELICULA = ?";
 }

@@ -27,8 +27,11 @@ public class DaoCatalogo implements InterfazCatalogo {
 		private String passwordBD;
 
 		// sentencia
-		private final String SQLVERPELIS = Sentencias.VER_PELICULAS;
-		private final String SQLPELISID = Sentencias.VER_PELI_ID;
+		private final String SQLVERPELIS          = Sentencias.VER_PELICULAS;
+	    private final String SQLPELISID           = Sentencias.VER_PELI_ID;
+	    private final String SQLFILTRARGENERO     = Sentencias.FILTRAR_POR_GENERO;
+	    private final String SQLFILTRARVALORACION = Sentencias.FILTRAR_POR_VALORACION;
+	    private final String SQLACTUALIZARVAL     = Sentencias.ACTUALIZAR_VALORACION;
 
 		
 		public DaoCatalogo() {
@@ -38,51 +41,127 @@ public class DaoCatalogo implements InterfazCatalogo {
 			this.passwordBD = this.configFile.getString("DBPass");
 		}
 
-		public void obtenerPelis(Map<Integer, Pelicula> peliculas) throws Exception {
-
+		public void obtenerPelis(Map<Integer, Pelicula> peliculas) throws Exception {	
 			try (Connection con = DriverManager.getConnection(urlBD, userBD, passwordBD);
-					CallableStatement cs = (CallableStatement) con.prepareCall(SQLVERPELIS)) {
+			         CallableStatement cs = (CallableStatement) con.prepareCall(SQLVERPELIS)) {
 
-				try (ResultSet rs = cs.executeQuery()) {
+			        boolean hasResults = cs.execute();
 
-					while (rs.next()) {
-						Pelicula catalogo= new Pelicula();
-						catalogo.setIdPelicula(rs.getInt("ID_PELICULA"));
-						catalogo.setTitulo(rs.getString("TITULO"));
-						catalogo.setGenero(rs.getString("GENERO"));
-						catalogo.setValoracion(rs.getInt("VALORACION"));
-						catalogo.setDuracionMin(rs.getInt("DURACION_MIN"));
-						catalogo.setDirector(rs.getString("DIRECTOR"));
-						catalogo.setSinopsis(rs.getString("SINOPSIS"));	
-						peliculas.put(catalogo.getIdPelicula(), catalogo);
-					}
-				}
-			}
+			        // Recorremos todos los ResultSet generados por el cursor
+			        while (hasResults) {
+			            try (ResultSet rs = cs.getResultSet()) {
+			                if (rs != null) {
+			                    while (rs.next()) {
+			                        // Crear el objeto Pelicula fila por fila
+			                        Pelicula catalogo = new Pelicula();
+			                        catalogo.setIdPelicula(rs.getInt(1));  // ID_PELICULA
+			                        catalogo.setTitulo(rs.getString(2));   // TITULO
+			                        catalogo.setDuracionMin(rs.getInt(3)); // DURACION_MIN
+			                        catalogo.setSinopsis(rs.getString(4)); // SINOPSIS
+			                        catalogo.setGenero(rs.getString(5));   // GENERO
+			                        catalogo.setDirector(rs.getString(6)); // DIRECTOR
+			                        catalogo.setValoracion(rs.getInt(7));  // VALORACION
+
+			                        peliculas.put(catalogo.getIdPelicula(), catalogo);
+			                    }
+			                }
+			            }
+
+			            // Pasar al siguiente ResultSet generado por el cursor
+			            hasResults = cs.getMoreResults();
+			        }
+			    }
 		}
 		
-		public void verPeliID(int numId) throws Exception {
-			
-			try (Connection con = DriverManager.getConnection(urlBD, userBD, passwordBD);
-					PreparedStatement stmt = con.prepareStatement(SQLPELISID)) {
+		private Pelicula mapearPelicula(ResultSet rs) throws Exception {
+	        Pelicula p = new Pelicula();
+	        p.setIdPelicula(rs.getInt("ID_PELICULA"));
+	        p.setTitulo(rs.getString("TITULO"));
+	        p.setGenero(rs.getString("GENERO"));
+	        p.setValoracion(rs.getInt("VALORACION"));
+	        p.setDuracionMin(rs.getInt("DURACION_MIN"));
+	        p.setDirector(rs.getString("DIRECTOR"));
+	        p.setSinopsis(rs.getString("SINOPSIS"));
+	        return p;
+	    }
+		
+		@Override
+	    public void verPeliID(int numId) throws Exception {
+	        try (Connection con = DriverManager.getConnection(urlBD, userBD, passwordBD);
+	             PreparedStatement stmt = con.prepareStatement(SQLPELISID)) {
 
-				stmt.setInt(1, numId);
+	            stmt.setInt(1, numId);
+	            try (ResultSet rs = stmt.executeQuery()) {
+	                if (rs.next()) {
+	                    mapearPelicula(rs); // Usa el resultado según necesites
+	                }
+	            }
+	        }
+	    }
+		
+		public void filtrarPorGenero(String genero, Map<Integer, Pelicula> peliculas) throws Exception {
+	        try (Connection con = DriverManager.getConnection(urlBD, userBD, passwordBD);
+	             PreparedStatement stmt = con.prepareStatement(SQLFILTRARGENERO)) {
 
-				try (ResultSet rs = stmt.executeQuery()) {
+	            stmt.setString(1, genero);
+	            try (ResultSet rs = stmt.executeQuery()) {
+	                while (rs.next()) {
+	                    Pelicula p = mapearPelicula(rs);
+	                    peliculas.put(p.getIdPelicula(), p);
+	                }
+	            }
+	        }
+	    }
+		
+		public void filtrarPorValoracion(int valoracionMinima, Map<Integer, Pelicula> peliculas) throws Exception {
+	        try (Connection con = DriverManager.getConnection(urlBD, userBD, passwordBD);
+	             PreparedStatement stmt = con.prepareStatement(SQLFILTRARVALORACION)) {
 
-					if (rs.next()) {
-						Pelicula catalogo= new Pelicula();
-						catalogo.setIdPelicula(rs.getInt("ID_PELICULA"));
-						catalogo.setTitulo(rs.getString("TITULO"));
-						catalogo.setGenero(rs.getString("GENERO"));
-						catalogo.setValoracion(rs.getInt("VALORACION"));
-						catalogo.setDuracionMin(rs.getInt("DURACION_MIN"));
-						catalogo.setDirector(rs.getString("DIRECTOR"));
-						catalogo.setSinopsis(rs.getString("SINOPSIS"));		
-					}
-				}
-			
+	            stmt.setInt(1, valoracionMinima);
+	            try (ResultSet rs = stmt.executeQuery()) {
+	                while (rs.next()) {
+	                    Pelicula p = mapearPelicula(rs);
+	                    peliculas.put(p.getIdPelicula(), p);
+	                }
+	            }
+	        }
+	    }
+		
+		public boolean valorarPelicula(int idPelicula, int nuevaValoracion) throws Exception {
+
+		    // Validar rango de valoración
+			if (nuevaValoracion < 1 || nuevaValoracion > 5) {
+		        throw new IllegalArgumentException("La valoración debe estar entre 1 y 5.");
+		    }
+
+		    try (Connection con = DriverManager.getConnection(urlBD, userBD, passwordBD)) {
+
+		        // 1. Obtener la valoración actual
+		        int valoracionActual = 0;
+		        try (PreparedStatement stmtSelect = con.prepareStatement(Sentencias.OBTENER_VALORACION_ACTUAL)) {
+		            stmtSelect.setInt(1, idPelicula);
+		            try (ResultSet rs = stmtSelect.executeQuery()) {
+		                if (rs.next()) {
+		                    valoracionActual = rs.getInt("VALORACION");
+		                } else {
+		                    throw new Exception("No se encontró la película con ID: " + idPelicula);
+		                }
+		            }
+		        }
+
+		        // 2. Calcular la media entre la valoración actual y la nueva
+		        int mediaValoracion = (valoracionActual + nuevaValoracion) / 2;
+
+		        // 3. Actualizar con la media calculada
+		        try (PreparedStatement stmtUpdate = con.prepareStatement(Sentencias.ACTUALIZAR_VALORACION)) {
+		            stmtUpdate.setInt(1, mediaValoracion);
+		            stmtUpdate.setInt(2, idPelicula);
+		            int filasAfectadas = stmtUpdate.executeUpdate();
+		            return filasAfectadas > 0;
+		        }
+		    }
 		}
-
-	}
+		
+	
 }
 
