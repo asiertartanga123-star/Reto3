@@ -41,4 +41,10 @@ public class Ranking {
 		this.total_entradas = total_entradas;
 	}
 
+	@Override
+	public String toString() {
+		return "Ranking [posicion_top=" + posicion_top + ", " + (usuario != null ? "usuario=" + usuario + ", " : "")
+				+ (nombre != null ? "nombre=" + nombre + ", " : "") + "total_entradas=" + total_entradas + "]";
+	}
+
 }

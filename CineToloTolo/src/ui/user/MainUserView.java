@@ -8,7 +8,6 @@ import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDate;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,7 +16,6 @@ import javax.swing.JToggleButton;
 
 import ui.user.panel.*;
 import util.validation.ValidacionUser;
-import dao.DaoUser;
 import dic.user.*;
 import ui.element.*;
 
@@ -165,6 +163,41 @@ public class MainUserView extends JFrame implements ActionListener {
 		main(new String[2]);
 	}
 
+	/**
+	 * Maneja los eventos de acción generados por los botones de la interfaz de
+	 * usuario.
+	 * <p>
+	 * Este método implementa la interfaz {@code ActionListener} y determina qué
+	 * acción ejecutar en función del botón que generó el evento. Dependiendo del
+	 * origen, puede alternar el menú, mostrar distintos paneles de contenido,
+	 * cerrar la sesión del usuario o regresar al menú principal.
+	 * </p>
+	 *
+	 * <p>
+	 * Acciones manejadas por botón:
+	 * </p>
+	 * <ul>
+	 * <li>{@code btnMenu}: Invoca {@code toggleMenu()} para alternar la visibilidad
+	 * del menú lateral.</li>
+	 * <li>{@code btnInicio}: Muestra el panel "Inicio" mediante
+	 * {@code cardLayout.show(panelContenido, "Inicio")}.</li>
+	 * <li>{@code btnTick}: Muestra el panel "Ticket".</li>
+	 * <li>{@code btnRankSem}: Muestra el panel de ranking ("rank").</li>
+	 * <li>{@code btnConfig}: Muestra el panel de configuración del usuario
+	 * ("config").</li>
+	 * <li>{@code btnCerrarSesion}: Llama a {@code cerrarSesion()} para finalizar la
+	 * sesión activa.</li>
+	 * <li>{@code btnVolverMenu}: Llama a {@code menuPrincipal()} para regresar al
+	 * menú principal.</li>
+	 * </ul>
+	 *
+	 * @param e Evento de acción que contiene información sobre el origen del
+	 *          evento.
+	 *
+	 * @see java.awt.event.ActionListener
+	 * @see java.awt.event.ActionEvent
+	 * @see java.awt.CardLayout
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object a = e.getSource();
@@ -190,7 +223,7 @@ public class MainUserView extends JFrame implements ActionListener {
 			cerrarSesion();
 		}
 		if (a == btnVolverMenu) {
-			System.out.println("Ir al menu");
+			// menuPrincipal();
 		}
 	}
 

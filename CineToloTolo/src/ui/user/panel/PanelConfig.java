@@ -158,9 +158,22 @@ public class PanelConfig extends JPanel implements ActionListener {
 		tf.setBorder(BorderFactory.createEmptyBorder(8, 10, 8, 10));
 	}
 
+	/**
+	 * Maneja los eventos de acción generados por el botón de guardar.
+	 * <p>
+	 * Este método implementa la interfaz {@code ActionListener} y verifica si el
+	 * evento proviene del botón {@code btnGuardar}. Si es así, invoca el método
+	 * {@code guardar()} para realizar la acción de guardado correspondiente.
+	 * </p>
+	 *
+	 * @param e Evento de acción que contiene información sobre el origen del
+	 *          evento.
+	 *
+	 * @see java.awt.event.ActionListener
+	 * @see java.awt.event.ActionEvent
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
 		if (e.getSource() == btnGuardar) {
 			guardar();
 		}

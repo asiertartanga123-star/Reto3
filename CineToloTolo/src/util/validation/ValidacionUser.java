@@ -11,7 +11,7 @@ public class ValidacionUser {
 	public static boolean validarUser(String user_name, String pass) {
 		DaoUser daoUser = new DaoUser();
 		
-		ValidacionUser.controlExcepcionIrremediable(() -> user = daoUser.obtenerUsuario(user_name),
+		controlExcepcionIrremediable(() -> user = daoUser.obtenerUsuario(user_name),
 				"ERROR SQL: \n? \nCONTACT TECHNICAL SUPPORT", "SQL ERROR",
 				true);
 

@@ -1,9 +1,10 @@
 package model;
+
 /**
  * Clase modelo que representa una sala de cine dentro del sistema.
  *
- * Contiene la información básica de una sala, como su número identificador,
- * el aforo máximo y el tipo de transmisión disponible (por ejemplo, 2D, 3D, IMAX).
+ * Contiene la información básica de una sala, como su número identificador, el
+ * aforo máximo y el tipo de transmisión disponible (por ejemplo, 2D, 3D, IMAX).
  */
 public class Sala {
 
@@ -20,8 +21,8 @@ public class Sala {
 	/**
 	 * Constructor que inicializa todos los atributos de la sala.
 	 *
-	 * @param numSala número identificador de la sala.
-	 * @param aforo capacidad máxima de espectadores.
+	 * @param numSala         número identificador de la sala.
+	 * @param aforo           capacidad máxima de espectadores.
 	 * @param tipoTransmision tipo de proyección de la sala.
 	 */
 	public Sala(int numSala, int aforo, String tipoTransmision) {
@@ -83,4 +84,11 @@ public class Sala {
 	public void setTipoTransmision(String tipoTransmision) {
 		this.tipoTransmision = tipoTransmision;
 	}
+
+	@Override
+	public String toString() {
+		return "Sala [numSala=" + numSala + ", aforo=" + aforo + ", "
+				+ (tipoTransmision != null ? "tipoTransmision=" + tipoTransmision : "") + "]";
+	}
+
 }

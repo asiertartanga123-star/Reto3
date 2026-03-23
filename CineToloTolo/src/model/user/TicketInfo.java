@@ -33,8 +33,8 @@ public class TicketInfo {
 	 * @param fechaEmision fecha y hora de la transmisión de la función.
 	 * @param numButaca    numero de butaca
 	 */
-	public TicketInfo(String userName, int numSala, int id_peli, String tituloPeli, int precio, LocalDateTime fechaAdqui,
-			LocalDateTime fechaEmision, int numButaca) {
+	public TicketInfo(String userName, int numSala, int id_peli, String tituloPeli, int precio,
+			LocalDateTime fechaAdqui, LocalDateTime fechaEmision, int numButaca) {
 
 		this.nombreCine = "CineToloTolo";
 		this.userName = userName;
@@ -137,7 +137,5 @@ public class TicketInfo {
 				+ (fecha_emision != null ? "fecha_emision=" + fecha_emision + ", " : "") + "numButaca=" + numButaca
 				+ "]";
 	}
-	
-	
 
 }
