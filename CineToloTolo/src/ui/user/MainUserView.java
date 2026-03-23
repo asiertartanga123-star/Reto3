@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
 import ui.user.panel.*;
-
+import util.validation.ValidacionUser;
 import dao.DaoUser;
 import dic.user.*;
 import ui.element.*;
@@ -39,28 +39,27 @@ public class MainUserView extends JFrame implements ActionListener {
 	private JButton btnRankSem;
 	private JButton btnConfig;
 	private JButton btnTick;
-	private DaoUser daoUser = new DaoUser();
-	
+	private JButton btnCerrarSesion;
+	private JButton btnVolverMenu;
+
 	// contenedores para cada idioma
 	private PTicketString pts;
 	private MUVString muvString;
 	private PConfigString pcs;
 	private PRankingString prs;
-	
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-	    
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				try {
+				ValidacionUser.controlExcepcionIrremediable(() -> {
 					MainUserView frame = new MainUserView();
 					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				}, "ERROR SQL: \n? \nCONTACT TECHNICAL SUPPORT", "SQL ERROR", true);
+
 			}
 		});
 	}
@@ -76,7 +75,7 @@ public class MainUserView extends JFrame implements ActionListener {
 		setSize(500, 300);
 		setLocationRelativeTo(null);
 		login = new LoginJDialog(this);
-		//login.setVisible(true);
+		login.setVisible(true);
 
 		pts = new PTicketString(login.getIdioma());
 		muvString = new MUVString(login.getIdioma());
@@ -108,11 +107,10 @@ public class MainUserView extends JFrame implements ActionListener {
 
 	// cargar menu
 	private void crearMenu() {
-		// Panel menú transparente tipo glass
-
+		// panel totalmente transparente
 		panelMenu = new PanelStyle.RoundedPanel(new Color(0, 0, 0), 0);
 
-		panelMenu.setLayout(new GridLayout(4, 1));
+		panelMenu.setLayout(new GridLayout(6, 1));
 		panelMenu.setPreferredSize(new Dimension(0, 0)); // ancho fijo, alto flexible
 
 		// Botones
@@ -120,16 +118,22 @@ public class MainUserView extends JFrame implements ActionListener {
 		btnRankSem = ControlObjects.botonMenu(muvString.getRankingSemanal());
 		btnTick = ControlObjects.botonMenu(muvString.getVerTickets());
 		btnConfig = ControlObjects.botonMenu(muvString.getConfiguracion());
+		btnCerrarSesion = ControlObjects.botonMenu(muvString.getCerrarSesion());
+		btnVolverMenu = ControlObjects.botonMenu(muvString.getVolverMenu());
 
 		btnInicio.addActionListener(this);
 		btnTick.addActionListener(this);
 		btnRankSem.addActionListener(this);
 		btnConfig.addActionListener(this);
+		btnCerrarSesion.addActionListener(this);
+		btnVolverMenu.addActionListener(this);
 
 		panelMenu.add(btnInicio);
 		panelMenu.add(btnRankSem);
 		panelMenu.add(btnTick);
 		panelMenu.add(btnConfig);
+		panelMenu.add(btnVolverMenu);
+		panelMenu.add(btnCerrarSesion);
 
 		contentPane.add(panelMenu, BorderLayout.WEST);
 	}
@@ -151,29 +155,42 @@ public class MainUserView extends JFrame implements ActionListener {
 		panelContenido = new JPanel(cardLayout);
 		panelContenido.add(new PanelInicio(), "Inicio");
 		panelContenido.add(new PanelTicket("luis03", pts), "Ticket");
-		panelContenido.add(new PanelRanking("luis03",prs), "rank");
-		panelContenido.add(new PanelConfig("luis03",pcs), "config");
+		panelContenido.add(new PanelRanking("luis03", prs), "rank");
+		panelContenido.add(new PanelConfig("luis03", pcs), "config");
 		contentPane.add(panelContenido, BorderLayout.CENTER);
+	}
+
+	private void cerrarSesion() {
+		dispose();
+		main(new String[2]);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnMenu) {
+		Object a = e.getSource();
+		if (a == btnMenu) {
 			toggleMenu();
 			return;
 		}
-		if (e.getSource() == btnInicio) {
+		if (a == btnInicio) {
 			cardLayout.show(panelContenido, "Inicio");
 		}
-		if (e.getSource() == btnTick) {
+		if (a == btnTick) {
 			cardLayout.show(panelContenido, "Ticket");
 		}
-		if (e.getSource() == btnRankSem) {
+		if (a == btnRankSem) {
 			cardLayout.show(panelContenido, "rank");
 		}
 
-		if (e.getSource() == btnConfig) {
+		if (a == btnConfig) {
 			cardLayout.show(panelContenido, "config");
+		}
+
+		if (a == btnCerrarSesion) {
+			cerrarSesion();
+		}
+		if (a == btnVolverMenu) {
+			System.out.println("Ir al menu");
 		}
 	}
 

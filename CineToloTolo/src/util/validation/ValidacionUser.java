@@ -7,14 +7,13 @@ import model.Usuario;
 import util.exceptions.*;
 
 public class ValidacionUser {
+	private static Usuario user = null;
 	public static boolean validarUser(String user_name, String pass) {
 		DaoUser daoUser = new DaoUser();
-		Usuario user = null;
-		try {
-			user = daoUser.obtenerUsuario(user_name);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		
+		ValidacionUser.controlExcepcionIrremediable(() -> user = daoUser.obtenerUsuario(user_name),
+				"ERROR SQL: \n? \nCONTACT TECHNICAL SUPPORT", "SQL ERROR",
+				true);
 
 		if (user == null)
 			return false;

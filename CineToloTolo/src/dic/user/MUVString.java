@@ -21,7 +21,7 @@ public class MUVString {
 	}
 
 	public String getRankingSemanal() {
-		return idioma_actual == Idioma.EN ? "Weekly Ranking" : "Ranking semanal";
+		return idioma_actual == Idioma.EN ? "Ranking" : "Ranking";
 	}
 
 	public String getVerTickets() {
@@ -30,5 +30,13 @@ public class MUVString {
 
 	public String getConfiguracion() {
 		return idioma_actual == Idioma.EN ? "Settings" : "Configuración";
+	}
+
+	public String getCerrarSesion() {
+		return idioma_actual == Idioma.EN ? "Sign out" : "Cerrar sesión";
+	}
+
+	public String getVolverMenu() {
+		return idioma_actual == Idioma.EN ? "Main menu" : "Menú principal";
 	}
 }
