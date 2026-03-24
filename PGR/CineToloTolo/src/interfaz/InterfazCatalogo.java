@@ -7,8 +7,6 @@ import model.Pelicula;
 public interface InterfazCatalogo {
 
 	public void obtenerPelis(Map<Integer, Pelicula> peliculas) throws Exception;
-
-	void verPeliID(int numId) throws Exception;
 	
 	void filtrarPorGenero(String genero, Map<Integer, Pelicula> peliculas) throws Exception;
 	

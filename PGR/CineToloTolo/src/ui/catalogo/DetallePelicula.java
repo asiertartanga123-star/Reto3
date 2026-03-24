@@ -13,7 +13,7 @@ public class DetallePelicula extends JDialog {
     public DetallePelicula(JDialog parent, int id, String titulo, String genero,
                            int valoracion, int duracion, String director, String sinopsis) {
 
-        super(parent, "Detalle — " + titulo, true);
+        super(parent, "Details — " + titulo, true);
         setSize(503, 428);
         setLocationRelativeTo(parent);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -37,12 +37,12 @@ public class DetallePelicula extends JDialog {
         // ── Campos ──
         int y = 60;
         panel.add(fila("Director:",  director,           PRIMARY, TEXT, ACCENT, y)); y += 45;
-        panel.add(fila("Género:",    genero,             PRIMARY, TEXT, ACCENT, y)); y += 45;
-        panel.add(fila("Duración:",  duracion + " min",  PRIMARY, TEXT, ACCENT, y)); y += 45;
-        panel.add(fila("Valoración:", valoracion + " / 5", PRIMARY, TEXT, ACCENT, y)); y += 45;
+        panel.add(fila("Genre:",    genero,             PRIMARY, TEXT, ACCENT, y)); y += 45;
+        panel.add(fila("Duration:",  duracion + " min",  PRIMARY, TEXT, ACCENT, y)); y += 45;
+        panel.add(fila("Rate:", valoracion + " / 5", PRIMARY, TEXT, ACCENT, y)); y += 45;
 
         // ── Sinopsis ──
-        JLabel lblSinLbl = new JLabel("Sinopsis:");
+        JLabel lblSinLbl = new JLabel("Synopsis:");
         lblSinLbl.setForeground(ACCENT);
         lblSinLbl.setFont(new Font("Segoe UI", Font.BOLD, 13));
         lblSinLbl.setBounds(20, y, 100, 20);
@@ -61,7 +61,7 @@ public class DetallePelicula extends JDialog {
         panel.add(scroll);
 
         // ── Botón cerrar ──
-        btnCerrar = ui.element.ControlObjects.botonMenu("Cerrar");
+        btnCerrar = ui.element.ControlObjects.botonMenu("Close");
         btnCerrar.setBounds(376, 342, 90, 28);
         btnCerrar.setBackground(ACCENT);
         btnCerrar.setForeground(SECONDARY);

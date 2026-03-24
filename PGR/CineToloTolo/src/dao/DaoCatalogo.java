@@ -85,19 +85,19 @@ public class DaoCatalogo implements InterfazCatalogo {
 	        return p;
 	    }
 		
-		@Override
-	    public void verPeliID(int numId) throws Exception {
-	        try (Connection con = DriverManager.getConnection(urlBD, userBD, passwordBD);
-	             PreparedStatement stmt = con.prepareStatement(SQLPELISID)) {
-
-	            stmt.setInt(1, numId);
-	            try (ResultSet rs = stmt.executeQuery()) {
-	                if (rs.next()) {
-	                    mapearPelicula(rs); // Usa el resultado según necesites
-	                }
-	            }
-	        }
-	    }
+//		@Override
+//	    public void verPeliID(int numId) throws Exception {
+//	        try (Connection con = DriverManager.getConnection(urlBD, userBD, passwordBD);
+//	             PreparedStatement stmt = con.prepareStatement(SQLPELISID)) {
+//
+//	            stmt.setInt(1, numId);
+//	            try (ResultSet rs = stmt.executeQuery()) {
+//	                if (rs.next()) {
+//	                    mapearPelicula(rs); 
+//	                }
+//	            }
+//	        }
+//	    }
 		
 		public void filtrarPorGenero(String genero, Map<Integer, Pelicula> peliculas) throws Exception {
 	        try (Connection con = DriverManager.getConnection(urlBD, userBD, passwordBD);

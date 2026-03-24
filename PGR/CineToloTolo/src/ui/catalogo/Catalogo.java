@@ -31,6 +31,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 import dao.DaoCatalogo;
+import exception.FieldVacio;
 import model.Pelicula;
 import ui.element.ControlObjects;
 
@@ -80,7 +81,7 @@ public class Catalogo extends JDialog implements ActionListener {
 //			setBounds(100, 100, 1044, 583);
 			Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
 			setBounds(0, 0, pantalla.width, pantalla.height);
-	        setTitle("TOLOTOLO - Catalogo de películas");
+	        setTitle("TOLOTOLO - FILMS CATALOGUE");
 
 	        // ── Panel principal ────────────────────────────────────
 	        contentPane = new JPanel();
@@ -98,7 +99,7 @@ public class Catalogo extends JDialog implements ActionListener {
 	        // ══════════════════════════════════════════════════════
 	        //  TÍTULO PRINCIPAL
 	        // ══════════════════════════════════════════════════════
-	        titulo = new JLabel("CATALOGO");
+	        titulo = new JLabel("CATALOGUE");
 	        titulo.setForeground(TEXT);
 	        titulo.setFont(new Font("Verdana", Font.BOLD, 50));
 	        titulo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -108,7 +109,7 @@ public class Catalogo extends JDialog implements ActionListener {
 	        // ══════════════════════════════════════════════════════
 	        //  TABLA DE PELÍCULAS
 	        // ══════════════════════════════════════════════════════
-	        String[] columnas = {"IDPelicula","Titulo","Genero","Valoración","Duración","Director"};
+	        String[] columnas = {"FILM_ID","TITLE","GENRE","RATING","DURATION","DIRECTOR"};
 	        modelo     = new DefaultTableModel(columnas, 0);
 	        tabla      = new JTable(modelo);
 	        scrollPane1 = new JScrollPane(tabla);
@@ -164,7 +165,7 @@ public class Catalogo extends JDialog implements ActionListener {
 	        // ══════════════════════════════════════════════════════
 
 	        // Label "Buscar:"
-	        labelBuscar = new JLabel("Buscar:");
+	        labelBuscar = new JLabel("Search:");
 	        labelBuscar.setForeground(TEXT);
 	        labelBuscar.setFont(new Font("Tahoma", Font.BOLD, 15));
 	        labelBuscar.setBounds(42, 113, 71, 30);
@@ -177,7 +178,7 @@ public class Catalogo extends JDialog implements ActionListener {
 	        contentPane.add(bucaTituloPeli);
 
 	        // Botón buscar por título
-	        btnBuscarTitulo = ControlObjects.botonMenu("Buscar");
+	        btnBuscarTitulo = ControlObjects.botonMenu("Search");
 	        btnBuscarTitulo.setFocusPainted(false);
 	        btnBuscarTitulo.setFont(new Font("Consolas", Font.BOLD, 14));
 	        btnBuscarTitulo.setBackground(PRIMARY);
@@ -192,7 +193,7 @@ public class Catalogo extends JDialog implements ActionListener {
 	        //  ZONA SUPERIOR CENTRO: Filtro por género
 	        // ══════════════════════════════════════════════════════
 	        // Label "Género:"
-	        labelGenero = new JLabel("Género:");
+	        labelGenero = new JLabel("Genre:");
 	        labelGenero.setForeground(TEXT);
 	        labelGenero.setFont(new Font("Tahoma", Font.BOLD, 12));
 	        labelGenero.setBounds(415, 121, 55, 21);
@@ -206,7 +207,7 @@ public class Catalogo extends JDialog implements ActionListener {
 	        contentPane.add(comboGenero);
 
 	        // Botón filtrar por género
-	        btnFiltrarGenero = ControlObjects.botonMenu("Filtrar");
+	        btnFiltrarGenero = ControlObjects.botonMenu("Filter");
 	        btnFiltrarGenero.setBounds(610, 121, 80, 21);
 	        btnFiltrarGenero.addActionListener(this);
 	        contentPane.add(btnFiltrarGenero);
@@ -216,7 +217,7 @@ public class Catalogo extends JDialog implements ActionListener {
 	        // ══════════════════════════════════════════════════════
 
 	        // Label "Val. mín:"
-	        labelValMin = new JLabel("Val. mín:");
+	        labelValMin = new JLabel("Min rating:");
 	        labelValMin.setForeground(TEXT);
 	        labelValMin.setFont(new Font("Tahoma", Font.BOLD, 12));
 	        labelValMin.setBounds(700, 121, 65, 21);
@@ -228,7 +229,7 @@ public class Catalogo extends JDialog implements ActionListener {
 	        contentPane.add(comboValoracion);
 
 	        // Botón filtrar por valoración
-	        btnFiltrarValoracion = ControlObjects.botonMenu("Filtrar");
+	        btnFiltrarValoracion = ControlObjects.botonMenu("Filter");
 	        btnFiltrarValoracion.setBounds(835, 121, 80, 21);
 	        btnFiltrarValoracion.addActionListener(this);
 	        contentPane.add(btnFiltrarValoracion);
@@ -236,12 +237,12 @@ public class Catalogo extends JDialog implements ActionListener {
 	        // ══════════════════════════════════════════════════════
 	        //  ZONA INFERIOR IZQUIERDA: Ver detalles de película
 	        // ══════════════════════════════════════════════════════
-	        btnDetalle = ControlObjects.botonMenu("Ver detalles");
+	        btnDetalle = ControlObjects.botonMenu("View details");
 	        btnDetalle.setBounds(42, 464, 130, 30);
 	        btnDetalle.addActionListener(e -> {
 	            int fila = tabla.getSelectedRow();
 	            if (fila == -1) {
-	                JOptionPane.showMessageDialog(this, "Selecciona una película primero.");
+	                JOptionPane.showMessageDialog(this, "First select a film.");
 	                return;
 	            }
 	            int    id       = (int)    modelo.getValueAt(fila, 0);
@@ -258,7 +259,7 @@ public class Catalogo extends JDialog implements ActionListener {
 	        // ══════════════════════════════════════════════════════
 	        //  ZONA INFERIOR CENTRO: Valorar película seleccionada
 	        // ══════════════════════════════════════════════════════
-	        btnValorar = ControlObjects.botonMenu("Valorar");
+	        btnValorar = ControlObjects.botonMenu("Rate");
 	        btnValorar.setBounds(185, 464, 110, 30);
 	        btnValorar.addActionListener(e -> abrirValorar());
 	        contentPane.add(btnValorar);
@@ -266,7 +267,7 @@ public class Catalogo extends JDialog implements ActionListener {
 	        // ══════════════════════════════════════════════════════
 	        //  ZONA INFERIOR DERECHA: Resetear todos los filtros
 	        // ══════════════════════════════════════════════════════
-	        btnResetear = ControlObjects.botonMenu("Resetear filtros");
+	        btnResetear = ControlObjects.botonMenu("Reset filters");
 	        btnResetear.setBounds(824, 464, 150, 30);
 	        btnResetear.addActionListener(e -> {
 	            bucaTituloPeli.setText("");
@@ -336,11 +337,11 @@ public class Catalogo extends JDialog implements ActionListener {
 		private void abrirValorar() {
 	        int fila = tabla.getSelectedRow();
 	        if (fila == -1) {
-	            JOptionPane.showMessageDialog(this, "Selecciona una película primero.");
+	            JOptionPane.showMessageDialog(this, "First select a film.");
 	            return;
 	        }
 
-	        int    id  = (int)    modelo.getValueAt(fila, 0);
+	        int id  = (int) modelo.getValueAt(fila, 0);
 	        String tit = (String) modelo.getValueAt(fila, 1);
 
 	        // Spinner del 1 al 5
@@ -350,8 +351,8 @@ public class Catalogo extends JDialog implements ActionListener {
 
 	        int opcion = JOptionPane.showConfirmDialog(
 	                this,
-	                new Object[]{"Tu valoración para \"" + tit + "\" (1-5):", spinner},
-	                "Valorar película",
+	                new Object[]{"Your rating for \"" + tit + "\" (1-5):", spinner},
+	                "Rate film",
 	                JOptionPane.OK_CANCEL_OPTION
 	        );
 
@@ -361,10 +362,10 @@ public class Catalogo extends JDialog implements ActionListener {
 	                DaoCatalogo dao = new DaoCatalogo();
 	                boolean ok = dao.valorarPelicula(id, nuevaValoracion);
 	                if (ok) {
-	                    JOptionPane.showMessageDialog(this, "¡Valoración guardada correctamente!");
-	                    accesoBD(); // refresca la tabla con la nueva media
+	                    JOptionPane.showMessageDialog(this, "¡Rating saved successfully!");
+	                    accesoBD(); 
 	                } else {
-	                    JOptionPane.showMessageDialog(this, "No se pudo guardar la valoración.",
+	                    JOptionPane.showMessageDialog(this, "The review could not be saved.",
 	                            "Error", JOptionPane.ERROR_MESSAGE);
 	                }
 	            } catch (Exception ex) {
@@ -394,7 +395,7 @@ public class Catalogo extends JDialog implements ActionListener {
 						modelo.addRow(fila);
 					}
 			}catch(SQLException e) {
-				JOptionPane.showMessageDialog(this, e.getMessage(), "Error en el SQL", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, e.getMessage(), "SQL error ocurred", JOptionPane.ERROR_MESSAGE);
 				this.dispose();
 			}catch(Exception exception)
 			{
@@ -402,20 +403,24 @@ public class Catalogo extends JDialog implements ActionListener {
 				this.dispose();
 			}
 		}
+				
 		
-		public void accesoBDTitulo(String textoBusqueda) {
-	        // Filtro local sobre el mapa, sin nueva consulta a BD
-	        modelo.setRowCount(0);
-	        for (Pelicula pelicula : peliculas.values()) {
-	            if (pelicula.getTitulo().toLowerCase().contains(textoBusqueda.toLowerCase())) {
-	                modelo.addRow(new Object[]{
-	                        pelicula.getIdPelicula(), pelicula.getTitulo(),
-	                        pelicula.getGenero(),     pelicula.getValoracion(),
-	                        pelicula.getDuracionMin(), pelicula.getDirector()
-	                });
-	            }
-	        }
-	    }
+		public void accesoBDTitulo(String textoBusqueda) throws FieldVacio {
+		    if (textoBusqueda.isEmpty()) {
+		        throw new FieldVacio("The search field is empty.");
+		    }
+		    accesoBD();
+		    modelo.setRowCount(0);
+		    for (Pelicula pelicula : peliculas.values()) {
+		        if (pelicula.getTitulo().toLowerCase().contains(textoBusqueda.toLowerCase())) {
+		            modelo.addRow(new Object[]{
+		                pelicula.getIdPelicula(), pelicula.getTitulo(),
+		                pelicula.getGenero(), pelicula.getValoracion(),
+		                pelicula.getDuracionMin(), pelicula.getDirector()
+		            });
+		        }
+		    }
+		}
 
 	    public void accesoBDGenero(String genero) {
 	        DaoCatalogo dao = new DaoCatalogo();
@@ -462,14 +467,18 @@ public class Catalogo extends JDialog implements ActionListener {
 	    public void actionPerformed(ActionEvent e) {
 
 	        // -- Buscar por título --
-	        if (e.getSource() == btnBuscarTitulo) {
-	            accesoBDTitulo(bucaTituloPeli.getText().trim());
-	        }
+			if (e.getSource() == btnBuscarTitulo) {
+			    try {
+			        accesoBDTitulo(bucaTituloPeli.getText().trim());
+			    } catch (FieldVacio ex) {
+			        JOptionPane.showMessageDialog(this, ex.getMessage(), "Empty field", JOptionPane.WARNING_MESSAGE);
+			    }
+			}
 
 	        // -- NUEVO: Filtrar por género --
 	        if (e.getSource() == btnFiltrarGenero) {
 	            String generoSeleccionado = (String) comboGenero.getSelectedItem();
-	            if ("Todos".equals(generoSeleccionado)) {
+	            if ("TODOS".equals(generoSeleccionado)) {
 	                accesoBD();
 	            } else {
 	                accesoBDGenero(generoSeleccionado);
