@@ -220,7 +220,7 @@ public class Catalogo extends JDialog implements ActionListener {
 	        labelValMin = new JLabel("Min rating:");
 	        labelValMin.setForeground(TEXT);
 	        labelValMin.setFont(new Font("Tahoma", Font.BOLD, 12));
-	        labelValMin.setBounds(700, 121, 65, 21);
+	        labelValMin.setBounds(680, 121, 65, 21);
 	        contentPane.add(labelValMin);
 
 	        // ComboBox con valores de valoración del 1 al 5
@@ -251,7 +251,17 @@ public class Catalogo extends JDialog implements ActionListener {
 	            int    val      = (int)    modelo.getValueAt(fila, 3);
 	            int    duracion = (int)    modelo.getValueAt(fila, 4);
 	            String director = (String) modelo.getValueAt(fila, 5);
-	            String sinopsis = peliculas.get(id).getSinopsis();
+
+	            // ── FIX: comprobar que la película existe en el mapa antes de acceder ──
+	            Pelicula peli = peliculas.get(id);
+	            if (peli == null) {
+	                JOptionPane.showMessageDialog(this,
+	                    "Film not found in cache. Please refresh the catalogue.",
+	                    "Data error", JOptionPane.WARNING_MESSAGE);
+	                return;
+	            }
+
+	            String sinopsis = peli.getSinopsis();
 	            new DetallePelicula(this, id, tit, genero, val, duracion, director, sinopsis).setVisible(true);
 	        });
 	        contentPane.add(btnDetalle);
@@ -390,7 +400,6 @@ public class Catalogo extends JDialog implements ActionListener {
 								pelicula.getValoracion(),
 								pelicula.getDuracionMin(),
 								pelicula.getDirector(),
-//								pelicula.getSinopsis()
 						};
 						modelo.addRow(fila);
 					}
@@ -409,6 +418,7 @@ public class Catalogo extends JDialog implements ActionListener {
 		    if (textoBusqueda.isEmpty()) {
 		        throw new FieldVacio("The search field is empty.");
 		    }
+		    try {
 		    accesoBD();
 		    modelo.setRowCount(0);
 		    for (Pelicula pelicula : peliculas.values()) {
@@ -419,6 +429,11 @@ public class Catalogo extends JDialog implements ActionListener {
 		                pelicula.getDuracionMin(), pelicula.getDirector()
 		            });
 		        }
+		    }
+		    }catch(Exception e) {
+		    	JOptionPane.showMessageDialog(this,
+		                "Could not refresh data. Showing last known results.",
+		                "Warning", JOptionPane.WARNING_MESSAGE);
 		    }
 		}
 
@@ -431,7 +446,7 @@ public class Catalogo extends JDialog implements ActionListener {
 	            for (Pelicula p : peliculas.values()) {
 	                modelo.addRow(new Object[]{
 	                        p.getIdPelicula(), p.getTitulo(),
-	                        p.getGenero(),     p.getValoracion(),
+	                        p.getGenero(), p.getValoracion(),
 	                        p.getDuracionMin(), p.getDirector()
 	                });
 	            }
