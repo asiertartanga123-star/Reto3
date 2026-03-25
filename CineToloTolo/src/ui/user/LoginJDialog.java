@@ -43,9 +43,6 @@ public class LoginJDialog extends JDialog implements ActionListener {
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 		setSize(screen);
 		setLocationRelativeTo(null);
-		setUndecorated(true);
-
-		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 
 		setContentPane(new PanelStyle.BackgroundPanel("/res/img/background_login_user.jpg"));
 		getContentPane().setLayout(new BorderLayout());
