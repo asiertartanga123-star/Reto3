@@ -98,7 +98,9 @@ public class MainUserView extends JFrame implements ActionListener {
 		GraphicObject go = new GraphicObject();
 
 		btnMenu = ControlObjects.crearToggleSuperior(panelTop,
-				go.cargarIconoEscalado("C:/Users/Lidia/Desktop/repositorios/Reto3.1/Reto3/CineToloTolo/bin/res/img/off_toggle.png", 40, 40, this),
+				go.cargarIconoEscalado(
+						"C:/Users/Lidia/Desktop/repositorios/Reto3.1/Reto3/CineToloTolo/bin/res/img/off_toggle.png", 40,
+						40, this),
 				go.cargarIconoEscalado("/res/img/on_toggle.png", 40, 40, this), "West", "MENU");
 		btnMenu.addActionListener(this);
 	}
@@ -149,9 +151,9 @@ public class MainUserView extends JFrame implements ActionListener {
 		cardLayout = new CardLayout();
 		panelContenido = new JPanel(cardLayout);
 		panelContenido.add(pi, "Inicio");
-		panelContenido.add(new PanelTicket("luis03", pts), "Ticket");
-		panelContenido.add(new PanelRanking("luis03", prs), "rank");
-		panelContenido.add(new PanelConfig("luis03", pcs), "config");
+		panelContenido.add(new PanelTicket(login.getUsuario(), pts), "Ticket");
+		panelContenido.add(new PanelRanking(login.getUsuario(), prs), "rank");
+		panelContenido.add(new PanelConfig(login.getUsuario(), pcs), "config");
 		contentPane.add(panelContenido, BorderLayout.CENTER);
 	}
 
@@ -205,7 +207,6 @@ public class MainUserView extends JFrame implements ActionListener {
 				pi.requestFocusInWindow();
 				pi.startGame();
 			}
-			pi.obtenerDimenTo();
 			return;
 		}
 		seInteractua = false;
@@ -213,7 +214,6 @@ public class MainUserView extends JFrame implements ActionListener {
 			cardLayout.show(panelContenido, "Inicio");
 			pi.requestFocusInWindow();
 			pi.startGame();
-			pi.obtenerDimenTo();
 			seInteractua = true;
 
 		}

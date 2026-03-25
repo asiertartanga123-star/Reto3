@@ -137,7 +137,13 @@ public class LoginJDialog extends JDialog implements ActionListener {
 
 		if (e.getSource() == btnLogin) {
 			String user = txtUser.getText();
+			
 			String pass = new String(txtPass.getPassword());
+			
+			if (user == null || pass == null || user.isEmpty() || pass.isEmpty()) {
+				JOptionPane.showMessageDialog(this, "Agrega todos los campos","campo vacio",JOptionPane.WARNING_MESSAGE);
+				return;
+			}
 
 			boolean valido = ValidacionUser.validarUser(user, pass);
 
