@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
  * recuperar los tickets asociados a dicho usuario. La conexión a la base de
  * datos se configura a partir de un archivo de propiedades.
  */
-public class DaoUser {
+public class DaoUser implements IDaoUser{
 
 	// configuracin para recoger info del properties
 	private ResourceBundle configFile;
@@ -61,6 +61,7 @@ public class DaoUser {
 	 *         el usuario no existe en la base de datos.
 	 * @throws Exception si ocurre algún error durante el acceso a la base de datos.
 	 */
+	@Override
 	public Usuario obtenerUsuario(String usuario) throws Exception {
 
 		Usuario user = null;
@@ -99,6 +100,7 @@ public class DaoUser {
 	 * @throws Exception si ocurre algún error durante la consulta a la base de
 	 *                   datos.
 	 */
+	@Override
 	public ArrayList<model.user.TicketInfo> obtenerTicketsUsuario(String usuario) throws Exception {
 
 		ArrayList<model.user.TicketInfo> tickets = new ArrayList<>();
@@ -185,6 +187,7 @@ public class DaoUser {
 	 * @see Ranking
 	 * @see Sentencias#USER_PRO_RANKING
 	 */
+	@Override
 	public ArrayList<Ranking> mostrarRanking(String user_name, LocalDate fecha) throws Exception {
 
 		ArrayList<Ranking> listaUsuarios = new ArrayList<>();
@@ -260,6 +263,7 @@ public class DaoUser {
 	 * @see Usuario
 	 * @see Sentencias#SQL_UPDATE_USUARIO
 	 */
+	@Override
 	public boolean actualizarUsuario(Usuario user) throws Exception {
 		int filasActualizadas = 0;
 
@@ -342,6 +346,7 @@ public class DaoUser {
 	 * @see Entrada
 	 * @see Sentencias#DELETE_ENTRADA
 	 */
+	@Override
 	public boolean eliminarEntrada(Entrada entrada) throws Exception {
 		int filasEliminadas = 0;
 

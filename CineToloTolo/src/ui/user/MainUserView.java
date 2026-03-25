@@ -22,17 +22,18 @@ import ui.element.*;
 public class MainUserView extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
+
+	// contenido y paneles necesarios
 	private JPanel contentPane;
 	private JPanel panelMenu;
 	private CardLayout cardLayout;
-
 	private LoginJDialog login;
 	private JPanel panelContenido;
+	// Panel de inicio (estatico para que se use en todo el codigo)
+	private static PanelInicio pi = new PanelInicio();
 
-	PanelTicket pt;
+	// toggle button y botones
 	private JToggleButton btnMenu;
-
-	// botones
 	private JButton btnInicio;
 	private JButton btnRankSem;
 	private JButton btnConfig;
@@ -40,15 +41,15 @@ public class MainUserView extends JFrame implements ActionListener {
 	private JButton btnCerrarSesion;
 	private JButton btnVolverMenu;
 
-	// contenedores para cada idioma
+	// idiomas
 	private PTicketString pts;
 	private MUVString muvString;
 	private PConfigString pcs;
 	private PRankingString prs;
 
-	/**
-	 * Launch the application.
-	 */
+	// boolean para poder interactuar con el menu, si uso el toggle
+	private boolean seInteractua = true;
+
 	public static void main(String[] args) {
 
 		EventQueue.invokeLater(new Runnable() {
@@ -56,17 +57,15 @@ public class MainUserView extends JFrame implements ActionListener {
 				ValidacionUser.controlExcepcionIrremediable(() -> {
 					MainUserView frame = new MainUserView();
 					frame.setVisible(true);
+					EventQueue.invokeLater(() -> {
+						pi.requestFocusInWindow();
+						pi.startGame();
+					});
 				}, "ERROR SQL: \n? \nCONTACT TECHNICAL SUPPORT", "SQL ERROR", true);
-
 			}
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 * 
-	 * @throws Exception
-	 */
 	public MainUserView() throws Exception {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -75,11 +74,7 @@ public class MainUserView extends JFrame implements ActionListener {
 		login = new LoginJDialog(this);
 		login.setVisible(true);
 
-		pts = new PTicketString(login.getIdioma());
-		muvString = new MUVString(login.getIdioma());
-		pcs = new PConfigString(login.getIdioma());
-		prs = new PRankingString(login.getIdioma());
-
+		cargarIdioma();
 		contentPane = new JPanel(new BorderLayout());
 		setContentPane(contentPane);
 
@@ -91,27 +86,29 @@ public class MainUserView extends JFrame implements ActionListener {
 		contenidoDer();
 	}
 
-	// header
+	private void cargarIdioma() {
+		pts = new PTicketString(login.getIdioma());
+		muvString = new MUVString(login.getIdioma());
+		pcs = new PConfigString(login.getIdioma());
+		prs = new PRankingString(login.getIdioma());
+	}
+
 	private void cargarHeader(JPanel panelTop) {
 		panelTop.setBackground(Color.BLACK);
 		GraphicObject go = new GraphicObject();
 
-		// boton idioma
 		btnMenu = ControlObjects.crearToggleSuperior(panelTop,
-				go.cargarIconoEscalado("/res/img/off_toggle.png", 40, 40, this),
+				go.cargarIconoEscalado("C:/Users/Lidia/Desktop/repositorios/Reto3.1/Reto3/CineToloTolo/bin/res/img/off_toggle.png", 40, 40, this),
 				go.cargarIconoEscalado("/res/img/on_toggle.png", 40, 40, this), "West", "MENU");
 		btnMenu.addActionListener(this);
 	}
 
-	// cargar menu
 	private void crearMenu() {
-		// panel totalmente transparente
 		panelMenu = new PanelStyle.RoundedPanel(new Color(0, 0, 0), 0);
 
 		panelMenu.setLayout(new GridLayout(6, 1));
-		panelMenu.setPreferredSize(new Dimension(0, 0)); // ancho fijo, alto flexible
+		panelMenu.setPreferredSize(new Dimension(0, 0));
 
-		// Botones
 		btnInicio = ControlObjects.botonMenu(muvString.getInicio());
 		btnRankSem = ControlObjects.botonMenu(muvString.getRankingSemanal());
 		btnTick = ControlObjects.botonMenu(muvString.getVerTickets());
@@ -151,7 +148,7 @@ public class MainUserView extends JFrame implements ActionListener {
 	private void contenidoDer() throws Exception {
 		cardLayout = new CardLayout();
 		panelContenido = new JPanel(cardLayout);
-		panelContenido.add(new PanelInicio(), "Inicio");
+		panelContenido.add(pi, "Inicio");
 		panelContenido.add(new PanelTicket("luis03", pts), "Ticket");
 		panelContenido.add(new PanelRanking("luis03", prs), "rank");
 		panelContenido.add(new PanelConfig("luis03", pcs), "config");
@@ -164,35 +161,34 @@ public class MainUserView extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * Maneja los eventos de acción generados por los botones de la interfaz de
-	 * usuario.
+	 * Maneja los eventos de acción generados por los elementos interactivos de la
+	 * interfaz de usuario.
 	 * <p>
-	 * Este método implementa la interfaz {@code ActionListener} y determina qué
-	 * acción ejecutar en función del botón que generó el evento. Dependiendo del
-	 * origen, puede alternar el menú, mostrar distintos paneles de contenido,
-	 * cerrar la sesión del usuario o regresar al menú principal.
+	 * Este método determina el origen del evento y ejecuta la acción
+	 * correspondiente, permitiendo la navegación entre paneles mediante
+	 * {@link CardLayout}, el control del menú lateral y la gestión del ciclo de
+	 * ejecución del juego en el panel de inicio.
 	 * </p>
 	 *
 	 * <p>
-	 * Acciones manejadas por botón:
+	 * Comportamiento por componente:
 	 * </p>
 	 * <ul>
-	 * <li>{@code btnMenu}: Invoca {@code toggleMenu()} para alternar la visibilidad
-	 * del menú lateral.</li>
-	 * <li>{@code btnInicio}: Muestra el panel "Inicio" mediante
-	 * {@code cardLayout.show(panelContenido, "Inicio")}.</li>
-	 * <li>{@code btnTick}: Muestra el panel "Ticket".</li>
-	 * <li>{@code btnRankSem}: Muestra el panel de ranking ("rank").</li>
-	 * <li>{@code btnConfig}: Muestra el panel de configuración del usuario
-	 * ("config").</li>
-	 * <li>{@code btnCerrarSesion}: Llama a {@code cerrarSesion()} para finalizar la
-	 * sesión activa.</li>
-	 * <li>{@code btnVolverMenu}: Llama a {@code menuPrincipal()} para regresar al
-	 * menú principal.</li>
+	 * <li>{@code btnMenu}: Alterna la visibilidad del menú lateral.</li>
+	 * <li>{@code btnInicio}: Muestra el panel de inicio, asigna el foco al panel
+	 * para recibir eventos de teclado e inicia la ejecución del juego.</li>
+	 * <li>{@code btnTick}: Muestra el panel de tickets y detiene la ejecución del
+	 * juego.</li>
+	 * <li>{@code btnRankSem}: Muestra el panel de ranking semanal y detiene la
+	 * ejecución del juego.</li>
+	 * <li>{@code btnConfig}: Muestra el panel de configuración y detiene la
+	 * ejecución del juego.</li>
+	 * <li>{@code btnCerrarSesion}: Finaliza la sesión actual y reinicia la vista
+	 * principal.</li>
 	 * </ul>
 	 *
-	 * @param e Evento de acción que contiene información sobre el origen del
-	 *          evento.
+	 * @param e Evento de acción que contiene la referencia al componente que generó
+	 *          la interacción del usuario.
 	 *
 	 * @see java.awt.event.ActionListener
 	 * @see java.awt.event.ActionEvent
@@ -201,30 +197,44 @@ public class MainUserView extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object a = e.getSource();
+
 		if (a == btnMenu) {
 			toggleMenu();
+			pi.stopGame();
+			if (seInteractua) {
+				pi.requestFocusInWindow();
+				pi.startGame();
+			}
+			pi.obtenerDimenTo();
 			return;
 		}
+		seInteractua = false;
 		if (a == btnInicio) {
 			cardLayout.show(panelContenido, "Inicio");
+			pi.requestFocusInWindow();
+			pi.startGame();
+			pi.obtenerDimenTo();
+			seInteractua = true;
+
 		}
 		if (a == btnTick) {
 			cardLayout.show(panelContenido, "Ticket");
+			pi.stopGame();
 		}
 		if (a == btnRankSem) {
 			cardLayout.show(panelContenido, "rank");
+			pi.stopGame();
 		}
 
 		if (a == btnConfig) {
 			cardLayout.show(panelContenido, "config");
+			pi.stopGame();
 		}
 
 		if (a == btnCerrarSesion) {
 			cerrarSesion();
 		}
 		if (a == btnVolverMenu) {
-			// menuPrincipal();
 		}
 	}
-
 }
