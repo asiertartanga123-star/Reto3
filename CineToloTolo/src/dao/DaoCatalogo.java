@@ -27,10 +27,8 @@ public class DaoCatalogo implements InterfazCatalogo {
 
 		// sentencia
 		private final String SQLVERPELIS          = Sentencias.VER_PELICULAS;
-	    private final String SQLPELISID           = Sentencias.VER_PELI_ID;
 	    private final String SQLFILTRARGENERO     = Sentencias.FILTRAR_POR_GENERO;
 	    private final String SQLFILTRARVALORACION = Sentencias.FILTRAR_POR_VALORACION;
-	    private final String SQLACTUALIZARVAL     = Sentencias.ACTUALIZAR_VALORACION;
 
 		
 		public DaoCatalogo() {

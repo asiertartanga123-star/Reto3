@@ -2,7 +2,6 @@ package ui.catalogo;
 
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 
 public class DetallePelicula extends JDialog {
 	

@@ -39,7 +39,6 @@ import ui.element.ControlObjects;
 public class Catalogo extends JDialog implements ActionListener {
 
 		private static final long serialVersionUID = 1L;
-		private JButton btnVerTabla;
 		private JPanel contentPane;
 		private JTable tabla;
 		private DefaultTableModel modelo;
@@ -50,7 +49,6 @@ public class Catalogo extends JDialog implements ActionListener {
 	    private JLabel labelBuscar;
 	    private JButton btnDetalle;
 	    private JButton btnBuscarTitulo;
-	    private JButton prueba;
 	    private JTableHeader header;
 	    private JComboBox<String> comboGenero;
 	    private JButton btnFiltrarGenero;
