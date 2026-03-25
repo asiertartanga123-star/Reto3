@@ -1,13 +1,12 @@
 package dao;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Map;
 import java.util.ResourceBundle;
-
-import com.mysql.cj.jdbc.CallableStatement;
 
 import interfaz.InterfazCatalogo;
 import model.Pelicula;
