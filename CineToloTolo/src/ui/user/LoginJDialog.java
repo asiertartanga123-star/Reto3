@@ -180,5 +180,4 @@ public class LoginJDialog extends JDialog implements ActionListener {
 	public dic.user.Idioma getIdioma() {
 		return logStr.getIdioma();
 	}
-
 }

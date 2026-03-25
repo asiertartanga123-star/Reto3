@@ -169,13 +169,4 @@ public class Pelicula {
 	public void setValoracion(int valoracion) {
 		this.valoracion = valoracion;
 	}
-
-	@Override
-	public String toString() {
-		return "Pelicula [idPelicula=" + idPelicula + ", " + (titulo != null ? "titulo=" + titulo + ", " : "")
-				+ "duracionMin=" + duracionMin + ", " + (sinopsis != null ? "sinopsis=" + sinopsis + ", " : "")
-				+ (genero != null ? "genero=" + genero + ", " : "")
-				+ (director != null ? "director=" + director + ", " : "") + "valoracion=" + valoracion + "]";
-	}
-
 }

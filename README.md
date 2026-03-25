@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # TOLOTOLOCINES
 
 ## Descripción
@@ -34,3 +35,6 @@ El proyecto está organizado en diferentes módulos dentro del directorio `/app`
 ## Desarrolladores
 
 ...
+=======
+# Reto3
+>>>>>>> hodei
