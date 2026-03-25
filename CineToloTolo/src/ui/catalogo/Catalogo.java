@@ -108,7 +108,14 @@ public class Catalogo extends JDialog implements ActionListener {
 	        //  TABLA DE PELÍCULAS
 	        // ══════════════════════════════════════════════════════
 	        String[] columnas = {"FILM_ID","TITLE","GENRE","RATING","DURATION","DIRECTOR"};
-	        modelo     = new DefaultTableModel(columnas, 0);
+	        modelo     = new DefaultTableModel(columnas, 0) {
+				private static final long serialVersionUID = 1L;
+
+				@Override
+				public boolean isCellEditable(int row, int colum) {
+					return false;
+				}
+			};
 	        tabla      = new JTable(modelo);
 	        scrollPane1 = new JScrollPane(tabla);
 	        scrollPane1.setBounds(42, 153, 932, 295);
