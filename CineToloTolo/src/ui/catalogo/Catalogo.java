@@ -183,7 +183,7 @@ public class Catalogo extends JDialog implements ActionListener {
 	        contentPane.add(bucaTituloPeli);
 
 	        // Botón buscar por título
-	        btnBuscarTitulo = ControlObjects.botonMenu("Search");
+	        btnBuscarTitulo = ui.element.ControlObjects.botonMenu("Search");
 	        btnBuscarTitulo.setFocusPainted(false);
 	        btnBuscarTitulo.setFont(new Font("Consolas", Font.BOLD, 14));
 	        btnBuscarTitulo.setBackground(PRIMARY);
@@ -212,7 +212,7 @@ public class Catalogo extends JDialog implements ActionListener {
 	        contentPane.add(comboGenero);
 
 	        // Botón filtrar por género
-	        btnFiltrarGenero = ControlObjects.botonMenu("Filter");
+	        btnFiltrarGenero = ui.element.ControlObjects.botonMenu("Filter");
 	        btnFiltrarGenero.setBounds(610, 121, 80, 21);
 	        btnFiltrarGenero.addActionListener(this);
 	        contentPane.add(btnFiltrarGenero);
@@ -234,7 +234,7 @@ public class Catalogo extends JDialog implements ActionListener {
 	        contentPane.add(comboValoracion);
 
 	        // Botón filtrar por valoración
-	        btnFiltrarValoracion = ControlObjects.botonMenu("Filter");
+	        btnFiltrarValoracion = ui.element.ControlObjects.botonMenu("Filter");
 	        btnFiltrarValoracion.setBounds(835, 121, 80, 21);
 	        btnFiltrarValoracion.addActionListener(this);
 	        contentPane.add(btnFiltrarValoracion);
@@ -242,7 +242,7 @@ public class Catalogo extends JDialog implements ActionListener {
 	        // ══════════════════════════════════════════════════════
 	        //  ZONA INFERIOR IZQUIERDA: Ver detalles de película
 	        // ══════════════════════════════════════════════════════
-	        btnDetalle = ControlObjects.botonMenu("View details");
+	        btnDetalle = ui.element.ControlObjects.botonMenu("View details");
 	        btnDetalle.setBounds(42, 464, 130, 30);
 	        btnDetalle.addActionListener(e -> {
 	            int fila = tabla.getSelectedRow();
@@ -274,7 +274,7 @@ public class Catalogo extends JDialog implements ActionListener {
 	        // ══════════════════════════════════════════════════════
 	        //  ZONA INFERIOR CENTRO: Valorar película seleccionada
 	        // ══════════════════════════════════════════════════════
-	        btnValorar = ControlObjects.botonMenu("Rate");
+	        btnValorar = ui.element.ControlObjects.botonMenu("Rate");
 	        btnValorar.setBounds(185, 464, 110, 30);
 	        btnValorar.addActionListener(e -> abrirValorar());
 	        contentPane.add(btnValorar);
@@ -282,7 +282,7 @@ public class Catalogo extends JDialog implements ActionListener {
 	        // ══════════════════════════════════════════════════════
 	        //  ZONA INFERIOR DERECHA: Resetear todos los filtros
 	        // ══════════════════════════════════════════════════════
-	        btnResetear = ControlObjects.botonMenu("Reset filters");
+	        btnResetear = ui.element.ControlObjects.botonMenu("Reset filters");
 	        btnResetear.setBounds(824, 464, 150, 30);
 	        btnResetear.addActionListener(e -> {
 	            bucaTituloPeli.setText("");
