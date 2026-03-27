@@ -79,10 +79,12 @@ public class ExportadorXML {
      *                                  (correo inválido, edad fuera de rango, género no permitido,
      *                                  valoración fuera de rango o nombre de usuario incorrecto)
      */
+
     public void exportarCatalogo(List<Pelicula> listaPeliculas,
                                  List<Usuario>  listaUsuarios,
                                  List<Entrada>  listaEntradas,
                                  String         ruta) {
+
         try {
             /* Inicialización del constructor de documentos DOM */
             DocumentBuilderFactory tolotolo_cine = DocumentBuilderFactory.newInstance();

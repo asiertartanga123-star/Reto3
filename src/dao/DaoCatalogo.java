@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 
 import interfaz.InterfazCatalogo;
 import model.Pelicula;
+import exportadorXML.ExportadorXML;
 
 public class DaoCatalogo implements InterfazCatalogo {
 
@@ -156,6 +157,7 @@ public class DaoCatalogo implements InterfazCatalogo {
 		            int filasAfectadas = stmtUpdate.executeUpdate();
 		            return filasAfectadas > 0;
 		        }
+
 		    }
 		}
 		
