@@ -122,8 +122,6 @@ public class SalaView extends JDialog implements ActionListener {
 		try {
 			btnx.setIcon(new ImageIcon(new ImageIcon(SalaView.class.getResource("/res/img/5037135_100x100.png"))
 					.getImage().getScaledInstance(16, 16, java.awt.Image.SCALE_SMOOTH)));
-			btnx.setIcon(new ImageIcon(new ImageIcon(SalaView.class.getResource("../res/img/5037135_100x100.png"))
-					.getImage().getScaledInstance(16, 16, java.awt.Image.SCALE_SMOOTH)));
 		} catch (Exception ex) {
 			btnx.setText("←");
 			btnx.setForeground(TEXT2);
@@ -271,10 +269,12 @@ public class SalaView extends JDialog implements ActionListener {
 		botonesPanel.add(btnSalas);
 
 		// Celda 3: Delete
-		btnBorrar = makeButton("Delete", S2, DANGER, new Color(244, 63, 94, 77));
+		btnBorrar = makeButton("  Delete", S2, DANGER, new Color(244, 63, 94, 77));
+		btnBorrar.setIcon(
+				new ImageIcon(new ImageIcon("C:\\Users\\1dam\\Desktop\\Reto3\\Reto3\\src\\res\\img\\trash_icon.png")
+						.getImage().getScaledInstance(16, 16, java.awt.Image.SCALE_SMOOTH)));
 		btnBorrar.addActionListener(this);
 		botonesPanel.add(btnBorrar);
-
 		sur.add(botonesPanel, BorderLayout.CENTER);
 		contentPane.add(sur, BorderLayout.SOUTH);
 	}
