@@ -191,7 +191,7 @@ public class Catalogo extends JDialog implements ActionListener {
 	        contentPane.add(bucaTituloPeli);
 
 	        // Botón buscar por título
-			ImageIcon iconoLupa = new ImageIcon(new ImageIcon(getClass().getResource("./img/lupa.png"))
+			ImageIcon iconoLupa = new ImageIcon(new ImageIcon("C:\\Users\\1dam\\Desktop\\Reto3\\src\\ui\\catalogo\\img\\lupa.png")
         		.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
 			btnBuscarTitulo = ui.element.ControlObjects.botonMenu("Search");
 			btnBuscarTitulo.setIcon(iconoLupa);

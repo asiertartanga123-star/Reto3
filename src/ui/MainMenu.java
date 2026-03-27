@@ -49,6 +49,10 @@ public class MainMenu extends JFrame implements ActionListener {
     /** Botón para salir de la aplicación. */
     private JButton btnSalir;
 
+    private JButton btnSala;
+
+    private  JLabel footer;
+
     /**
      * Punto de entrada de la aplicación.
      * Lanza el {@code MainMenu} en el hilo de eventos de Swing.
@@ -103,13 +107,14 @@ public class MainMenu extends JFrame implements ActionListener {
         contentPane.add(panelTitulo, BorderLayout.NORTH);
 
         // ── Panel de botones ──────────────────────────────
-        JPanel panelBotones = new JPanel(new GridLayout(4, 1, 0, 15));
+        JPanel panelBotones = new JPanel(new GridLayout(5, 1, 0, 15));
         panelBotones.setOpaque(false);
 
-        btnCatalogo = crearBoton("🎥  Film Catalogue");
-        btnUsuario  = crearBoton("👤  User Access");
-        btnAdmin    = crearBoton("🛠  Admin Panel");
-        btnSalir    = crearBoton("🚪  Exit");
+        btnCatalogo = crearBoton("Film Catalogue");
+        btnUsuario  = crearBoton("User Access");
+        btnAdmin    = crearBoton("Admin Panel");
+        btnSala    = crearBoton("Cinema Rooms");
+        btnSalir    = crearBoton("Exit");
 
         // Color rojo solo para el botón de salir
         btnSalir.setForeground(new Color(0xFF, 0x6B, 0x6B));
@@ -118,12 +123,13 @@ public class MainMenu extends JFrame implements ActionListener {
         panelBotones.add(btnCatalogo);
         panelBotones.add(btnUsuario);
         panelBotones.add(btnAdmin);
+        panelBotones.add(btnSala);
         panelBotones.add(btnSalir);
 
         contentPane.add(panelBotones, BorderLayout.CENTER);
 
         // ── Pie ───────────────────────────────────────────
-        JLabel footer = new JLabel("© 2025 CineToloTolo", SwingConstants.CENTER);
+        footer = new JLabel("© 2025 CineToloTolo", SwingConstants.CENTER);
         footer.setFont(new Font("Segoe UI", Font.ITALIC, 11));
         footer.setForeground(new Color(120, 140, 160));
         contentPane.add(footer, BorderLayout.SOUTH);
