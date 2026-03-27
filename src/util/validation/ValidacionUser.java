@@ -1,18 +1,19 @@
 package util.validation;
 
+import javax.swing.JOptionPane;
+
 import dao.DaoUser;
 import model.Usuario;
 import util.exceptions.*;
 
 public class ValidacionUser {
+	private static Usuario user = null;
 	public static boolean validarUser(String user_name, String pass) {
 		DaoUser daoUser = new DaoUser();
-		Usuario user = null;
-		try {
-			user = daoUser.obtenerUsuario(user_name);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		
+		controlExcepcionIrremediable(() -> user = daoUser.obtenerUsuario(user_name),
+				"ERROR SQL: \n? \nCONTACT TECHNICAL SUPPORT", "SQL ERROR",
+				true);
 
 		if (user == null)
 			return false;
@@ -30,4 +31,20 @@ public class ValidacionUser {
 		}
 	}
 
+	// try, parametro una accion (para cerrar el programa, si es que se produce una
+	// excepcion inrecuperable)
+	public static void controlExcepcionIrremediable(AccionConExcepcion accion, String mensaje, String titulo,
+			boolean terminar) {
+		try {
+			accion.ejecutar();
+		} catch (Exception e) {
+
+			String mensajeFinal = mensaje.replace("?",
+					e.getMessage() != null ? e.getMessage() : e.getClass().getSimpleName());
+
+			JOptionPane.showMessageDialog(null, mensajeFinal, titulo, JOptionPane.ERROR_MESSAGE);
+			if (terminar)
+				System.exit(0);
+		}
+	}
 }

@@ -172,4 +172,13 @@ public class Entrada {
 	public void setFechaAdquiere(LocalDateTime fechaAdquiere) {
 		this.fechaAdquiere = fechaAdquiere;
 	}
+
+	@Override
+	public String toString() {
+		return "Entrada [" + (usuario != null ? "usuario=" + usuario + ", " : "") + "numSala=" + numSala
+				+ ", idPelicula=" + idPelicula + ", numButaca=" + numButaca + ", precio=" + precio + ", "
+				+ (fechaTransmision != null ? "fechaTransmision=" + fechaTransmision + ", " : "")
+				+ (fechaAdquiere != null ? "fechaAdquiere=" + fechaAdquiere : "") + "]";
+	}
+
 }
