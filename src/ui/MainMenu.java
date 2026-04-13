@@ -2,9 +2,18 @@ package ui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.util.List;      
+import java.util.ArrayList;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import dao.DaoXML;
+import exportadorXML.ExportadorXML;
+import model.Entrada;
+import model.Pelicula;
+import model.Usuario;
 import ui.catalogo.Catalogo;
 import ui.user.MainUserView;
 import util.validation.ValidacionUser;
@@ -45,6 +54,8 @@ public class MainMenu extends JFrame implements ActionListener {
 
     /** Botón para abrir el panel de administración. */
     private JButton btnAdmin;
+    /** Botón para generar en XML */
+    private JButton btnExportarXML;
 
     /** Botón para salir de la aplicación. */
     private JButton btnSalir;
@@ -107,7 +118,7 @@ public class MainMenu extends JFrame implements ActionListener {
         contentPane.add(panelTitulo, BorderLayout.NORTH);
 
         // ── Panel de botones ──────────────────────────────
-        JPanel panelBotones = new JPanel(new GridLayout(5, 1, 0, 15));
+        JPanel panelBotones = new JPanel(new GridLayout(6, 1, 0, 15));
         panelBotones.setOpaque(false);
 
         btnCatalogo = crearBoton("Film Catalogue");
@@ -120,10 +131,15 @@ public class MainMenu extends JFrame implements ActionListener {
         btnSalir.setForeground(new Color(0xFF, 0x6B, 0x6B));
         btnSalir.setBorder(BorderFactory.createLineBorder(new Color(0xFF, 0x6B, 0x6B), 1));
 
+        btnExportarXML = crearBoton("Export XML");
+        btnExportarXML.setForeground(new Color(0x22, 0xC5, 0x5E));
+        btnExportarXML.setBorder(BorderFactory.createLineBorder(new Color(0x22, 0xC5, 0x5E), 1));
+
         panelBotones.add(btnCatalogo);
         panelBotones.add(btnUsuario);
         panelBotones.add(btnAdmin);
         panelBotones.add(btnSala);
+        panelBotones.add(btnExportarXML); 
         panelBotones.add(btnSalir);
 
         contentPane.add(panelBotones, BorderLayout.CENTER);
@@ -184,16 +200,15 @@ public class MainMenu extends JFrame implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        Object src = e.getSource();
 
-        if (src == btnCatalogo) {
+        if (e.getSource() == btnCatalogo) {
             // Abre el catálogo como modal; al cerrarse, el menú vuelve automáticamente
             Catalogo catalogo = new Catalogo();
             catalogo.setModal(true);
             catalogo.setVisible(true);
         }
 
-        if (src == btnUsuario) {
+        if (e.getSource() == btnUsuario) {
             // Oculta el MainMenu mientras UserView está abierto
 //              ValidacionUser.controlExcepcionIrremediable(() -> {
 //                MainUserView userView = new MainUserView();
@@ -202,14 +217,44 @@ public class MainMenu extends JFrame implements ActionListener {
 //            }, "SQL ERROR", "Error", true);
         }
 
-        if (src == btnAdmin) {
+        if (e.getSource() == btnAdmin) {
             // TODO: sustituir por la ventana de administración cuando esté implementada
             JOptionPane.showMessageDialog(this,
                 "Admin panel coming soon.",
                 "Info", JOptionPane.INFORMATION_MESSAGE);
         }
 
-        if (src == btnSalir) {
+        if (e.getSource() == btnExportarXML){
+             try {
+                DaoXML daoXML = new DaoXML();
+
+                List<Pelicula> peliculas = daoXML.obtenerTodasPeliculas();
+                List<Usuario>  usuarios  = daoXML.obtenerTodosUsuarios();
+                List<Entrada>  entradas  = daoXML.obtenerTodasEntradas();
+
+                
+
+                new File("xml").mkdirs();
+                String ruta = "xml/catalogo.xml";
+                File ficheroXML = new File(ruta);
+                if (ficheroXML.exists()) {
+                    ficheroXML.delete();
+                }
+                new ExportadorXML().exportarCatalogo(peliculas, usuarios, entradas, ruta);
+
+                JOptionPane.showMessageDialog(this,
+                    "XML generado en:\n" + new File(ruta).getAbsolutePath(),
+                    "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this,
+                    "Error:\n" + ex.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        }
+
+        if (e.getSource() == btnSalir) {
             // Pide confirmación antes de cerrar la aplicación
             int confirm = JOptionPane.showConfirmDialog(this,
                 "Are you sure you want to exit?",

@@ -15,6 +15,7 @@ public class Pelicula {
 	private String genero;
 	private String director;
 	private int valoracion;
+	private String rutaImg;
 
 	/**
 	 * Constructor vacío de la clase {@code Pelicula}.
@@ -42,6 +43,7 @@ public class Pelicula {
 		this.genero = genero;
 		this.director = director;
 		this.valoracion = valoracion;
+		this.rutaImg = rutaImg;
 	}
 
 	/**
@@ -69,6 +71,22 @@ public class Pelicula {
 	 */
 	public String getTitulo() {
 		return titulo;
+	}
+	/**
+	 * Establece la ruta de la imagen de la película
+	 * 
+	 * @param rutaImg
+	 */
+	public void setRutaImg(String rutaIMG){
+		this.rutaImg = rutaIMG;
+	}
+
+	/**
+	 * 
+	 * @param rutaImg
+	 */
+	public String getRutaImg() {
+		return rutaImg;
 	}
 
 	/**

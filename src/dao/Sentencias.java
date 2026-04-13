@@ -18,4 +18,10 @@ public class Sentencias {
 	public static String FILTRAR_POR_VALORACION = "SELECT * FROM PELICULA WHERE VALORACION >= ?";
 	public static String OBTENER_VALORACION_ACTUAL = "SELECT VALORACION FROM PELICULA WHERE ID_PELICULA = ?";
 	public static String ACTUALIZAR_VALORACION     = "UPDATE PELICULA SET VALORACION = ? WHERE ID_PELICULA = ?";
+
+
+	/* Sentencias necesarias para el XML */
+	public static final String GET_ALL_PELICULAS = "SELECT * FROM PELICULA";
+	public static final String GET_ALL_USUARIOS  = "SELECT * FROM USUARIO";
+	public static final String GET_ALL_ENTRADAS  = "SELECT * FROM ENTRADA";
 }

@@ -10,7 +10,6 @@ import java.util.ResourceBundle;
 
 import interfaz.InterfazCatalogo;
 import model.Pelicula;
-import exportadorXML.ExportadorXML;
 
 public class DaoCatalogo implements InterfazCatalogo {
 
@@ -58,7 +57,8 @@ public class DaoCatalogo implements InterfazCatalogo {
 			                        catalogo.setSinopsis(rs.getString(4)); // SINOPSIS
 			                        catalogo.setGenero(rs.getString(5));   // GENERO
 			                        catalogo.setDirector(rs.getString(6)); // DIRECTOR
-			                        catalogo.setValoracion(rs.getInt(7));  // VALORACION
+			                        catalogo.setValoracion(rs.getInt(7)); // VALORACION
+									catalogo.setRutaImg(rs.getString(8)); // RUTAIMG
 
 			                        peliculas.put(catalogo.getIdPelicula(), catalogo);
 			                    }
