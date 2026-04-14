@@ -1,12 +1,11 @@
 package test;
 
+import model.Entrada;
+
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDateTime;
-
-import org.junit.jupiter.api.Test;
-
-import model.Entrada;
 
 public class ModelTest {
 	@Test
