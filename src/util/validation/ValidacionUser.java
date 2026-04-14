@@ -11,7 +11,7 @@ public class ValidacionUser {
 		try {
 			user = daoUser.obtenerUsuario(user_name);
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.err.println("Error al obtener usuario '" + user_name + "': " + e.getMessage());
 		}
 
 		if (user == null)

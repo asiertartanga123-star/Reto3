@@ -280,7 +280,7 @@ public class ExportadorXML {
 
         } catch (ParserConfigurationException | TransformerException e) {
             System.err.println("Error al generar el XML: " + e.getMessage());
-            e.printStackTrace();
+            System.err.println("Causa: " + e.getCause());
         }
     }
 }

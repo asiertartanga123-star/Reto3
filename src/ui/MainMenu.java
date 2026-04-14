@@ -76,7 +76,10 @@ public class MainMenu extends JFrame implements ActionListener {
                 MainMenu frame = new MainMenu();
                 frame.setVisible(true);
             } catch (Exception e) {
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(null,
+                    "Error de inicialización delMainMenu:\n" + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+                System.err.println("Error al iniciar MainMenu: " + e.getMessage());
             }
         });
     }
@@ -90,7 +93,7 @@ public class MainMenu extends JFrame implements ActionListener {
     public MainMenu() {
         setTitle("CINE TOLOTOLO");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(600, 500);
+        setSize(700, 750);
         setLocationRelativeTo(null);
         setResizable(false);
 
@@ -118,8 +121,15 @@ public class MainMenu extends JFrame implements ActionListener {
         contentPane.add(panelTitulo, BorderLayout.NORTH);
 
         // ── Panel de botones ──────────────────────────────
-        JPanel panelBotones = new JPanel(new GridLayout(6, 1, 0, 15));
+        JPanel panelBotones = new JPanel();
+        panelBotones.setLayout(new BoxLayout(panelBotones, BoxLayout.Y_AXIS));
         panelBotones.setOpaque(false);
+        panelBotones.setBorder(new EmptyBorder(20, 0, 20, 0));
+        
+        // Panel para centrar los botones
+        JPanel centradorBotones = new JPanel();
+        centradorBotones.setLayout(new GridLayout(6, 1, 0, 12));
+        centradorBotones.setOpaque(false);
 
         btnCatalogo = crearBoton("Film Catalogue");
         btnUsuario  = crearBoton("User Access");
@@ -129,18 +139,22 @@ public class MainMenu extends JFrame implements ActionListener {
 
         // Color rojo solo para el botón de salir
         btnSalir.setForeground(new Color(0xFF, 0x6B, 0x6B));
-        btnSalir.setBorder(BorderFactory.createLineBorder(new Color(0xFF, 0x6B, 0x6B), 1));
+        btnSalir.setBorder(BorderFactory.createLineBorder(new Color(0xFF, 0x6B, 0x6B), 2));
 
         btnExportarXML = crearBoton("Export XML");
         btnExportarXML.setForeground(new Color(0x22, 0xC5, 0x5E));
-        btnExportarXML.setBorder(BorderFactory.createLineBorder(new Color(0x22, 0xC5, 0x5E), 1));
+        btnExportarXML.setBorder(BorderFactory.createLineBorder(new Color(0x22, 0xC5, 0x5E), 2));
 
-        panelBotones.add(btnCatalogo);
-        panelBotones.add(btnUsuario);
-        panelBotones.add(btnAdmin);
-        panelBotones.add(btnSala);
-        panelBotones.add(btnExportarXML); 
-        panelBotones.add(btnSalir);
+        centradorBotones.add(btnCatalogo);
+        centradorBotones.add(btnUsuario);
+        centradorBotones.add(btnAdmin);
+        centradorBotones.add(btnSala);
+        centradorBotones.add(btnExportarXML); 
+        centradorBotones.add(btnSalir);
+        
+        panelBotones.add(Box.createHorizontalGlue());
+        panelBotones.add(centradorBotones);
+        panelBotones.add(Box.createHorizontalGlue());
 
         contentPane.add(panelBotones, BorderLayout.CENTER);
 
@@ -163,13 +177,17 @@ public class MainMenu extends JFrame implements ActionListener {
      */
     private JButton crearBoton(String texto) {
         JButton btn = new JButton(texto);
-        btn.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        btn.setFont(new Font("Segoe UI", Font.BOLD, 18));
         btn.setBackground(PRIMARY);
         btn.setForeground(ACCENT);
-        btn.setBorder(BorderFactory.createLineBorder(ACCENT, 1));
+        btn.setBorder(BorderFactory.createLineBorder(ACCENT, 2));
         btn.setFocusPainted(false);
         btn.setOpaque(true);
         btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
+        // Establecer tamaño preferido y padding
+        btn.setPreferredSize(new Dimension(300, 50));
+        btn.setMargin(new Insets(10, 15, 10, 15));
 
         // Efecto hover: invierte los colores al pasar el ratón
         btn.addMouseListener(new MouseAdapter() {

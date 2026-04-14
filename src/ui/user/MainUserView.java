@@ -51,7 +51,10 @@ public class MainUserView extends JFrame implements ActionListener {
 					MainUserView frame = new MainUserView();
 					frame.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null,
+						"Error de inicialización deMainUserView:\n" + e.getMessage(),
+						"Error", JOptionPane.ERROR_MESSAGE);
+					System.err.println("Error al iniciar MainUserView: " + e.getMessage());
 				}
 			}
 		});

@@ -76,7 +76,10 @@ public class Catalogo extends JDialog implements ActionListener {
 				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				dialog.setVisible(true);
 			} catch (Exception e) {
-				e.printStackTrace();
+				JOptionPane.showMessageDialog(null,
+					"Error al abrir el Catálogo:\n" + e.getMessage(),
+					"Error", JOptionPane.ERROR_MESSAGE);
+				System.err.println("Error al iniciar Catálogo: " + e.getMessage());
 			}
 		}
 

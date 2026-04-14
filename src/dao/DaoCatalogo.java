@@ -37,7 +37,7 @@ public class DaoCatalogo implements InterfazCatalogo {
 			this.userBD = this.configFile.getString("DBUser");
 			this.passwordBD = this.configFile.getString("DBPass");
 		}
-
+		/* CAPTURA DE PANTALLA DE ESTE METODO PARA PRESENTACIÓN DE BDA */
 		public void obtenerPelis(Map<Integer, Pelicula> peliculas) throws Exception {	
 			try (Connection con = DriverManager.getConnection(urlBD, userBD, passwordBD);
 			         CallableStatement cs = (CallableStatement) con.prepareCall(SQLVERPELIS)) {
@@ -48,6 +48,10 @@ public class DaoCatalogo implements InterfazCatalogo {
 			        while (hasResults) {
 			            try (ResultSet rs = cs.getResultSet()) {
 			                if (rs != null) {
+								if (rs.getMetaData().getColumnName(1).equalsIgnoreCase("mensaje")) {
+                        			rs.next();
+                        			throw new Exception(rs.getString("mensaje"));
+                   				}
 			                    while (rs.next()) {
 			                        // Crear el objeto Pelicula fila por fila
 			                        Pelicula catalogo = new Pelicula();
