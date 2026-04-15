@@ -147,4 +147,14 @@ public class Usuario {
 	public void setContrasena(String contrasena) {
 		this.contrasena = contrasena;
 	}
+
+	@Override
+	public String toString() {
+		return "Usuario [" + (usuario != null ? "usuario=" + usuario + ", " : "")
+				+ (nombre != null ? "nombre=" + nombre + ", " : "")
+				+ (apellido != null ? "apellido=" + apellido + ", " : "")
+				+ (correo != null ? "correo=" + correo + ", " : "") + "edad=" + edad + ", "
+				+ (contrasena != null ? "contrasena=" + contrasena : "") + "]";
+	}
+
 }
