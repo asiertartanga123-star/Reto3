@@ -2,9 +2,19 @@ package ui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.util.List;      
+import java.util.ArrayList;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import dao.DaoXML;
+import exportadorXML.ExportadorXML;
+import model.Entrada;
+import model.Pelicula;
+import model.Usuario;
+import ui.Sala.SalaView;
 import ui.catalogo.Catalogo;
 import ui.user.MainUserView;
 import util.validation.ValidacionUser;
@@ -45,9 +55,15 @@ public class MainMenu extends JFrame implements ActionListener {
 
     /** Botón para abrir el panel de administración. */
     private JButton btnAdmin;
+    /** Botón para generar en XML */
+    private JButton btnExportarXML;
 
     /** Botón para salir de la aplicación. */
     private JButton btnSalir;
+
+    private JButton btnSala;
+
+    private  JLabel footer;
 
     /**
      * Punto de entrada de la aplicación.
@@ -61,7 +77,10 @@ public class MainMenu extends JFrame implements ActionListener {
                 MainMenu frame = new MainMenu();
                 frame.setVisible(true);
             } catch (Exception e) {
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(null,
+                    "Error de inicialización delMainMenu:\n" + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+                System.err.println("Error al iniciar MainMenu: " + e.getMessage());
             }
         });
     }
@@ -75,7 +94,7 @@ public class MainMenu extends JFrame implements ActionListener {
     public MainMenu() {
         setTitle("CINE TOLOTOLO");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(600, 500);
+        setSize(700, 750);
         setLocationRelativeTo(null);
         setResizable(false);
 
@@ -103,27 +122,45 @@ public class MainMenu extends JFrame implements ActionListener {
         contentPane.add(panelTitulo, BorderLayout.NORTH);
 
         // ── Panel de botones ──────────────────────────────
-        JPanel panelBotones = new JPanel(new GridLayout(4, 1, 0, 15));
+        JPanel panelBotones = new JPanel();
+        panelBotones.setLayout(new BoxLayout(panelBotones, BoxLayout.Y_AXIS));
         panelBotones.setOpaque(false);
+        panelBotones.setBorder(new EmptyBorder(20, 0, 20, 0));
+        
+        // Panel para centrar los botones
+        JPanel centradorBotones = new JPanel();
+        centradorBotones.setLayout(new GridLayout(6, 1, 0, 12));
+        centradorBotones.setOpaque(false);
 
-        btnCatalogo = crearBoton("🎥  Film Catalogue");
-        btnUsuario  = crearBoton("👤  User Access");
-        btnAdmin    = crearBoton("🛠  Admin Panel");
-        btnSalir    = crearBoton("🚪  Exit");
+        btnCatalogo = crearBoton("Film Catalogue");
+        btnUsuario  = crearBoton("User Access");
+        btnAdmin    = crearBoton("Admin Panel");
+        btnSala    = crearBoton("Cinema Rooms");
+        btnSalir    = crearBoton("Exit");
 
         // Color rojo solo para el botón de salir
         btnSalir.setForeground(new Color(0xFF, 0x6B, 0x6B));
-        btnSalir.setBorder(BorderFactory.createLineBorder(new Color(0xFF, 0x6B, 0x6B), 1));
+        btnSalir.setBorder(BorderFactory.createLineBorder(new Color(0xFF, 0x6B, 0x6B), 2));
 
-        panelBotones.add(btnCatalogo);
-        panelBotones.add(btnUsuario);
-        panelBotones.add(btnAdmin);
-        panelBotones.add(btnSalir);
+        btnExportarXML = crearBoton("Export XML");
+        btnExportarXML.setForeground(new Color(0x22, 0xC5, 0x5E));
+        btnExportarXML.setBorder(BorderFactory.createLineBorder(new Color(0x22, 0xC5, 0x5E), 2));
+
+        centradorBotones.add(btnCatalogo);
+        centradorBotones.add(btnUsuario);
+        centradorBotones.add(btnAdmin);
+        centradorBotones.add(btnSala);
+        centradorBotones.add(btnExportarXML); 
+        centradorBotones.add(btnSalir);
+        
+        panelBotones.add(Box.createHorizontalGlue());
+        panelBotones.add(centradorBotones);
+        panelBotones.add(Box.createHorizontalGlue());
 
         contentPane.add(panelBotones, BorderLayout.CENTER);
 
         // ── Pie ───────────────────────────────────────────
-        JLabel footer = new JLabel("© 2025 CineToloTolo", SwingConstants.CENTER);
+        footer = new JLabel("© 2025 CineToloTolo", SwingConstants.CENTER);
         footer.setFont(new Font("Segoe UI", Font.ITALIC, 11));
         footer.setForeground(new Color(120, 140, 160));
         contentPane.add(footer, BorderLayout.SOUTH);
@@ -141,13 +178,17 @@ public class MainMenu extends JFrame implements ActionListener {
      */
     private JButton crearBoton(String texto) {
         JButton btn = new JButton(texto);
-        btn.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        btn.setFont(new Font("Segoe UI", Font.BOLD, 18));
         btn.setBackground(PRIMARY);
         btn.setForeground(ACCENT);
-        btn.setBorder(BorderFactory.createLineBorder(ACCENT, 1));
+        btn.setBorder(BorderFactory.createLineBorder(ACCENT, 2));
         btn.setFocusPainted(false);
         btn.setOpaque(true);
         btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
+        // Establecer tamaño preferido y padding
+        btn.setPreferredSize(new Dimension(300, 50));
+        btn.setMargin(new Insets(10, 15, 10, 15));
 
         // Efecto hover: invierte los colores al pasar el ratón
         btn.addMouseListener(new MouseAdapter() {
@@ -178,32 +219,72 @@ public class MainMenu extends JFrame implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        Object src = e.getSource();
 
-        if (src == btnCatalogo) {
+        if (e.getSource() == btnCatalogo) {
             // Abre el catálogo como modal; al cerrarse, el menú vuelve automáticamente
             Catalogo catalogo = new Catalogo();
             catalogo.setModal(true);
             catalogo.setVisible(true);
         }
 
-        if (src == btnUsuario) {
-            // Oculta el MainMenu mientras UserView está abierto
-//              ValidacionUser.controlExcepcionIrremediable(() -> {
-//                MainUserView userView = new MainUserView();
-//                userView.setVisible(true);
-//                setVisible(false);
-//            }, "SQL ERROR", "Error", true);
+        if (e.getSource() == btnSala) {
+            SalaView sala = new SalaView();
+            sala.setModal(true);
+            sala.setVisible(true);
         }
 
-        if (src == btnAdmin) {
+        if (e.getSource() == btnUsuario) {
+            // Oculta el MainMenu mientras UserView está abierto
+            MainUserView user;
+            
+            try {
+                user = new MainUserView();
+                user.setVisible(true);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this,
+                    "Error:\n" + ex.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        if (e.getSource() == btnAdmin) {
             // TODO: sustituir por la ventana de administración cuando esté implementada
             JOptionPane.showMessageDialog(this,
                 "Admin panel coming soon.",
                 "Info", JOptionPane.INFORMATION_MESSAGE);
         }
 
-        if (src == btnSalir) {
+        if (e.getSource() == btnExportarXML){
+             try {
+                DaoXML daoXML = new DaoXML();
+
+                List<Pelicula> peliculas = daoXML.obtenerTodasPeliculas();
+                List<Usuario>  usuarios  = daoXML.obtenerTodosUsuarios();
+                List<Entrada>  entradas  = daoXML.obtenerTodasEntradas();
+
+                
+
+                new File("xml").mkdirs();
+                String ruta = "xml/catalogo.xml";
+                File ficheroXML = new File(ruta);
+                if (ficheroXML.exists()) {
+                    ficheroXML.delete();
+                }
+                new ExportadorXML().exportarCatalogo(peliculas, usuarios, entradas, ruta);
+
+                JOptionPane.showMessageDialog(this,
+                    "XML generado en:\n" + new File(ruta).getAbsolutePath(),
+                    "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this,
+                    "Error:\n" + ex.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        }
+
+        if (e.getSource() == btnSalir) {
             // Pide confirmación antes de cerrar la aplicación
             int confirm = JOptionPane.showConfirmDialog(this,
                 "Are you sure you want to exit?",

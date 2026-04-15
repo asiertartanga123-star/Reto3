@@ -1,3 +1,4 @@
+/* Sentencias necesarias para el XML */
 package dao;
 
 import model.Entrada;

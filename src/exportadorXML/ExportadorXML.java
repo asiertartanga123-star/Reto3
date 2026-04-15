@@ -36,8 +36,7 @@ public class ExportadorXML {
      * para el elemento {@code <Genero>}.
      */
     private static final List<String> GENEROS_VALIDOS =
-            List.of("Accion", "Drama", "Comedia", "Terror", "Animacion", "SciFi");
-
+        List.of("TERROR", "COMEDIA", "DRAMA", "ACCION", "CIENCIA_FICCION");
     /**
      * Expresión regular que valida el formato de una dirección de correo electrónico.
      * Corresponde a la restricción de patrón definida en el XSD
@@ -79,10 +78,12 @@ public class ExportadorXML {
      *                                  (correo inválido, edad fuera de rango, género no permitido,
      *                                  valoración fuera de rango o nombre de usuario incorrecto)
      */
+
     public void exportarCatalogo(List<Pelicula> listaPeliculas,
                                  List<Usuario>  listaUsuarios,
                                  List<Entrada>  listaEntradas,
                                  String         ruta) {
+
         try {
             /* Inicialización del constructor de documentos DOM */
             DocumentBuilderFactory tolotolo_cine = DocumentBuilderFactory.newInstance();
@@ -192,7 +193,7 @@ public class ExportadorXML {
                 Element fechAd = doc.createElement("FechaAdquisicion");
                 fechAd.setTextContent(String.valueOf(ent.getFechaAdquiere()));
                 entNode.appendChild(fechAd);
-            }
+            }          
 
             /* ── SECCIÓN PELÍCULAS ────────────────────────────────────────────── */
             for (Pelicula peli : listaPeliculas) {
@@ -221,6 +222,11 @@ public class ExportadorXML {
                     Element sinop = doc.createElement("Sinopsis");
                     sinop.setTextContent(sinopsisVal);
                     peliNode.appendChild(sinop);
+                } else {
+                    // Si no hay sinopsis, se pone la imagen del cartel
+                    Element cartel = doc.createElement("Cartel");
+                    cartel.setTextContent(peli.getRutaImg());
+                    peliNode.appendChild(cartel);
                 }
 
                 /*
@@ -240,6 +246,9 @@ public class ExportadorXML {
                 dir.setTextContent(peli.getDirector());
                 peliNode.appendChild(dir);
 
+                Element rutaImg = doc.createElement("ruta");
+                rutaImg.setTextContent(peli.getRutaImg());
+                peliNode.appendChild(rutaImg);
                 /*
                  * Elemento "Valoracion": puntuación de la película.
                  * Restringida al rango [0.0, 5.0] (xs:minInclusive / xs:maxInclusive en XSD).
@@ -271,7 +280,7 @@ public class ExportadorXML {
 
         } catch (ParserConfigurationException | TransformerException e) {
             System.err.println("Error al generar el XML: " + e.getMessage());
-            e.printStackTrace();
+            System.err.println("Causa: " + e.getCause());
         }
     }
 }

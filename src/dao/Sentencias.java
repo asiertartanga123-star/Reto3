@@ -30,4 +30,10 @@ public class Sentencias {
 	public static String VER_SALASBUSCAR = "SELECT * FROM SALA WHERE NUM_SALA = ?";
 	public static String BORRAR_SALA = "DELETE FROM SALA WHERE NUM_SALA = ?";
 	public static String FUNCION = "SELECT DISPONIBILIDAD_AFORO(?)";
+
+	/* Sentencias necesarias para el XML */
+	public static final String GET_ALL_PELICULAS = "SELECT * FROM PELICULA";
+	public static final String GET_ALL_USUARIOS  = "SELECT * FROM USUARIO";
+	public static final String GET_ALL_ENTRADAS  = "SELECT * FROM ENTRADA";
+	
 }

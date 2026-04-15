@@ -37,7 +37,7 @@ public class DaoCatalogo implements InterfazCatalogo {
 			this.userBD = this.configFile.getString("DBUser");
 			this.passwordBD = this.configFile.getString("DBPass");
 		}
-
+		/* CAPTURA DE PANTALLA DE ESTE METODO PARA PRESENTACIÓN DE BDA */
 		public void obtenerPelis(Map<Integer, Pelicula> peliculas) throws Exception {	
 			try (Connection con = DriverManager.getConnection(urlBD, userBD, passwordBD);
 			         CallableStatement cs = (CallableStatement) con.prepareCall(SQLVERPELIS)) {
@@ -48,6 +48,10 @@ public class DaoCatalogo implements InterfazCatalogo {
 			        while (hasResults) {
 			            try (ResultSet rs = cs.getResultSet()) {
 			                if (rs != null) {
+								if (rs.getMetaData().getColumnName(1).equalsIgnoreCase("mensaje")) {
+                        			rs.next();
+                        			throw new Exception(rs.getString("mensaje"));
+                   				}
 			                    while (rs.next()) {
 			                        // Crear el objeto Pelicula fila por fila
 			                        Pelicula catalogo = new Pelicula();
@@ -57,7 +61,8 @@ public class DaoCatalogo implements InterfazCatalogo {
 			                        catalogo.setSinopsis(rs.getString(4)); // SINOPSIS
 			                        catalogo.setGenero(rs.getString(5));   // GENERO
 			                        catalogo.setDirector(rs.getString(6)); // DIRECTOR
-			                        catalogo.setValoracion(rs.getInt(7));  // VALORACION
+			                        catalogo.setValoracion(rs.getInt(7)); // VALORACION
+									catalogo.setRutaImg(rs.getString(8)); // RUTAIMG
 
 			                        peliculas.put(catalogo.getIdPelicula(), catalogo);
 			                    }
@@ -156,6 +161,7 @@ public class DaoCatalogo implements InterfazCatalogo {
 		            int filasAfectadas = stmtUpdate.executeUpdate();
 		            return filasAfectadas > 0;
 		        }
+
 		    }
 		}
 		

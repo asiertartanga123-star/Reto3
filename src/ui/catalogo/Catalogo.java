@@ -12,10 +12,14 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -29,6 +33,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import java.awt.Image;
 
 import dao.DaoCatalogo;
 import exception.FieldVacio;
@@ -58,7 +63,10 @@ public class Catalogo extends JDialog implements ActionListener {
 	    private JButton btnResetear; 
 	    private JLabel labelGenero;
 	    private JLabel labelValMin;
-
+		private JMenuBar menuBar;
+		private JMenu menuOpciones;
+		private	JMenuItem itemReset;
+		private JMenuItem itemSalir;
 		/**
 		 * Launch the application.
 		 */
@@ -68,7 +76,10 @@ public class Catalogo extends JDialog implements ActionListener {
 				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				dialog.setVisible(true);
 			} catch (Exception e) {
-				e.printStackTrace();
+				JOptionPane.showMessageDialog(null,
+					"Error al abrir el Catálogo:\n" + e.getMessage(),
+					"Error", JOptionPane.ERROR_MESSAGE);
+				System.err.println("Error al iniciar Catálogo: " + e.getMessage());
 			}
 		}
 
@@ -183,7 +194,10 @@ public class Catalogo extends JDialog implements ActionListener {
 	        contentPane.add(bucaTituloPeli);
 
 	        // Botón buscar por título
-	        btnBuscarTitulo = ui.element.ControlObjects.botonMenu("Search");
+			ImageIcon iconoLupa = new ImageIcon(new ImageIcon("C:\\Users\\1dam\\Desktop\\Reto3\\src\\ui\\catalogo\\img\\lupa.png")
+        		.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+			btnBuscarTitulo = ui.element.ControlObjects.botonMenu("Search");
+			btnBuscarTitulo.setIcon(iconoLupa);
 	        btnBuscarTitulo.setFocusPainted(false);
 	        btnBuscarTitulo.setFont(new Font("Consolas", Font.BOLD, 14));
 	        btnBuscarTitulo.setBackground(PRIMARY);
@@ -244,8 +258,77 @@ public class Catalogo extends JDialog implements ActionListener {
 	        // ══════════════════════════════════════════════════════
 	        btnDetalle = ui.element.ControlObjects.botonMenu("View details");
 	        btnDetalle.setBounds(42, 464, 130, 30);
-	        btnDetalle.addActionListener(e -> {
-	            int fila = tabla.getSelectedRow();
+	        btnDetalle.addActionListener(this);
+	        contentPane.add(btnDetalle);
+
+	        // ══════════════════════════════════════════════════════
+	        //  ZONA INFERIOR CENTRO: Valorar película seleccionada
+	        // ══════════════════════════════════════════════════════
+			ImageIcon iconoEstrella = new ImageIcon(new ImageIcon(getClass().getResource("./img/estrella.png"))
+       			 .getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+			btnValorar = ui.element.ControlObjects.botonMenu("Rate");
+			btnValorar.setIcon(iconoEstrella);
+	        btnValorar.setBounds(185, 464, 110, 30);
+	        btnValorar.addActionListener(this);
+	        contentPane.add(btnValorar);
+
+	        // ══════════════════════════════════════════════════════
+	        //  ZONA INFERIOR DERECHA: Resetear todos los filtros
+	        // ══════════════════════════════════════════════════════
+			ImageIcon iconoReset = new ImageIcon(new ImageIcon(getClass().getResource("./img/reset.png"))
+        		.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+			btnResetear = ui.element.ControlObjects.botonMenu("Reset filters");
+			btnResetear.setIcon(iconoReset);
+	        btnResetear.setBounds(824, 464, 150, 30);
+	        btnResetear.addActionListener(this);
+	        contentPane.add(btnResetear);
+	        
+	        contentPane.addComponentListener(new java.awt.event.ComponentAdapter() {
+	            @Override
+	            public void componentResized(java.awt.event.ComponentEvent e) {
+	                recolocarElementos();
+	            }
+	        });
+
+	        //  NUEVO: llamada inicial para que al abrir ya esté centrado
+	        SwingUtilities.invokeLater(this::recolocarElementos);
+
+
+			// ══════════════════════════════════════════════════════
+			//  MENÚ SUPERIOR
+			// ══════════════════════════════════════════════════════
+			menuBar = new JMenuBar();
+			menuOpciones = new JMenu("Options");
+
+			itemReset = new JMenuItem("Reset filters");
+			itemReset.addActionListener(this);
+
+			itemSalir = new JMenuItem("Exit");
+			itemSalir.addActionListener(this);
+
+			menuBar.setBackground(PRIMARY);
+        	menuBar.setBorder(BorderFactory.createEmptyBorder());	
+
+			menuOpciones.setBackground(PRIMARY);
+        	menuOpciones.setForeground(Color.WHITE);
+        	menuOpciones.getPopupMenu().setBackground(PRIMARY);
+        	menuOpciones.getPopupMenu().setBorder(BorderFactory.createLineBorder(ACCENT, 1));
+			menuOpciones.add(itemReset);
+			menuOpciones.add(itemSalir);
+			menuBar.add(menuOpciones);
+			setJMenuBar(menuBar);
+	    }
+
+
+		private void resetFiltros() {
+			bucaTituloPeli.setText("");
+	            comboGenero.setSelectedIndex(0);
+	            comboValoracion.setSelectedIndex(0);
+	            accesoBD();
+		}
+
+		private void verDetalles() {
+			 int fila = tabla.getSelectedRow();
 	            if (fila == -1) {
 	                JOptionPane.showMessageDialog(this, "First select a film.");
 	                return;
@@ -268,40 +351,7 @@ public class Catalogo extends JDialog implements ActionListener {
 
 	            String sinopsis = peli.getSinopsis();
 	            new DetallePelicula(this, id, tit, genero, val, duracion, director, sinopsis).setVisible(true);
-	        });
-	        contentPane.add(btnDetalle);
-
-	        // ══════════════════════════════════════════════════════
-	        //  ZONA INFERIOR CENTRO: Valorar película seleccionada
-	        // ══════════════════════════════════════════════════════
-	        btnValorar = ui.element.ControlObjects.botonMenu("Rate");
-	        btnValorar.setBounds(185, 464, 110, 30);
-	        btnValorar.addActionListener(e -> abrirValorar());
-	        contentPane.add(btnValorar);
-
-	        // ══════════════════════════════════════════════════════
-	        //  ZONA INFERIOR DERECHA: Resetear todos los filtros
-	        // ══════════════════════════════════════════════════════
-	        btnResetear = ui.element.ControlObjects.botonMenu("Reset filters");
-	        btnResetear.setBounds(824, 464, 150, 30);
-	        btnResetear.addActionListener(e -> {
-	            bucaTituloPeli.setText("");
-	            comboGenero.setSelectedIndex(0);
-	            comboValoracion.setSelectedIndex(0);
-	            accesoBD();
-	        });
-	        contentPane.add(btnResetear);
-	        
-	        contentPane.addComponentListener(new java.awt.event.ComponentAdapter() {
-	            @Override
-	            public void componentResized(java.awt.event.ComponentEvent e) {
-	                recolocarElementos();
-	            }
-	        });
-
-	        //  NUEVO: llamada inicial para que al abrir ya esté centrado
-	        SwingUtilities.invokeLater(this::recolocarElementos);
-	    }
+		}
 		
 		// ══════════════════════════════════════════════════════════
 	//  RESPONSIVE: recoloca todos los elementos según el tamaño
@@ -504,6 +554,26 @@ public class Catalogo extends JDialog implements ActionListener {
 	                accesoBDGenero(generoSeleccionado);
 	            }
 	        }
+
+			if(e.getSource() == btnResetear) {
+				resetFiltros();
+			}
+
+			if(e.getSource() == btnValorar) {
+				abrirValorar();
+			}
+
+			if(e.getSource() == btnDetalle) {
+				verDetalles();
+			}
+
+			if(e.getSource() == itemReset) {
+				resetFiltros();
+			}
+
+			if(e.getSource() == itemSalir) {
+				dispose();
+			}
 
 	        // -- NUEVO: Filtrar por valoración mínima --
 	        if (e.getSource() == btnFiltrarValoracion) {
