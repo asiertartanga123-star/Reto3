@@ -14,6 +14,7 @@ import exportadorXML.ExportadorXML;
 import model.Entrada;
 import model.Pelicula;
 import model.Usuario;
+import ui.Sala.SalaView;
 import ui.catalogo.Catalogo;
 import ui.user.MainUserView;
 import util.validation.ValidacionUser;
@@ -226,13 +227,24 @@ public class MainMenu extends JFrame implements ActionListener {
             catalogo.setVisible(true);
         }
 
+        if (e.getSource() == btnSala) {
+            SalaView sala = new SalaView();
+            sala.setModal(true);
+            sala.setVisible(true);
+        }
+
         if (e.getSource() == btnUsuario) {
             // Oculta el MainMenu mientras UserView está abierto
-//              ValidacionUser.controlExcepcionIrremediable(() -> {
-//                MainUserView userView = new MainUserView();
-//                userView.setVisible(true);
-//                setVisible(false);
-//            }, "SQL ERROR", "Error", true);
+            MainUserView user;
+            
+            try {
+                user = new MainUserView();
+                user.setVisible(true);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this,
+                    "Error:\n" + ex.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
 
         if (e.getSource() == btnAdmin) {
