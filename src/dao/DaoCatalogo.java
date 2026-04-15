@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import interfaz.InterfazCatalogo;
+import interfaces.InterfazCatalogo;
 import model.Pelicula;
 
 public class DaoCatalogo implements InterfazCatalogo {
