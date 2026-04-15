@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Cine version="1.0">
+<Cine xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:noNamespaceSchemaLocation="xsd/cine.xsd">
     <Clientes>
         <Cliente User="admin">
             <Nombre>Carlos</Nombre>
@@ -128,7 +128,7 @@
             <Genero>ACCION</Genero>
             <Director>Paul Verhoeven</Director>
             <ruta>../img/posters/Una Batalla Tras Otra.png</ruta>
-            <Valoracion>4.0</Valoracion>
+            <Valoracion>3.0</Valoracion>
         </Pelicula>
         <Pelicula id="5">
             <Titulo>Avatar, El Sentido Del Agua</Titulo>
@@ -477,7 +477,7 @@
         <Entrada>
             <Usuario>mlopez</Usuario>
             <NumeroSala>4</NumeroSala>
-            <IdPelicula>23</IdPelicula>
+           
             <NumeroButaca>45</NumeroButaca>
             <Precio>10</Precio>
             <FechaTransmision>2026-03-22T01:00</FechaTransmision>

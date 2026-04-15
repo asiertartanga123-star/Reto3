@@ -44,7 +44,7 @@ public class DaoUser implements IDaoUser{
 	 * contraseña necesarios para establecer la conexión con la base de datos.
 	 */
 	public DaoUser() {
-		this.configFile = ResourceBundle.getBundle("config.configCliente");
+		this.configFile = ResourceBundle.getBundle("configGlobal");
 		this.urlBD = this.configFile.getString("Conn");
 		this.userBD = this.configFile.getString("DBUser");
 		this.passwordBD = this.configFile.getString("DBPass");

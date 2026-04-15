@@ -97,6 +97,8 @@ public class ExportadorXML {
              */
             Element root = doc.createElement("Cine");
             root.setAttribute("version", "1.0");
+            root.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
+            root.setAttribute("xsi:noNamespaceSchemaLocation", "xsd/cine.xsd");
             doc.appendChild(root);
 
             /* Nodos padre de cada sección del catálogo */
