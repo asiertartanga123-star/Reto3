@@ -265,8 +265,9 @@ public class Catalogo extends JDialog implements ActionListener {
 	        //  ZONA INFERIOR CENTRO: Valorar película seleccionada
 	        // ══════════════════════════════════════════════════════
 			// SE USA UNA RUTA ABSOLUTA PARA CUMPLIR RUBRICA SOLO FUNCIONA EN EL PC DE HODEI 
+	        // C:\\Users\\1dam\\Desktop\\Reto3\\src\\ui\\catalogo\\img\\estrella.png
 			// RUTA RELATIVA ./img/estrella.png
-			ImageIcon iconoEstrella = new ImageIcon(new ImageIcon(getClass().getResource("C:\\Users\\1dam\\Desktop\\Reto3\\src\\ui\\catalogo\\img\\estrella.png"))
+			ImageIcon iconoEstrella = new ImageIcon(new ImageIcon(getClass().getResource("./img/estrella.png"))
        			 .getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
 			btnValorar = ui.element.ControlObjects.botonMenu("Rate");
 			btnValorar.setIcon(iconoEstrella);

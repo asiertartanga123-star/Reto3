@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import interfaces.IDaoUser;
+
 /**
  * Clase de acceso a datos (DAO) encargada de gestionar las operaciones
  * relacionadas con los usuarios en la base de datos.

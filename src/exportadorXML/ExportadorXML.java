@@ -18,6 +18,7 @@ import org.w3c.dom.Element;
 
 import model.Entrada;
 import model.Pelicula;
+import model.Sala;
 import model.Usuario;
 
 /**
@@ -82,7 +83,8 @@ public class ExportadorXML {
     public void exportarCatalogo(List<Pelicula> listaPeliculas,
                                  List<Usuario>  listaUsuarios,
                                  List<Entrada>  listaEntradas,
-                                 String         ruta) {
+                                 String         ruta,
+                                 List<Sala>    listaSalas) {
 
         try {
             /* Inicialización del constructor de documentos DOM */
@@ -110,6 +112,9 @@ public class ExportadorXML {
 
             Element etiquetaPadreE = doc.createElement("Entradas");
             root.appendChild(etiquetaPadreE);
+            
+            Element etiquetaPadreS = doc.createElement("Salas");
+            root.appendChild(etiquetaPadreS);
 
             /* ── SECCIÓN CLIENTES ─────────────────────────────────────────────── */
             for (Usuario usu : listaUsuarios) {
@@ -264,7 +269,26 @@ public class ExportadorXML {
                 val.setTextContent(String.valueOf(valoracionVal));
                 peliNode.appendChild(val);
             }
+            
+            /* ── SECCION SALAS ────────────────────────────────────── */
+            
+            for (Sala sala : listaSalas) {
 
+                Element salaNode = doc.createElement("Sala");
+                etiquetaPadreS.appendChild(salaNode);
+
+                Element numSala = doc.createElement("Num_Sala");
+                numSala.setTextContent(String.valueOf(sala.getNumSala()));
+                salaNode.appendChild(numSala);
+
+                Element aforo = doc.createElement("Aforo");
+                aforo.setTextContent(String.valueOf(sala.getAforo()));
+                salaNode.appendChild(aforo);
+
+                Element tipoPantalla = doc.createElement("TipoPantalla");
+                tipoPantalla.setTextContent(String.valueOf(sala.getTipoTransmision()));
+                salaNode.appendChild(tipoPantalla);
+            }
             /* ── ESCRITURA DEL FICHERO XML ────────────────────────────────────── */
 
             /* Configuración del transformador: indentación de 4 espacios */

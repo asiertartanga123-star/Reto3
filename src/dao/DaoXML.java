@@ -2,6 +2,7 @@ package dao;
 
 import model.Entrada;
 import model.Pelicula;
+import model.Sala;
 import model.Usuario;
 
 import java.sql.Connection;
@@ -99,4 +100,27 @@ public class DaoXML {
         }
         return lista;
     }
+ 
+	 /** Obtiene todas las salas */
+    
+    public List<Sala> obtenerTodasSalas() throws Exception {
+        List<Sala> lista = new ArrayList<>();
+
+        try (Connection con = DriverManager.getConnection(urlBD, userBD, passwordBD);
+				PreparedStatement stmt = con.prepareStatement(Sentencias.GET_ALL_SALAS)) {
+
+
+			try (ResultSet rs = stmt.executeQuery()) {
+
+				while (rs.next()) {
+					Sala s = new Sala();
+					s.setNumSala(rs.getInt("NUM_SALA"));
+					s.setAforo(rs.getInt("AFORO"));
+					s.setTipoTransmision(rs.getString("TIPO_TRANSMISION"));
+					lista.add(s);
+				}
+			}
+		}
+		return lista;
+	}
 }

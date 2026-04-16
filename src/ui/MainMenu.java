@@ -1,24 +1,41 @@
 package ui;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
-import java.util.List;      
-import java.util.ArrayList;
+import java.util.List;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import dao.DaoXML;
 import exportadorXML.ExportadorXML;
 import model.Entrada;
 import model.Pelicula;
+import model.Sala;
 import model.Usuario;
 import ui.Sala.SalaView;
 import ui.admin.Admin;
 import ui.catalogo.Catalogo;
 import ui.user.MainUserView;
-import util.validation.ValidacionUser;
 
 /**
  * Ventana principal de la aplicación CINE TOLOTOLO.
@@ -268,16 +285,16 @@ public class MainMenu extends JFrame implements ActionListener {
                 List<Pelicula> peliculas = daoXML.obtenerTodasPeliculas();
                 List<Usuario>  usuarios  = daoXML.obtenerTodosUsuarios();
                 List<Entrada>  entradas  = daoXML.obtenerTodasEntradas();
-
+                List<Sala>  salas  = daoXML.obtenerTodasSalas();
                 
 
-                new File("xml").mkdirs();
+                new File("xml").mkdirs();	
                 String ruta = "xml/catalogo.xml";
                 File ficheroXML = new File(ruta);
                 if (ficheroXML.exists()) {
                     ficheroXML.delete();
                 }
-                new ExportadorXML().exportarCatalogo(peliculas, usuarios, entradas, ruta);
+                new ExportadorXML().exportarCatalogo(peliculas, usuarios, entradas, ruta,salas );
 
                 JOptionPane.showMessageDialog(this,
                     "XML generado en:\n" + new File(ruta).getAbsolutePath(),

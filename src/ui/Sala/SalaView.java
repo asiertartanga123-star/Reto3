@@ -21,6 +21,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -92,7 +93,7 @@ public class SalaView extends JDialog implements ActionListener {
 	public SalaView() {
 		// Ocupa toda la pantalla
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-		setBounds(0, 0, screen.width, screen.height);
+		setBounds(0, 0, screen.width, screen.height-40);
 		setTitle("Vista de la tabla");
 
 		// Layout dinámico (no null)

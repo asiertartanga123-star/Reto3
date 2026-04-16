@@ -35,6 +35,7 @@ public class Sentencias {
 	public static final String GET_ALL_PELICULAS = "SELECT * FROM PELICULA";
 	public static final String GET_ALL_USUARIOS  = "SELECT * FROM USUARIO";
 	public static final String GET_ALL_ENTRADAS  = "SELECT * FROM ENTRADA";
+	public static final String GET_ALL_SALAS = "SELECT * FROM SALA";
 
 	/* Sentencias necesarias para el administrador*/
 	// Usuario

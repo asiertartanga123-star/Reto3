@@ -1,4 +1,4 @@
-package dao;
+package interfaces;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

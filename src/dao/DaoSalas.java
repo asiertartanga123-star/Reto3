@@ -24,7 +24,7 @@ public class DaoSalas implements Interfazsalas {
 	private final String SQLFUNCION = Sentencias.FUNCION;
 
 	public DaoSalas() {
-		this.configFile = ResourceBundle.getBundle("config.configCliente");
+		this.configFile = ResourceBundle.getBundle("configGlobal");
 		this.urlBD = this.configFile.getString("Conn");
 		this.userBD = this.configFile.getString("DBUser");
 		this.passwordBD = this.configFile.getString("DBPass");
@@ -45,7 +45,7 @@ public class DaoSalas implements Interfazsalas {
 					sala = new Sala();
 					sala.setNumSala(rs.getInt("NUM_SALA"));
 					sala.setAforo(rs.getInt("AFORO"));
-					sala.setTipoTransmision(rs.getString("TIPO_TRASMISION"));
+					sala.setTipoTransmision(rs.getString("TIPO_TRANSMISION"));
 					Salas.put(sala.getNumSala(), sala);
 				}
 			}
@@ -69,7 +69,7 @@ public class DaoSalas implements Interfazsalas {
 					sala = new Sala();
 					sala.setNumSala(rs.getInt("NUM_SALA"));
 					sala.setAforo(rs.getInt("AFORO"));
-					sala.setTipoTransmision(rs.getString("TIPO_TRASMISION"));
+					sala.setTipoTransmision(rs.getString("TIPO_TRANSMISION"));
 					Salas.put(sala.getNumSala(), sala);
 				}
 			}

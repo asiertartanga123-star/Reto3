@@ -97,244 +97,244 @@
         <Pelicula id="1">
             <Titulo>La Sospecha De Sofia</Titulo>
             <Duracion>105</Duracion>
-            <Cartel>./img/posters/La Sospecha De Sofia.jpg</Cartel>
+            <Cartel>../img/posters/La Sospecha De Sofia.png</Cartel>
             <Genero>TERROR</Genero>
             <Director>Ana Villareal</Director>
-            <ruta>./img/posters/La Sospecha De Sofia.jpg</ruta>
+            <ruta>../img/posters/La Sospecha De Sofia.png</ruta>
             <Valoracion>4.0</Valoracion>
         </Pelicula>
         <Pelicula id="2">
             <Titulo>Tron Ares</Titulo>
             <Duracion>120</Duracion>
-            <Cartel>./img/posters/Tron Ares.jpg</Cartel>
+            <Cartel>../img/posters/Tron Ares.png</Cartel>
             <Genero>CIENCIA_FICCION</Genero>
             <Director>Joachim Ronning</Director>
-            <ruta>./img/posters/Tron Ares.jpg</ruta>
+            <ruta>../img/posters/Tron Ares.png</ruta>
             <Valoracion>4.0</Valoracion>
         </Pelicula>
         <Pelicula id="3">
             <Titulo>The Smashing Machine</Titulo>
             <Duracion>118</Duracion>
-            <Cartel>./img/posters/The Smashing Machine.jpg</Cartel>
+            <Cartel>../img/posters/The Smashing Machine.png</Cartel>
             <Genero>DRAMA</Genero>
             <Director>Benny Safdie</Director>
-            <ruta>./img/posters/The Smashing Machine.jpg</ruta>
+            <ruta>../img/posters/The Smashing Machine.png</ruta>
             <Valoracion>4.0</Valoracion>
         </Pelicula>
         <Pelicula id="4">
             <Titulo>Una Batalla Tras Otra</Titulo>
             <Duracion>132</Duracion>
-            <Cartel>./img/posters/Una Batalla Tras Otra.jpg</Cartel>
+            <Cartel>../img/posters/Una Batalla Tras Otra.png</Cartel>
             <Genero>ACCION</Genero>
             <Director>Paul Verhoeven</Director>
-            <ruta>./img/posters/Una Batalla Tras Otra.jpg</ruta>
+            <ruta>../img/posters/Una Batalla Tras Otra.png</ruta>
             <Valoracion>4.0</Valoracion>
         </Pelicula>
         <Pelicula id="5">
             <Titulo>Avatar, El Sentido Del Agua</Titulo>
             <Duracion>192</Duracion>
-            <Cartel>./img/posters/Avatar, El Sentido Del Agua.jpg</Cartel>
+            <Cartel>../img/posters/Avatar, El Sentido Del Agua.png</Cartel>
             <Genero>CIENCIA_FICCION</Genero>
             <Director>James Cameron</Director>
-            <ruta>./img/posters/Avatar, El Sentido Del Agua.jpg</ruta>
+            <ruta>../img/posters/Avatar, El Sentido Del Agua.png</ruta>
             <Valoracion>5.0</Valoracion>
         </Pelicula>
         <Pelicula id="6">
             <Titulo>AfterBurn</Titulo>
             <Duracion>98</Duracion>
-            <Cartel>./img/posters/AfterBurn.jpg</Cartel>
+            <Cartel>../img/posters/AfterBurn.png</Cartel>
             <Genero>ACCION</Genero>
             <Director>Marcus Cole</Director>
-            <ruta>./img/posters/AfterBurn.jpg</ruta>
+            <ruta>../img/posters/AfterBurn.png</ruta>
             <Valoracion>3.0</Valoracion>
         </Pelicula>
         <Pelicula id="7">
             <Titulo>Bala Perdida</Titulo>
             <Duracion>92</Duracion>
-            <Cartel>./img/posters/Bala Perdida.jpg</Cartel>
+            <Cartel>../img/posters/Bala Perdida.png</Cartel>
             <Genero>ACCION</Genero>
             <Director>Guillaume Pierret</Director>
-            <ruta>./img/posters/Bala Perdida.jpg</ruta>
+            <ruta>../img/posters/Bala Perdida.png</ruta>
             <Valoracion>4.0</Valoracion>
         </Pelicula>
         <Pelicula id="8">
             <Titulo>Chainsaw Man El Arco De Reze</Titulo>
             <Duracion>110</Duracion>
-            <Cartel>./img/posters/Chainsaw Man: El Arco De Reze.jpg</Cartel>
+            <Cartel>../img/posters/Chainsaw Man: El Arco De Reze.png</Cartel>
             <Genero>ACCION</Genero>
             <Director>Ryū Nakayama</Director>
-            <ruta>./img/posters/Chainsaw Man: El Arco De Reze.jpg</ruta>
+            <ruta>../img/posters/Chainsaw Man: El Arco De Reze.png</ruta>
             <Valoracion>5.0</Valoracion>
         </Pelicula>
         <Pelicula id="9">
             <Titulo>La Hermanastra Fea</Titulo>
             <Duracion>95</Duracion>
-            <Cartel>./img/posters/La Hermanastra Fea.jpg</Cartel>
+            <Cartel>../img/posters/La Hermanastra Fea.png</Cartel>
             <Genero>COMEDIA</Genero>
             <Director>Rachel Green</Director>
-            <ruta>./img/posters/La Hermanastra Fea.jpg</ruta>
+            <ruta>../img/posters/La Hermanastra Fea.png</ruta>
             <Valoracion>3.0</Valoracion>
         </Pelicula>
         <Pelicula id="10">
             <Titulo>Regreso Al Futuro</Titulo>
             <Duracion>116</Duracion>
-            <Cartel>./img/posters/Regreso Al Futuro.jpg</Cartel>
+            <Cartel>../img/posters/Regreso Al Futuro.png</Cartel>
             <Genero>CIENCIA_FICCION</Genero>
             <Director>Robert Zemeckis</Director>
-            <ruta>./img/posters/Regreso Al Futuro.jpg</ruta>
+            <ruta>../img/posters/Regreso Al Futuro.png</ruta>
             <Valoracion>5.0</Valoracion>
         </Pelicula>
         <Pelicula id="11">
             <Titulo>Predator BadLands</Titulo>
             <Duracion>115</Duracion>
-            <Cartel>./img/posters/Predator: BadLands.jpg</Cartel>
+            <Cartel>../img/posters/Predator: BadLands.png</Cartel>
             <Genero>ACCION</Genero>
             <Director>Dan Trachtenberg</Director>
-            <ruta>./img/posters/Predator: BadLands.jpg</ruta>
+            <ruta>../img/posters/Predator: BadLands.png</ruta>
             <Valoracion>4.0</Valoracion>
         </Pelicula>
         <Pelicula id="12">
             <Titulo>La Novia Cadaver</Titulo>
             <Duracion>77</Duracion>
-            <Cartel>./img/posters/La Novia Cadaver.jpg</Cartel>
+            <Cartel>../img/posters/La Novia Cadaver.png</Cartel>
             <Genero>TERROR</Genero>
             <Director>Tim Burton</Director>
-            <ruta>./img/posters/La Novia Cadaver.jpg</ruta>
+            <ruta>../img/posters/La Novia Cadaver.png</ruta>
             <Valoracion>5.0</Valoracion>
         </Pelicula>
         <Pelicula id="13">
             <Titulo>Jesus La Luz Del Mundo</Titulo>
             <Duracion>110</Duracion>
-            <Cartel>./img/posters/Jesus La Luz Del Mundo.jpg</Cartel>
+            <Cartel>../img/posters/Jesus La Luz Del Mundo.png</Cartel>
             <Genero>DRAMA</Genero>
             <Director>Christopher Spencer</Director>
-            <ruta>./img/posters/Jesus La Luz Del Mundo.jpg</ruta>
+            <ruta>../img/posters/Jesus La Luz Del Mundo.png</ruta>
             <Valoracion>4.0</Valoracion>
         </Pelicula>
         <Pelicula id="14">
             <Titulo>Kpop Demon Hunters</Titulo>
             <Duracion>103</Duracion>
-            <Cartel>./img/posters/Kpop Demon Hunters.jpg</Cartel>
+            <Cartel>../img/posters/Kpop Demon Hunters.png</Cartel>
             <Genero>ACCION</Genero>
             <Director>Maggie Leung</Director>
-            <ruta>./img/posters/Kpop Demon Hunters.jpg</ruta>
-            <Valoracion>3.0</Valoracion>
+            <ruta>../img/posters/Kpop Demon Hunters.png</ruta>
+            <Valoracion>2.0</Valoracion>
         </Pelicula>
         <Pelicula id="15">
             <Titulo>El Alucinante Mundo De Norman</Titulo>
             <Duracion>90</Duracion>
-            <Cartel>./img/posters/El Alucinante Mundo De Norman.jpg</Cartel>
+            <Cartel>../img/posters/El Alucinante Mundo De Norman.png</Cartel>
             <Genero>COMEDIA</Genero>
             <Director>Sam Fell</Director>
-            <ruta>./img/posters/El Alucinante Mundo De Norman.jpg</ruta>
+            <ruta>../img/posters/El Alucinante Mundo De Norman.png</ruta>
             <Valoracion>4.0</Valoracion>
         </Pelicula>
         <Pelicula id="16">
             <Titulo>Telefono Negro 2</Titulo>
             <Duracion>108</Duracion>
-            <Cartel>./img/posters/Telefono Negro 2.jpg</Cartel>
+            <Cartel>../img/posters/Telefono Negro 2.png</Cartel>
             <Genero>TERROR</Genero>
             <Director>Scott Derrickson</Director>
-            <ruta>./img/posters/Telefono Negro 2.jpg</ruta>
+            <ruta>../img/posters/Telefono Negro 2.png</ruta>
             <Valoracion>4.0</Valoracion>
         </Pelicula>
         <Pelicula id="17">
             <Titulo>La Novia</Titulo>
             <Duracion>119</Duracion>
-            <Cartel>./img/posters/La Novia.jpg</Cartel>
+            <Cartel>../img/posters/La Novia.png</Cartel>
             <Genero>TERROR</Genero>
             <Director>Maggie Gyllenhaal</Director>
-            <ruta>./img/posters/La Novia.jpg</ruta>
+            <ruta>../img/posters/La Novia.png</ruta>
             <Valoracion>4.0</Valoracion>
         </Pelicula>
         <Pelicula id="18">
             <Titulo>El Mago Del Kremlin</Titulo>
             <Duracion>124</Duracion>
-            <Cartel>./img/posters/El Mago Del Kremlin.jpg</Cartel>
+            <Cartel>../img/posters/El Mago Del Kremlin.png</Cartel>
             <Genero>DRAMA</Genero>
             <Director>Olivier Assayas</Director>
-            <ruta>./img/posters/El Mago Del Kremlin.jpg</ruta>
+            <ruta>../img/posters/El Mago Del Kremlin.png</ruta>
             <Valoracion>4.0</Valoracion>
         </Pelicula>
         <Pelicula id="19">
             <Titulo>Hoppers</Titulo>
             <Duracion>101</Duracion>
-            <Cartel>./img/posters/Hoppers.jpg</Cartel>
+            <Cartel>../img/posters/Hoppers.png</Cartel>
             <Genero>CIENCIA_FICCION</Genero>
             <Director>Daniel Chong</Director>
-            <ruta>./img/posters/Hoppers.jpg</ruta>
+            <ruta>../img/posters/Hoppers.png</ruta>
             <Valoracion>4.0</Valoracion>
         </Pelicula>
         <Pelicula id="20">
             <Titulo>Te Van A Matar</Titulo>
             <Duracion>97</Duracion>
-            <Cartel>./img/posters/Te Van A Matar.jpg</Cartel>
+            <Cartel>../img/posters/Te Van A Matar.png</Cartel>
             <Genero>ACCION</Genero>
             <Director>Kirill Sokolov</Director>
-            <ruta>./img/posters/Te Van A Matar.jpg</ruta>
+            <ruta>../img/posters/Te Van A Matar.png</ruta>
             <Valoracion>3.0</Valoracion>
         </Pelicula>
         <Pelicula id="21">
             <Titulo>La Grazia</Titulo>
             <Duracion>112</Duracion>
-            <Cartel>./img/posters/La Grazia.jpg</Cartel>
+            <Cartel>../img/posters/La Grazia.png</Cartel>
             <Genero>DRAMA</Genero>
             <Director>Paolo Sorrentino</Director>
-            <ruta>./img/posters/La Grazia.jpg</ruta>
+            <ruta>../img/posters/La Grazia.png</ruta>
             <Valoracion>5.0</Valoracion>
         </Pelicula>
         <Pelicula id="22">
             <Titulo>El Ultimo Heredero</Titulo>
             <Duracion>108</Duracion>
-            <Cartel>./img/posters/El Ultimo Heredero.jpg</Cartel>
+            <Cartel>../img/posters/El Ultimo Heredero.png</Cartel>
             <Genero>COMEDIA</Genero>
             <Director>John Patton Ford</Director>
-            <ruta>./img/posters/El Ultimo Heredero.jpg</ruta>
+            <ruta>../img/posters/El Ultimo Heredero.png</ruta>
             <Valoracion>4.0</Valoracion>
         </Pelicula>
         <Pelicula id="23">
             <Titulo>Peaky Blinders El Hombre Inmortal</Titulo>
             <Duracion>135</Duracion>
-            <Cartel>./img/posters/Peaky Blinders.jpg</Cartel>
+            <Cartel>../img/posters/Peaky Blinders.png</Cartel>
             <Genero>ACCION</Genero>
             <Director>Tom Harper</Director>
-            <ruta>./img/posters/Peaky Blinders.jpg</ruta>
+            <ruta>../img/posters/Peaky Blinders.png</ruta>
             <Valoracion>5.0</Valoracion>
         </Pelicula>
         <Pelicula id="24">
             <Titulo>Super Mario Galaxy La Pelicula</Titulo>
             <Duracion>105</Duracion>
-            <Cartel>./img/posters/Super Mario Galaxy.jpg</Cartel>
+            <Cartel>../img/posters/Super Mario Galaxy.png</Cartel>
             <Genero>COMEDIA</Genero>
             <Director>Aaron Horvath</Director>
-            <ruta>./img/posters/Super Mario Galaxy.jpg</ruta>
+            <ruta>../img/posters/Super Mario Galaxy.png</ruta>
             <Valoracion>4.0</Valoracion>
         </Pelicula>
         <Pelicula id="25">
             <Titulo>Pillion</Titulo>
             <Duracion>99</Duracion>
-            <Cartel>./img/posters/Pillion.jpg</Cartel>
+            <Cartel>../img/posters/Pillion.png</Cartel>
             <Genero>DRAMA</Genero>
             <Director>Harry Lighton</Director>
-            <ruta>./img/posters/Pillion.jpg</ruta>
+            <ruta>../img/posters/Pillion.png</ruta>
             <Valoracion>3.0</Valoracion>
         </Pelicula>
         <Pelicula id="26">
             <Titulo>El Testimonio De Ann Lee</Titulo>
             <Duracion>117</Duracion>
-            <Cartel>./img/posters/Ann Lee.jpg</Cartel>
+            <Cartel>../img/posters/Ann Lee.png</Cartel>
             <Genero>DRAMA</Genero>
             <Director>Francisca Alegria</Director>
-            <ruta>./img/posters/Ann Lee.jpg</ruta>
+            <ruta>../img/posters/Ann Lee.png</ruta>
             <Valoracion>4.0</Valoracion>
         </Pelicula>
         <Pelicula id="27">
             <Titulo>Torrente Presidente</Titulo>
             <Duracion>100</Duracion>
-            <Cartel>./img/posters/Torrente.jpg</Cartel>
+            <Cartel>../img/posters/Torrente.png</Cartel>
             <Genero>COMEDIA</Genero>
             <Director>Santiago Segura</Director>
-            <ruta>./img/posters/Torrente.jpg</ruta>
+            <ruta>../img/posters/Torrente.png</ruta>
             <Valoracion>4.0</Valoracion>
         </Pelicula>
     </Peliculas>
@@ -529,4 +529,36 @@
             <FechaAdquisicion>2026-03-30T02:00</FechaAdquisicion>
         </Entrada>
     </Entradas>
+    <Salas>
+        <Sala>
+            <Num_Sala>1</Num_Sala>
+            <Aforo>10</Aforo>
+            <TipoPantalla>2D</TipoPantalla>
+        </Sala>
+        <Sala>
+            <Num_Sala>2</Num_Sala>
+            <Aforo>10</Aforo>
+            <TipoPantalla>3D</TipoPantalla>
+        </Sala>
+        <Sala>
+            <Num_Sala>3</Num_Sala>
+            <Aforo>10</Aforo>
+            <TipoPantalla>2D</TipoPantalla>
+        </Sala>
+        <Sala>
+            <Num_Sala>4</Num_Sala>
+            <Aforo>10</Aforo>
+            <TipoPantalla>2D</TipoPantalla>
+        </Sala>
+        <Sala>
+            <Num_Sala>5</Num_Sala>
+            <Aforo>10</Aforo>
+            <TipoPantalla>3D</TipoPantalla>
+        </Sala>
+        <Sala>
+            <Num_Sala>6</Num_Sala>
+            <Aforo>10</Aforo>
+            <TipoPantalla>2D</TipoPantalla>
+        </Sala>
+    </Salas>
 </Cine>
