@@ -1,5 +1,7 @@
 package ui.Sala;
 
+import dao.DaoSalas;
+import exception.SalaException;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -16,12 +18,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Map;
 import java.util.TreeMap;
-
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -35,15 +35,20 @@ import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-
-import dao.DaoSalas;
-import exception.SalaException;
 import model.Sala;
 
+/**
+ * Clase que representa la vista de salas en la aplicación de gestión de cine.
+ * Permite visualizar, buscar, borrar y gestionar salas.
+ * @author asier
+ */
 public class SalaView extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Constantes de colores para la paleta de la interfaz de usuario.
+	 */
 	// =============================================
 	// PALETA
 	// =============================================
@@ -60,6 +65,9 @@ public class SalaView extends JDialog implements ActionListener {
 	private static final Color BORDER2 = new Color(59, 130, 246, 64);
 	private static final Color DANGER = new Color(244, 63, 94);
 
+	/**
+	 * Componentes de la interfaz de usuario.
+	 */
 	// =============================================
 	// COMPONENTES
 	// =============================================
@@ -73,6 +81,10 @@ public class SalaView extends JDialog implements ActionListener {
 	private JButton btnSalas;
 	private JButton btnx;
 
+	/**
+	 * Método principal para ejecutar la aplicación.
+	 * @param args argumentos de línea de comandos (no utilizados).
+	 */
 	// =============================================
 	// MAIN
 	// =============================================
@@ -87,6 +99,10 @@ public class SalaView extends JDialog implements ActionListener {
 		}
 	}
 
+	/**
+	 * Constructor de la clase SalaView.
+	 * Inicializa la ventana en pantalla completa y construye la interfaz de usuario.
+	 */
 	// =============================================
 	// CONSTRUCTOR — PANTALLA COMPLETA
 	// =============================================
@@ -104,6 +120,10 @@ public class SalaView extends JDialog implements ActionListener {
 		buildUI();
 	}
 
+	/**
+	 * Construye la interfaz de usuario de la ventana.
+	 * Configura los paneles, tabla, botones y demás componentes.
+	 */
 	// =============================================
 	// CONSTRUCCIÓN DE LA UI
 	// =============================================
@@ -280,6 +300,14 @@ public class SalaView extends JDialog implements ActionListener {
 		contentPane.add(sur, BorderLayout.SOUTH);
 	}
 
+	/**
+	 * Crea un botón personalizado con colores y estilos específicos.
+	 * @param text el texto del botón.
+	 * @param bg el color de fondo.
+	 * @param fg el color del texto.
+	 * @param borderColor el color del borde.
+	 * @return el botón creado.
+	 */
 	// =============================================
 	// FACTORY DE BOTONES
 	// =============================================
@@ -313,6 +341,10 @@ public class SalaView extends JDialog implements ActionListener {
 		return btn;
 	}
 
+	/**
+	 * Maneja los eventos de acción de los botones.
+	 * @param e el evento de acción.
+	 */
 	// =============================================
 	// ACCIONES
 	// =============================================
@@ -340,6 +372,10 @@ public class SalaView extends JDialog implements ActionListener {
 		}
 	}
 
+	/**
+	 * Actualiza el color del botón según el estado de ocupación de la sala.
+	 * @param id el ID de la sala.
+	 */
 	// ── lógica de color del btnColor ─────────────
 	private void accesoBD4(int id) {
 		DaoSalas dao = new DaoSalas();
@@ -371,6 +407,10 @@ public class SalaView extends JDialog implements ActionListener {
 		}
 	}
 
+	/**
+	 * Borra una sala por su ID.
+	 * @param id el ID de la sala a borrar.
+	 */
 	private void accesoBD3(int id) {
 		if (id <= 0)
 			throw new SalaException(SalaException.TipoError.ID_INVALIDO, id);
@@ -387,6 +427,9 @@ public class SalaView extends JDialog implements ActionListener {
 		}
 	}
 
+	/**
+	 * Obtiene todas las salas y actualiza la tabla.
+	 */
 	private void accesoDB2() {
 		DaoSalas dao = new DaoSalas();
 		Map<Integer, Sala> salas = new TreeMap<>();
@@ -403,6 +446,10 @@ public class SalaView extends JDialog implements ActionListener {
 		}
 	}
 
+	/**
+	 * Busca una sala por ID y actualiza la tabla.
+	 * @param id el ID de la sala a buscar.
+	 */
 	private void accesoBD(int id) {
 		if (id <= 0)
 			throw new SalaException(SalaException.TipoError.ID_INVALIDO, id);
@@ -422,6 +469,10 @@ public class SalaView extends JDialog implements ActionListener {
 		}
 	}
 
+	/**
+	 * Actualiza la tabla con los datos de las salas.
+	 * @param salas el mapa de salas a mostrar.
+	 */
 	private void refreshTabla(Map<Integer, Sala> salas) {
 		modelo.setRowCount(0);
 		for (Sala sala : salas.values()) {
