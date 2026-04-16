@@ -72,4 +72,6 @@ public class Sentencias {
 		public static String ACTUALIZAR_ENTRADA = "UPDATE ENTRADA SET NUM_BUTACA = ?, PRECIO = ? WHERE USER_NAME = ? AND NUM_SALA = ? AND ID_PELICULA = ? AND FECHA_TRASMISION = ?";
 		
 		public static String VER_ENTRADAS = "SELECT * FROM ENTRADA";
+
+		public static String COMPROBACION_ENTRADA = "{CALL comprobarEntrada(?, ?, ?, ?)}";
 }
