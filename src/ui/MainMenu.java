@@ -240,15 +240,29 @@ public class MainMenu extends JFrame implements ActionListener {
 
         if (e.getSource() == btnCatalogo) {
             // Abre el catálogo como modal; al cerrarse, el menú vuelve automáticamente
-            Catalogo catalogo = new Catalogo();
-            catalogo.setModal(true);
-            catalogo.setVisible(true);
+            Catalogo catalogo;
+            try {
+                catalogo = new Catalogo();
+                catalogo.setModal(true);
+                catalogo.setVisible(true);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this,
+                    "Error:\n" + ex.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
 
         if (e.getSource() == btnSala) {
-            SalaView sala = new SalaView();
-            sala.setModal(true);
-            sala.setVisible(true);
+            SalaView sala;
+            try {
+                sala = new SalaView();
+                sala.setModal(true);
+                sala.setVisible(true);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this,
+                    "Error:\n" + ex.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
 
         if (e.getSource() == btnUsuario) {
