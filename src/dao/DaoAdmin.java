@@ -1,4 +1,5 @@
 package dao;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -16,6 +17,8 @@ public class DaoAdmin  {
     private String urlBD;
     private String userBD;
     private String passwordBD;
+    
+    private String SQLComprobacion = Sentencias.COMPROBACION_ENTRADA;
 
     public DaoAdmin() {
         this.configFile = ResourceBundle.getBundle("configGlobal");
@@ -27,6 +30,10 @@ public class DaoAdmin  {
     public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(urlBD, userBD, passwordBD);
     }
+    
+    // =========================
+    // 	Cargado de datos a tabla
+    // =========================
     
     public List<Object[]> ejecutarConsulta(String sql) throws SQLException {
         List<Object[]> filas = new ArrayList<>();
@@ -41,7 +48,7 @@ public class DaoAdmin  {
             while (rs.next()) {
                 Object[] fila = new Object[columnas];
                 for (int i = 0; i < columnas; i++) {
-                    fila[i] = rs.getObject(i + 1); // getObject lee cualquier tipo automáticamente
+                    fila[i] = rs.getObject(i + 1);
                 }
                 filas.add(fila);
             }
@@ -260,5 +267,39 @@ public class DaoAdmin  {
 				e.printStackTrace();
 			}
 		}
+    
+	// =========================
+    // 		Uso de procedure
+    // =========================
+    
+    public void comprobarEntrada(int sala, int pelicula, int butaca, Date fecha) throws Exception {
+
+        try (Connection con = DriverManager.getConnection(urlBD, userBD, passwordBD);
+             CallableStatement cs = con.prepareCall(SQLComprobacion)) {
+
+            cs.setInt(1, sala);
+            cs.setInt(2, pelicula);
+            cs.setInt(3, butaca);
+            cs.setDate(4, new java.sql.Date(fecha.getTime()));
+
+            boolean hasResults = cs.execute();
+
+            while (hasResults) {
+                try (ResultSet rs = cs.getResultSet()) {
+
+                    if (rs != null && rs.next()) {
+
+                        String mensaje = rs.getString(1); 
+
+                        if (!mensaje.equalsIgnoreCase("Valid ticket")) {
+                            throw new Exception(mensaje);
+                        }
+                    }
+                }
+
+                hasResults = cs.getMoreResults();
+            }
+        }
+    }
         
 }
