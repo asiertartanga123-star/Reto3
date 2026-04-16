@@ -10,14 +10,15 @@ import java.util.ResourceBundle;
 
 import interfaces.InterfazCatalogo;
 import model.Pelicula;
-
-public class DaoCatalogo implements InterfazCatalogo {
-
-	/**
+/**
 	 * Clase de acceso a datos (DAO) encargada de gestionar las operaciones
 	 * para mostrar el catalogo de peliculas.
 	 *
+	 * @author Hodei
 	 */
+public class DaoCatalogo implements InterfazCatalogo {
+
+	
 
 		// configuracin para recoger info del properties
 		private ResourceBundle configFile;
