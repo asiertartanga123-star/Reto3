@@ -62,7 +62,7 @@ public class LoginJDialog extends JDialog implements ActionListener {
 
 		GraphicObject go = new GraphicObject();
 
-		String ruta1 = logStr.getIdioma() == dic.user.Idioma.ES ? "/res/img/es_toggle.png" : "/res/img/en_toggle.png";
+		String ruta1 = logStr.getIdioma() == dic.user.Idioma.EN ? "/res/img/es_toggle.png" : "/res/img/en_toggle.png";
 
 		String ruta2 = logStr.getIdioma() == dic.user.Idioma.EN ? "/res/img/en_toggle.png" : "/res/img/es_toggle.png";
 
