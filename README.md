@@ -1,6 +1,6 @@
-# 📌 Proyecto: Nombre del Proyecto
+📌 Proyecto: TolotoloCines
 
-## 📝 Descripción
+📝 Descripción
 
 Breve descripción del proyecto:
 Este proyecto consiste en una aplicación desarrollada en Java que permite [explicar qué hace: gestión, reservas, usuarios, etc.]. Su objetivo principal es [objetivo del sistema] dentro del contexto de [empresa, práctica académica, etc.].
@@ -10,7 +10,7 @@ Este proyecto consiste en una aplicación desarrollada en Java que permite [expl
 ## 🧰 Tecnologías utilizadas
 
 * ☕ Java 8 / JavaFX
-* 🗄️ MySQL ()
+* 🗄️ MySQL (Local instance MySQL80)
 * 🔌 JDBC (Conector MySQL)
 * 🧪 Mockito (testing con JARs)
 
@@ -28,16 +28,10 @@ Este proyecto consiste en una aplicación desarrollada en Java que permite [expl
 Este proyecto utiliza las siguientes librerías externas:
 
 * Conector JDBC MySQL
-  (ej: `mysql-connector-java-x.x.x.jar`)
+  (ej: mysql-connector-java-8.0.15.jar)
 
 * Mockito
-  (ej: `mockito-core-x.x.x.jar`)
-
-* ⚠️ Otras dependencias necesarias (si aplica)
-
-### ➕ Añadir dependencias
-
-Asegúrate de añadir los `.jar` al proyecto:
+  (ej: byte-buddy-1.18.8.jar, byte-buddy-agent-1.17.7.jar, mockito-core-5.23.0 .jar, objenesis-3.3 .jar)
 
 **En NetBeans:**
 `Properties → Libraries → Add JAR/Folder`
@@ -51,7 +45,7 @@ Asegúrate de añadir los `.jar` al proyecto:
 
 El proyecto incluye el script de base de datos:
 
-📄 `bd.sql`
+📄 `ToloToloCine.sql`
 
 ### ▶️ Cómo usarlo
 
@@ -61,7 +55,7 @@ El proyecto incluye el script de base de datos:
 **Desde consola:**
 
 ```bash
-mysql -u usuario -p nombre_bd < bd.sql
+mysql -u usuario -p nombre_bd < ToloToloCine.sql
 ```
 
 **O con herramienta gráfica:**
@@ -74,7 +68,7 @@ Usando MySQL Workbench u otra similar.
 ### 📥 Clonar el repositorio
 
 ```bash
-git clone https://github.com/usuario/repositorio.git
+git clone [https://github.com/usuario/repositorio.git](https://github.com/asiertartanga123-star/Reto3.git)
 ```
 
 ### 📁 Importar el proyecto
@@ -125,6 +119,6 @@ El proyecto incluye pruebas unitarias usando Mockito.
 
 ## 👨‍💻 Autor
 
-[Tu nombre]
+Hodei Torres, Joel , Jair , Asier Prieto  
 
 ---
