@@ -40,7 +40,13 @@ import exception.FieldVacio;
 import model.Pelicula;
 import ui.element.ControlObjects;
 
-
+/**
+ * Clase que representa la interfaz gráfica del catálogo de películas.
+ * Permite visualizar, buscar, filtrar y valorar películas desde una base de datos.
+ * Extiende JDialog para mostrar una ventana modal.
+ *
+ * @author Hodei
+ */
 public class Catalogo extends JDialog implements ActionListener {
 
 		private static final long serialVersionUID = 1L;
@@ -67,8 +73,12 @@ public class Catalogo extends JDialog implements ActionListener {
 		private JMenu menuOpciones;
 		private	JMenuItem itemReset;
 		private JMenuItem itemSalir;
+
 		/**
-		 * Launch the application.
+		 * Método principal para lanzar la aplicación del catálogo.
+		 * Crea una instancia del diálogo y la hace visible.
+		 *
+		 * @param args Argumentos de línea de comandos (no utilizados).
 		 */
 		public static void main(String[] args) {
 			try {
@@ -84,7 +94,8 @@ public class Catalogo extends JDialog implements ActionListener {
 		}
 
 		/**
-		 * Create the dialog.
+		 * Constructor de la clase Catalogo.
+		 * Inicializa la interfaz gráfica, configura los componentes y carga los datos iniciales.
 		 */
 		public Catalogo() {
 //			setBounds(100, 100, 1044, 583);
@@ -322,6 +333,9 @@ public class Catalogo extends JDialog implements ActionListener {
 	    }
 
 
+		/**
+		 * Resetea todos los filtros aplicados y recarga los datos originales del catálogo.
+		 */
 		private void resetFiltros() {
 			bucaTituloPeli.setText("");
 	            comboGenero.setSelectedIndex(0);
@@ -329,6 +343,10 @@ public class Catalogo extends JDialog implements ActionListener {
 	            accesoBD();
 		}
 
+		/**
+		 * Muestra los detalles de la película seleccionada en la tabla.
+		 * Abre una nueva ventana con información completa de la película.
+		 */
 		private void verDetalles() {
 			 int fila = tabla.getSelectedRow();
 	            if (fila == -1) {
@@ -358,6 +376,10 @@ public class Catalogo extends JDialog implements ActionListener {
 		// ══════════════════════════════════════════════════════════
 	//  RESPONSIVE: recoloca todos los elementos según el tamaño
 	// ══════════════════════════════════════════════════════════
+		/**
+		 * Ajusta la posición y tamaño de todos los componentes de la interfaz
+		 * de manera responsive según el tamaño actual de la ventana.
+		 */
 		private void recolocarElementos() {
 		    int w = contentPane.getWidth();   // ← contentPane, no getWidth()
 		    int h = contentPane.getHeight();  // ← contentPane, no getHeight()
@@ -401,6 +423,10 @@ public class Catalogo extends JDialog implements ActionListener {
 		    contentPane.repaint();
 		}
 		
+		/**
+		 * Abre un diálogo para que el usuario valore la película seleccionada.
+		 * Utiliza un spinner para seleccionar una valoración del 1 al 5.
+		 */
 		private void abrirValorar() {
 	        int fila = tabla.getSelectedRow();
 	        if (fila == -1) {
@@ -441,6 +467,10 @@ public class Catalogo extends JDialog implements ActionListener {
 	        }
 	    }
 		
+		/**
+		 * Carga todas las películas desde la base de datos y las muestra en la tabla.
+		 * Limpia el mapa de películas y actualiza el modelo de la tabla.
+		 */
 		public void accesoBD()
 		{
 			DaoCatalogo accesoBD=new DaoCatalogo();
@@ -471,6 +501,13 @@ public class Catalogo extends JDialog implements ActionListener {
 		}
 				
 		
+		/**
+		 * Filtra las películas por título según el texto de búsqueda proporcionado.
+		 * Lanza una excepción si el campo de búsqueda está vacío.
+		 *
+		 * @param textoBusqueda El texto a buscar en los títulos de las películas.
+		 * @throws FieldVacio Si el texto de búsqueda está vacío.
+		 */
 		public void accesoBDTitulo(String textoBusqueda) throws FieldVacio {
 		    if (textoBusqueda.isEmpty()) {
 		        throw new FieldVacio("The search field is empty.");
@@ -494,6 +531,11 @@ public class Catalogo extends JDialog implements ActionListener {
 		    }
 		}
 
+	    /**
+	     * Filtra las películas por género y las muestra en la tabla.
+	     *
+	     * @param genero El género por el cual filtrar las películas.
+	     */
 	    public void accesoBDGenero(String genero) {
 	        DaoCatalogo dao = new DaoCatalogo();
 	        peliculas.clear();
@@ -514,6 +556,11 @@ public class Catalogo extends JDialog implements ActionListener {
 	        }
 	    }
 		
+	    /**
+	     * Filtra las películas por valoración mínima y las muestra en la tabla.
+	     *
+	     * @param valoracionMinima La valoración mínima para filtrar las películas.
+	     */
 	    public void accesoBDValoracion(int valoracionMinima) {
 	        DaoCatalogo dao = new DaoCatalogo();
 	        peliculas.clear();
@@ -535,6 +582,12 @@ public class Catalogo extends JDialog implements ActionListener {
 	    }
 		
 
+		/**
+		 * Maneja los eventos de acción de los botones y elementos del menú.
+		 * Realiza las acciones correspondientes según el componente que generó el evento.
+		 *
+		 * @param e El evento de acción generado.
+		 */
 		@Override
 	    public void actionPerformed(ActionEvent e) {
 

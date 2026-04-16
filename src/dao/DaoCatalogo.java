@@ -31,12 +31,24 @@ public class DaoCatalogo implements InterfazCatalogo {
 	    private final String SQLFILTRARVALORACION = Sentencias.FILTRAR_POR_VALORACION;
 
 		
+		/**
+		 * Constructor de la clase DaoCatalogo.
+		 * Inicializa la configuración de la base de datos desde el archivo de propiedades.
+		 */
 		public DaoCatalogo() {
 			this.configFile = ResourceBundle.getBundle("configGlobal");
 			this.urlBD = this.configFile.getString("Conn");
 			this.userBD = this.configFile.getString("DBUser");
 			this.passwordBD = this.configFile.getString("DBPass");
 		}
+
+		/**
+		 * Obtiene todas las películas desde la base de datos y las almacena en el mapa proporcionado.
+		 * Utiliza un procedimiento almacenado para recuperar los datos.
+		 *
+		 * @param peliculas Mapa donde se almacenarán las películas, con el ID como clave.
+		 * @throws Exception Si ocurre un error en la consulta o conexión a la base de datos.
+		 */
 		/* CAPTURA DE PANTALLA DE ESTE METODO PARA PRESENTACIÓN DE BDA */
 		public void obtenerPelis(Map<Integer, Pelicula> peliculas) throws Exception {	
 			try (Connection con = DriverManager.getConnection(urlBD, userBD, passwordBD);
@@ -75,6 +87,14 @@ public class DaoCatalogo implements InterfazCatalogo {
 			    }
 		}
 		
+		/**
+		 * Mapea un ResultSet a un objeto Pelicula.
+		 * Extrae los datos del ResultSet y crea una instancia de Pelicula.
+		 *
+		 * @param rs El ResultSet con los datos de la película.
+		 * @return Una instancia de Pelicula con los datos mapeados.
+		 * @throws Exception Si ocurre un error al acceder al ResultSet.
+		 */
 		private Pelicula mapearPelicula(ResultSet rs) throws Exception {
 	        Pelicula p = new Pelicula();
 	        p.setIdPelicula(rs.getInt("ID_PELICULA"));
@@ -101,6 +121,13 @@ public class DaoCatalogo implements InterfazCatalogo {
 //	        }
 //	    }
 		
+		/**
+		 * Filtra las películas por género y las almacena en el mapa proporcionado.
+		 *
+		 * @param genero El género por el cual filtrar las películas.
+		 * @param peliculas Mapa donde se almacenarán las películas filtradas, con el ID como clave.
+		 * @throws Exception Si ocurre un error en la consulta o conexión a la base de datos.
+		 */
 		public void filtrarPorGenero(String genero, Map<Integer, Pelicula> peliculas) throws Exception {
 	        try (Connection con = DriverManager.getConnection(urlBD, userBD, passwordBD);
 	             PreparedStatement stmt = con.prepareStatement(SQLFILTRARGENERO)) {
@@ -115,6 +142,13 @@ public class DaoCatalogo implements InterfazCatalogo {
 	        }
 	    }
 		
+		/**
+		 * Filtra las películas por valoración mínima y las almacena en el mapa proporcionado.
+		 *
+		 * @param valoracionMinima La valoración mínima para filtrar las películas.
+		 * @param peliculas Mapa donde se almacenarán las películas filtradas, con el ID como clave.
+		 * @throws Exception Si ocurre un error en la consulta o conexión a la base de datos.
+		 */
 		public void filtrarPorValoracion(int valoracionMinima, Map<Integer, Pelicula> peliculas) throws Exception {
 	        try (Connection con = DriverManager.getConnection(urlBD, userBD, passwordBD);
 	             PreparedStatement stmt = con.prepareStatement(SQLFILTRARVALORACION)) {
@@ -129,6 +163,15 @@ public class DaoCatalogo implements InterfazCatalogo {
 	        }
 	    }
 		
+		/**
+		 * Actualiza la valoración de una película calculando la media entre la valoración actual y la nueva.
+		 * Valida que la nueva valoración esté entre 1 y 5.
+		 *
+		 * @param idPelicula El ID de la película a valorar.
+		 * @param nuevaValoracion La nueva valoración a aplicar (debe estar entre 1 y 5).
+		 * @return true si la actualización fue exitosa, false en caso contrario.
+		 * @throws Exception Si ocurre un error en la consulta, conexión a la base de datos, o si la valoración está fuera de rango.
+		 */
 		public boolean valorarPelicula(int idPelicula, int nuevaValoracion) throws Exception {
 
 		    // Validar rango de valoración
