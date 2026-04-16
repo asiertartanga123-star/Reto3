@@ -3,12 +3,31 @@ package ui.catalogo;
 import java.awt.*;
 import javax.swing.*;
 
+/**
+ * Diálogo que muestra los detalles de una película específica.
+ * Incluye información como título, director, género, duración, valoración y sinopsis.
+ *
+ * @author Hodei
+ */
 public class DetallePelicula extends JDialog {
 	
 	private JLabel labelTitulo;
 	private JTextArea txtSinopsis;
 	private JButton btnCerrar;
 
+    /**
+     * Constructor de la clase DetallePelicula.
+     * Crea un diálogo modal con los detalles de la película proporcionada.
+     *
+     * @param parent El diálogo padre para centrar el nuevo diálogo.
+     * @param id El ID de la película.
+     * @param titulo El título de la película.
+     * @param genero El género de la película.
+     * @param valoracion La valoración de la película (de 1 a 5).
+     * @param duracion La duración de la película en minutos.
+     * @param director El director de la película.
+     * @param sinopsis La sinopsis de la película.
+     */
     public DetallePelicula(JDialog parent, int id, String titulo, String genero,
                            int valoracion, int duracion, String director, String sinopsis) {
 
@@ -71,6 +90,18 @@ public class DetallePelicula extends JDialog {
         panel.add(btnCerrar);
     }
 
+    /**
+     * Método auxiliar para crear un panel con una fila de etiqueta y valor.
+     * Utilizado para mostrar información de la película en formato de fila.
+     *
+     * @param etiqueta La etiqueta a mostrar (ej. "Director:").
+     * @param valor El valor correspondiente a la etiqueta.
+     * @param bg El color de fondo del panel.
+     * @param text El color del texto del valor.
+     * @param accent El color del texto de la etiqueta.
+     * @param y La posición vertical del panel.
+     * @return Un JPanel configurado con la etiqueta y el valor.
+     */
     // ── Helper: fila etiqueta + valor ──────────────────────────────────
     private JPanel fila(String etiqueta, String valor,
                         Color bg, Color text, Color accent, int y) {

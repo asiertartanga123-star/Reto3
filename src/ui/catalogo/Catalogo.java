@@ -38,7 +38,7 @@ import java.awt.Image;
 import dao.DaoCatalogo;
 import exception.FieldVacio;
 import model.Pelicula;
-import ui.element.ControlObjects;
+
 
 /**
  * Clase que representa la interfaz gráfica del catálogo de películas.
@@ -601,7 +601,6 @@ public class Catalogo extends JDialog implements ActionListener {
 			    }
 			}
 
-	        // -- NUEVO: Filtrar por género --
 	        if (e.getSource() == btnFiltrarGenero) {
 	            String generoSeleccionado = (String) comboGenero.getSelectedItem();
 	            if ("TODOS".equals(generoSeleccionado)) {
