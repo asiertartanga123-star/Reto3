@@ -45,7 +45,7 @@ public class DaoSalas implements Interfazsalas {
 					sala = new Sala();
 					sala.setNumSala(rs.getInt("NUM_SALA"));
 					sala.setAforo(rs.getInt("AFORO"));
-					sala.setTipoTransmision(rs.getString("TIPO_TRASMISION"));
+					sala.setTipoTrasmision(rs.getString("TIPO_TRASMISION"));
 					Salas.put(sala.getNumSala(), sala);
 				}
 			}
@@ -69,7 +69,7 @@ public class DaoSalas implements Interfazsalas {
 					sala = new Sala();
 					sala.setNumSala(rs.getInt("NUM_SALA"));
 					sala.setAforo(rs.getInt("AFORO"));
-					sala.setTipoTransmision(rs.getString("TIPO_TRASMISION"));
+					sala.setTipoTrasmision(rs.getString("TIPO_TRASMISION"));
 					Salas.put(sala.getNumSala(), sala);
 				}
 			}
