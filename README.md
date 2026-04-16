@@ -3,7 +3,7 @@
 📝 Descripción
 
 Breve descripción del proyecto:
-Este proyecto consiste en una aplicación desarrollada en Java que permite [explicar qué hace: gestión, reservas, usuarios, etc.]. Su objetivo principal es [objetivo del sistema] dentro del contexto de [empresa, práctica académica, etc.].
+Este proyecto consiste en una aplicación desarrollada en Java que permite mostrar los datos del cine al usuario. Su objetivo principal es mejorar la accesibilidad dentro del contexto de ocio cinematografico.
 
 ---
 
