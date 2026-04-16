@@ -15,6 +15,7 @@ import model.Entrada;
 import model.Pelicula;
 import model.Usuario;
 import ui.Sala.SalaView;
+import ui.admin.Admin;
 import ui.catalogo.Catalogo;
 import ui.user.MainUserView;
 import util.validation.ValidacionUser;
@@ -246,12 +247,18 @@ public class MainMenu extends JFrame implements ActionListener {
                     "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-
+        // user:Administrador pass:tolotolocine2026
         if (e.getSource() == btnAdmin) {
-            // TODO: sustituir por la ventana de administración cuando esté implementada
-            JOptionPane.showMessageDialog(this,
-                "Admin panel coming soon.",
-                "Info", JOptionPane.INFORMATION_MESSAGE);
+            Admin admin;
+            try {
+                admin = new Admin();
+                admin.setModal(true);
+                admin.setVisible(true); 
+            } catch(Exception ex) {
+                JOptionPane.showMessageDialog(this,
+                    "Error:\n" + ex.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
 
         if (e.getSource() == btnExportarXML){

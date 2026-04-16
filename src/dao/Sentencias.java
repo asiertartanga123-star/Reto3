@@ -35,5 +35,41 @@ public class Sentencias {
 	public static final String GET_ALL_PELICULAS = "SELECT * FROM PELICULA";
 	public static final String GET_ALL_USUARIOS  = "SELECT * FROM USUARIO";
 	public static final String GET_ALL_ENTRADAS  = "SELECT * FROM ENTRADA";
+
+	/* Sentencias necesarias para el administrador*/
+	// Usuario
+		public static String INSERT_USUARIO = "INSERT INTO USUARIO (USER_NAME, NOMBRE, APELLIDO, CORREO, EDAD, CONTRASEÑA) VALUES (?, ?, ?, ?, ?, ?)";
+		
+		public static String BORRAR_USUARIO = "DELETE FROM USUARIO WHERE USER_NAME = ?";
+		
+		public static String ACTUALIZAR_USUARIO = "UPDATE USUARIO SET NOMBRE = ?, APELLIDO = ?, CORREO = ?, EDAD = ?, CONTRASEÑA = ? WHERE USER_NAME = ?";
+		
+		public static String VER_USUARIOS = "SELECT * FROM USUARIO";
+		
+		// Pelicula
+		public static String INSERT_PELICULA = "INSERT INTO PELICULA (TITULO, DURACION_MIN, SIPNOSIS, MEDIA_VALORACION, GENERO, DIRECTOR) VALUES (?, ?, ?, ?, ?, ?)";
+		
+		public static String BORRAR_PELICULA = "DELETE FROM PELICULA WHERE ID_PELICULA = ?";
+		
+		public static String ACTUALIZAR_PELICULA = "UPDATE PELICULA SET TITULO = ?, DURACION_MIN = ?, SIPNOSIS = ?, MEDIA_VALORACION = ?, GENERO = ?, DIRECTOR = ? WHERE ID_PELICULA = ?";
+		
+		public static String VER_PELICULASS = "SELECT * FROM PELICULA";
+		
+		// Sala
+		public static String INSERT_SALA = "INSERT INTO SALA (NUM_SALA, AFORO, TIPO_TRASMISION) VALUES (?, ?, ?)";
+		
 	
+		
+		public static String ACTUALIZAR_SALA = "UPDATE SALA SET AFORO = ?, TIPO_TRASMISION = ? WHERE NUM_SALA = ?";
+		
+
+		
+		// Entrada
+		public static String INSERT_ENTRADA = "INSERT INTO ENTRADA (USER_NAME, NUM_SALA, ID_PELICULA, NUM_BUTACA, PRECIO, FECHA_TRASMISION, FECHA_ADQUIERE) VALUES (?, ?, ?, ?, ?, ?, ?)";
+		
+		public static String BORRAR_ENTRADA = "DELETE FROM ENTRADA WHERE USER_NAME = ? AND NUM_SALA = ? AND ID_PELICULA = ? AND FECHA_TRASMISION = ?";
+		
+		public static String ACTUALIZAR_ENTRADA = "UPDATE ENTRADA SET NUM_BUTACA = ?, PRECIO = ? WHERE USER_NAME = ? AND NUM_SALA = ? AND ID_PELICULA = ? AND FECHA_TRASMISION = ?";
+		
+		public static String VER_ENTRADAS = "SELECT * FROM ENTRADA";
 }

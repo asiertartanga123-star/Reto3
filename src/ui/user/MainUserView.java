@@ -234,6 +234,7 @@ public class MainUserView extends JFrame implements ActionListener {
 			cerrarSesion();
 		}
 		if (a == btnVolverMenu) {
+			this.dispose();
 		}
 	}
 }
