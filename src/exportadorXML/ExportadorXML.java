@@ -29,7 +29,7 @@ import model.Usuario;
  * antes de escribirlos, garantizando su conformidad con el esquema XSD asociado.
  * </p>
  */
-public class ExportadorXML {
+public class ExportadorXML implements InterfazExportador {
 
     /**
      * Lista de géneros cinematográficos permitidos.
