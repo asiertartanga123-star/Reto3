@@ -119,6 +119,6 @@ El proyecto incluye pruebas unitarias usando Mockito.
 
 ## 👨‍💻 Autor
 
-Hodei Torres, Joel , Jair , Asier Prieto  
+Hodei Torres, Joel Mamani , Jair Mamani , Asier Prieto  
 
 ---
